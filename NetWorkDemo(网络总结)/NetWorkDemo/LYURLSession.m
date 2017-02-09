@@ -46,7 +46,8 @@
     request.HTTPBody = [keyString dataUsingEncoding:NSUTF8StringEncoding];
     
     //4.发送请求
-    NSURLSession *session = [NSURLSession sharedSession];
+    NSURLSessionConfiguration *configurat = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configurat];
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         

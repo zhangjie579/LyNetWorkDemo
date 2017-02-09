@@ -11,6 +11,23 @@
 
 @interface LYURLSession : NSObject
 
+/*
+ 
+ //超时
+ request.timeoutInterval = 30;
+ //网络状态
+ request.networkServiceType = NSURLNetworkServiceTypeDefault;
+ //批量请求
+ request.HTTPShouldUsePipelining = YES;
+ //处理Cookie
+ request.HTTPShouldHandleCookies = YES;
+ //缓存策略
+ request.cachePolicy = NSURLRequestUseProtocolCachePolicy;
+ //允许使用数据流量
+ request.allowsCellularAccess = YES;
+ 
+ */
+
 + (instancetype)shareTool;
 
 #pragma mark - post请求

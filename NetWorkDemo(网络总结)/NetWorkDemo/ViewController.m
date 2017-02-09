@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "YTKBatchRequest.h"
 #import "LYURLSession.h"
+#import "LyJsonTool.h"
 
 @interface ViewController ()
 
@@ -21,6 +22,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSMutableDictionary *dict  = [[NSMutableDictionary alloc]init];
+    [dict setValue:@"谢飞" forKey:@"name"];
+    [dict setValue:@"1070430532@qq.com" forKey:@"email"];
+    [dict setValue:@"ios工程师" forKey:@"profession"];
+    
+//    NSArray *array = @[@"谢飞" , @"1070430532@qq.com" , @"ios工程师"];
+
+    NSString *json =[LyJsonTool jsonWithObject:dict];
+    
+    NSLog(@"json    %@",json);
+    
+    NSDictionary *dic = [LyJsonTool dictWithJson:json];
+    NSLog(@"dic    %@",dic[@"name"]);
     
     [self test3];
     
@@ -41,13 +56,30 @@
 //    }];
 }
 
+- (void)async
+{
+    //    dispatch_async(dispatch_queue_create("123", DISPATCH_QUEUE_SERIAL), ^{
+    //
+    //        dispatch_async(dispatch_get_main_queue(), ^{
+    //
+    //        });
+    //
+    //    });
+    //
+    //    dispatch_async(dispatch_queue_create("qqq", DISPATCH_QUEUE_CONCURRENT), ^{
+    //
+    //    });
+    
+    //    [NSRunLoop currentRunLoop] addTimer:<#(nonnull NSTimer *)#> forMode:NSDefaultRunLoopMode
+}
+
 #pragma mark - 有heards的请求
 - (void)test1
 {
     CourseAddCommentApi *api = [[CourseAddCommentApi alloc] initWithVid:@"1" content:@"123"];
     [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         
-        NSDictionary *dict = [self jsonStrToDictionary:request.responseString];
+        NSDictionary *dict = [LyJsonTool dictWithJson:request.responseString];
         
         if ([dict[@"status"] integerValue] == 0)
         {
@@ -65,7 +97,7 @@
     MyUserInfoUploadImageApi *api = [[MyUserInfoUploadImageApi alloc] initWithImage:[UIImage imageNamed:@"1-1-登录.png"] uid:@"1"];
     [api startWithCompletionBlockWithSuccess:^(__kindof YTKBaseRequest * _Nonnull request) {
         
-        NSDictionary *dict = [self jsonStrToDictionary:request.responseString];
+        NSDictionary *dict = [LyJsonTool dictWithJson:request.responseString];
         
         if ([dict[@"status"] integerValue] == 0)
         {
@@ -74,7 +106,7 @@
         
     } failure:^(__kindof YTKBaseRequest * _Nonnull request) {
 #warning 不知道为什么它从这返回
-        NSDictionary *dict = [self jsonStrToDictionary:request.responseString];
+        NSDictionary *dict = [LyJsonTool dictWithJson:request.responseString];
         NSLog(@"%@",dict);
         
     }];
@@ -136,33 +168,6 @@
     } failure:^(YTKBatchRequest *batchRequest) {
         NSLog(@"failed");
     }];
-}
-
-
-#pragma mark - json 转 dict
-- (NSDictionary *)jsonStrToDictionary:(NSString *)str
-{
-    NSDictionary *resultDic = nil;
-    if (![self isBlankString:str]) {
-        NSString *requestTmp = [NSString stringWithString:str];
-        NSData *resData = [[NSData alloc] initWithData:[requestTmp dataUsingEncoding:NSUTF8StringEncoding]];
-        resultDic = [NSJSONSerialization JSONObjectWithData:resData options:NSJSONReadingMutableLeaves error:nil];
-    }
-    return resultDic;
-}
-
-//判断某字符串是否为空
-- (BOOL) isBlankString:(NSString *)string {
-    if (string == nil || string == NULL) {
-        return YES;
-    }
-    if ([string isKindOfClass:[NSNull class]]) {
-        return YES;
-    }
-    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0) {
-        return YES;
-    }
-    return NO;
 }
 
 

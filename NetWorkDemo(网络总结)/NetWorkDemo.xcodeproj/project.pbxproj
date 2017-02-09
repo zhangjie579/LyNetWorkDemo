@@ -26,6 +26,8 @@
 		2F616AD91E3243DD00F606DD /* AFNViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616AD61E3243DD00F606DD /* AFNViewController.m */; };
 		2F616ADA1E3243DD00F606DD /* MessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616AD81E3243DD00F606DD /* MessageModel.m */; };
 		2F7CFDD21E4C086300D7A19F /* LyJsonTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7CFDD11E4C086300D7A19F /* LyJsonTool.m */; };
+		2F7CFDD61E4C17CD00D7A19F /* NSDictionary+log.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7CFDD51E4C17CD00D7A19F /* NSDictionary+log.m */; };
+		2F7CFDD91E4C18F400D7A19F /* NSArray+log.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7CFDD81E4C18F400D7A19F /* NSArray+log.m */; };
 		7DEA2B5391F47881C007F938 /* Pods_NetWorkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E5DE4D4774122EDD0FE4DF /* Pods_NetWorkDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +87,10 @@
 		2F616AD81E3243DD00F606DD /* MessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageModel.m; sourceTree = "<group>"; };
 		2F7CFDD01E4C086300D7A19F /* LyJsonTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyJsonTool.h; sourceTree = "<group>"; };
 		2F7CFDD11E4C086300D7A19F /* LyJsonTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyJsonTool.m; sourceTree = "<group>"; };
+		2F7CFDD41E4C17CD00D7A19F /* NSDictionary+log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+log.h"; sourceTree = "<group>"; };
+		2F7CFDD51E4C17CD00D7A19F /* NSDictionary+log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+log.m"; sourceTree = "<group>"; };
+		2F7CFDD71E4C18F400D7A19F /* NSArray+log.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+log.h"; sourceTree = "<group>"; };
+		2F7CFDD81E4C18F400D7A19F /* NSArray+log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+log.m"; sourceTree = "<group>"; };
 		38E36D5F94E7D8DB68B6C815 /* Pods-NetWorkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetWorkDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetWorkDemo/Pods-NetWorkDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		46E5DE4D4774122EDD0FE4DF /* Pods_NetWorkDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetWorkDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EBB150BB0E6F596679C1E35 /* Pods-NetWorkDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetWorkDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetWorkDemo/Pods-NetWorkDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -159,6 +165,7 @@
 		2F616A851E3231F000F606DD /* NetWorkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				2F7CFDDC1E4C7A0100D7A19F /* 格式化输出 */,
 				2F7CFDD31E4C0B0600D7A19F /* json与dict互转 */,
 				2F3DEF0D1E330FEC00B61047 /* 缓存 */,
 				2F3DEF091E32F53D00B61047 /* NSURLSession封装 */,
@@ -280,6 +287,17 @@
 				2F7CFDD11E4C086300D7A19F /* LyJsonTool.m */,
 			);
 			name = "json与dict互转";
+			sourceTree = "<group>";
+		};
+		2F7CFDDC1E4C7A0100D7A19F /* 格式化输出 */ = {
+			isa = PBXGroup;
+			children = (
+				2F7CFDD41E4C17CD00D7A19F /* NSDictionary+log.h */,
+				2F7CFDD51E4C17CD00D7A19F /* NSDictionary+log.m */,
+				2F7CFDD71E4C18F400D7A19F /* NSArray+log.h */,
+				2F7CFDD81E4C18F400D7A19F /* NSArray+log.m */,
+			);
+			name = "格式化输出";
 			sourceTree = "<group>";
 		};
 		C221D9359F547D8F7FD2267B /* Frameworks */ = {
@@ -488,9 +506,11 @@
 				2F616A8E1E3231F000F606DD /* ViewController.m in Sources */,
 				2F616AC11E32356F00F606DD /* LoginApi.m in Sources */,
 				2F616AC51E32361B00F606DD /* MyUserInfoUploadImageApi.m in Sources */,
+				2F7CFDD91E4C18F400D7A19F /* NSArray+log.m in Sources */,
 				2F616A8B1E3231F000F606DD /* AppDelegate.m in Sources */,
 				2F616AD11E32432000F606DD /* LyViewController.m in Sources */,
 				2F616A881E3231F000F606DD /* main.m in Sources */,
+				2F7CFDD61E4C17CD00D7A19F /* NSDictionary+log.m in Sources */,
 				2F616ACE1E3242E000F606DD /* StatusModel.m in Sources */,
 				2F616AC91E32420B00F606DD /* HttpNetWork.m in Sources */,
 				2F3DEF0C1E32F56200B61047 /* LYURLSession.m in Sources */,

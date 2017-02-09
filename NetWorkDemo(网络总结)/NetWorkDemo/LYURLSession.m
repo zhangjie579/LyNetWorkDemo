@@ -34,18 +34,9 @@
  */
 - (void)post:(NSString *)url token:(NSString *)token keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    NSMutableURLRequest *request = [self requestWithUrl:url method:@"POST" token:token keyString:keyString];
     
-    //1.请求方式
-    request.HTTPMethod = @"POST";
-    
-    //2.请求头Header
-    [request setValue:token forHTTPHeaderField:@"token"];
-    
-    //3.body
-    request.HTTPBody = [keyString dataUsingEncoding:NSUTF8StringEncoding];
-    
-    //4.发送请求
+    //发送请求
     NSURLSessionConfiguration *configurat = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configurat];
     
@@ -67,6 +58,51 @@
     [task resume];
 }
 
+
+/**
+ 创建请求NSMutableURLRequest
+
+ @param url 请求的地址
+ @param method 请求的发送，POST/GET
+ @param token 请求头，如果没有传nil
+ @param keyString 请求参数 @"vid=1&p=1"
+ @return NSMutableURLRequest
+ */
+- (NSMutableURLRequest *)requestWithUrl:(NSString *)url method:(NSString *)method token:(NSString *)token keyString:(NSString *)keyString
+{
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    //1.请求方式
+    request.HTTPMethod = [method uppercaseString];
+    
+    //2.请求头Header
+    if (![self isBlankString:token])
+    {
+        [request setValue:token forHTTPHeaderField:@"token"];
+    }
+    
+    //3.body
+    request.HTTPBody = [keyString dataUsingEncoding:NSUTF8StringEncoding];
+    
+    //超时
+    request.timeoutInterval = 30;
+    //网络状态
+    request.networkServiceType = NSURLNetworkServiceTypeDefault;
+    //批量请求
+    request.HTTPShouldUsePipelining = YES;
+    //处理Cookie
+    request.HTTPShouldHandleCookies = YES;
+    //缓存策略
+    request.cachePolicy = NSURLRequestUseProtocolCachePolicy;
+    //允许使用数据流量
+    request.allowsCellularAccess = YES;
+    
+//    //或者下面这种方式 添加所有请求头信息
+//    request.allHTTPHeaderFields=@{@"Content-Encoding":@"gzip"};
+    
+    return request;
+}
+
 /**
  post请求
  
@@ -77,33 +113,38 @@
  */
 - (void)post:(NSString *)url keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     
-    //1.请求方式
-    request.HTTPMethod = @"POST";
+    [self post:url token:nil keyString:keyString success:success failure:failure];
     
-    //2.body
-    request.HTTPBody = [keyString dataUsingEncoding:NSUTF8StringEncoding];
-    
-    //3.发送请求
-    NSURLSession *session = [NSURLSession sharedSession];
-    
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        if (error)
-        {
-            failure(error);
-        }
-        else
-        {
-            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-            success(dict);
-        }
-        
-    }];
-    
-    //发送请求
-    [task resume];
+//    NSMutableURLRequest *request = [self requestWithUrl:url method:@"POST" token:nil keyString:keyString];
+//    
+////    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+////    
+////    //1.请求方式
+////    request.HTTPMethod = @"POST";
+////    
+////    //2.body
+////    request.HTTPBody = [keyString dataUsingEncoding:NSUTF8StringEncoding];
+//    
+//    //3.发送请求
+//    NSURLSession *session = [NSURLSession sharedSession];
+//    
+//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//        
+//        if (error)
+//        {
+//            failure(error);
+//        }
+//        else
+//        {
+//            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+//            success(dict);
+//        }
+//        
+//    }];
+//    
+//    //发送请求
+//    [task resume];
 }
 
 /**
@@ -117,16 +158,7 @@
  */
 - (void)get:(NSString *)url token:(NSString *)token keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    
-    //1.请求方式
-    request.HTTPMethod = @"GET";
-    
-    //2.请求头Header
-    [request setValue:token forHTTPHeaderField:@"token"];
-    
-    //3.body
-    request.HTTPBody = [keyString dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [self requestWithUrl:url method:@"GET" token:token keyString:keyString];
     
     //4.发送请求
     NSURLSession *session = [NSURLSession sharedSession];
@@ -159,13 +191,7 @@
  */
 - (void)get:(NSString *)url keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    
-    //1.请求方式
-    request.HTTPMethod = @"GET";
-    
-    //2.body
-    request.HTTPBody = [keyString dataUsingEncoding:NSUTF8StringEncoding];
+    NSMutableURLRequest *request = [self requestWithUrl:url method:@"GET" token:nil keyString:keyString];
     
     //3.发送请求
     NSURLSession *session = [NSURLSession sharedSession];
@@ -277,6 +303,24 @@
     [formData appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     return formData;
+}
+
+//判断某字符串是否为空
+- (BOOL) isBlankString:(NSString *)string
+{
+    if (string == nil || string == NULL)
+    {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]])
+    {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0)
+    {
+        return YES;
+    }
+    return NO;
 }
 
 @end

@@ -23,33 +23,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSMutableDictionary *dict  = [[NSMutableDictionary alloc]init];
-    [dict setValue:@"谢飞" forKey:@"name"];
-    [dict setValue:@"1070430532@qq.com" forKey:@"email"];
-    [dict setValue:@"ios工程师" forKey:@"profession"];
-    
-//    NSArray *array = @[@"谢飞" , @"1070430532@qq.com" , @"ios工程师"];
-
-    NSString *json =[LyJsonTool jsonWithObject:dict];
-    
-    NSLog(@"json    %@",json);
-    
-    NSDictionary *dic = [LyJsonTool dictWithJson:json];
-    NSLog(@"dic    %@",dic[@"name"]);
-    
     [self test3];
     
 //    [[LYURLSession shareTool] postWithUrl:@"http://zzy.bolemayy.com/video/comment/list" vid:@"1"];
     
     LYURLSession *manager = [LYURLSession shareTool];
     
-    [manager upLoad:@"http://182.254.228.211:9000/index.php/api/Auth/uploadImg" imageName:@"1-1-登录.png" key:@"uid" value:@"1" uploadKey:@"img" success:^(NSDictionary *dict) {
-        
+//    [manager upLoad:@"http://182.254.228.211:9000/index.php/api/Auth/uploadImg" imageName:@"1-1-登录.png" key:@"uid" value:@"1" uploadKey:@"img" success:^(NSDictionary *dict) {
+//        
+//    } failure:^(NSError *error) {
+//        
+//    }];
+    
+    [manager post:@"http://182.254.228.211:9000/index.php/api/worker/index" keyString:@"uid=1" success:^(NSDictionary *dict) {
+        NSLog(@"success   %@",dict);
     } failure:^(NSError *error) {
-        
+        NSLog(@"error  %@",error);
     }];
     
-//    [manager post:@"http://zzy.bolemayy.com/video/comment/list" token:@"8.1487468031.57312.ff50c51ed2651b99dad5c6a1175f00c5" keyString:@"vid=1&p=1" success:^(NSDictionary *dict) {
+//    [manager post:@"http://zzy.bolemayy.com/video/index/index" token:@"8.1489200645.43477.6133d147eb35145b305a96e22e7a30da" keyString:@"p=1" success:^(NSDictionary *dict) {
 //        NSLog(@"success   %@",dict);
 //    } failure:^(NSError *error) {
 //        NSLog(@"error  %@",error);
@@ -71,6 +63,24 @@
     //    });
     
     //    [NSRunLoop currentRunLoop] addTimer:<#(nonnull NSTimer *)#> forMode:NSDefaultRunLoopMode
+}
+
+//dict与json互转
+- (void)changeToDictOrJson
+{
+    NSMutableDictionary *dict  = [[NSMutableDictionary alloc]init];
+    [dict setValue:@"谢飞" forKey:@"name"];
+    [dict setValue:@"1070430532@qq.com" forKey:@"email"];
+    [dict setValue:@"ios工程师" forKey:@"profession"];
+    
+    //    NSArray *array = @[@"谢飞" , @"1070430532@qq.com" , @"ios工程师"];
+    
+    NSString *json =[LyJsonTool jsonWithObject:dict];
+    
+    NSLog(@"json    %@",json);
+    
+    NSDictionary *dic = [LyJsonTool dictWithJson:json];
+    NSLog(@"dic    %@",dic[@"name"]);
 }
 
 #pragma mark - 有heards的请求

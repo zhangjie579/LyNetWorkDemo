@@ -23,25 +23,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self test3];
+//    [self test3];
     
 //    [[LYURLSession shareTool] postWithUrl:@"http://zzy.bolemayy.com/video/comment/list" vid:@"1"];
     
     LYURLSession *manager = [LYURLSession shareTool];
     
-//    [manager upLoad:@"http://182.254.228.211:9000/index.php/api/Auth/uploadImg" imageName:@"1-1-登录.png" key:@"uid" value:@"1" uploadKey:@"img" success:^(NSDictionary *dict) {
-//        
-//    } failure:^(NSError *error) {
-//        
-//    }];
-    
-    [manager post:@"http://182.254.228.211:9000/index.php/api/worker/index" keyString:@"uid=1" success:^(NSDictionary *dict) {
-        NSLog(@"success   %@",dict);
+    [manager upLoad:@"http://182.254.228.211:9000/index.php/api/Auth/uploadImg" imageName:@"1-1-登录.png" key:@"uid" value:@"1" uploadKey:@"img" success:^(NSDictionary *dict) {
+        
     } failure:^(NSError *error) {
-        NSLog(@"error  %@",error);
+        
     }];
     
+//    [manager post:@"http://182.254.228.211:9000/index.php/api/worker/index" keyString:@"uid=1" success:^(NSDictionary *dict) {
+//        NSLog(@"success   %@",dict);
+//    } failure:^(NSError *error) {
+//        NSLog(@"error  %@",error);
+//    }];
+    
 //    [manager post:@"http://zzy.bolemayy.com/video/index/index" token:@"8.1489200645.43477.6133d147eb35145b305a96e22e7a30da" keyString:@"p=1" success:^(NSDictionary *dict) {
+//        NSLog(@"success   %@",dict);
+//    } failure:^(NSError *error) {
+//        NSLog(@"error  %@",error);
+//    }];
+    
+//    [manager upLoad:@"http://zzy.bolemayy.com/user/index/upload-img" imageName:@"1-1-登录.png" token:@"8.1489395432.79340.6c1836767b617e15cb1263f1e40b3b66" uploadKey:@"img" success:^(NSDictionary *dict) {
 //        NSLog(@"success   %@",dict);
 //    } failure:^(NSError *error) {
 //        NSLog(@"error  %@",error);

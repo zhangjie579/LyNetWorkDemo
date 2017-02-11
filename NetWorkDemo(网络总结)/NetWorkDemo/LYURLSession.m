@@ -37,7 +37,8 @@
     NSMutableURLRequest *request = [self requestWithUrl:url method:@"POST" token:token keyString:keyString];
     
     //发送请求
-    NSURLSessionConfiguration *configurat = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    NSURLSessionConfiguration *configurat = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSessionConfiguration *configurat = [self creatURLSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configurat];
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
@@ -56,6 +57,62 @@
     
     //发送请求
     [task resume];
+}
+
+/**
+ 设置NSURLSessionConfiguration
+
+ @return NSURLSessionConfiguration
+ */
+- (NSURLSessionConfiguration *)creatURLSessionConfiguration
+{
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    /*
+     HTTPAdditionalHeaders           HTTP 请求头，告诉服务器有关客户端的附加信息，这对于跨会话共享信息，
+     如内容类型，语言，用户代理，身份认证，是很有用的。
+     
+     Accept                      告诉服务器客户端可接收的数据类型，如：@"application/json" 。
+     Accept-Language             告诉服务器客户端使用的语言类型，如：@"en" 。
+     Authorization               验证身份信息，如：authString 。
+     User-Agent                  告诉服务器客户端类型，如：@"iPhone AppleWebKit" 。
+     range                       用于断点续传，如：bytes=10- 。
+     */
+    
+    // 设置同时连接到一台服务器的最大连接数
+    configuration.HTTPMaximumConnectionsPerHost = 4;
+    
+    // 设置授权信息，WebDav 的身份验证
+    NSString *username = @"admin";
+    NSString *password = @"adminpasswd";
+    
+    NSString *userPasswordString = [NSString stringWithFormat:@"%@:%@", username, password];
+    NSData   *userPasswordData = [userPasswordString dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64EncodedCredential = [userPasswordData base64EncodedStringWithOptions:0];
+    NSString *authString = [NSString stringWithFormat:@"Basic: %@", base64EncodedCredential];
+    
+    // 设置客户端类型
+    NSString *userAgentString = @"iPhone AppleWebKit";
+    
+    configuration.HTTPAdditionalHeaders = @{@"Accept": @"application/json",
+                                            @"Accept-Language": @"en",
+                                            @"Authorization": authString,
+                                            @"User-Agent": userAgentString};
+    
+    
+    //网络类型
+    configuration.networkServiceType = NSURLNetworkServiceTypeDefault;
+    
+    //允许蜂窝访问
+    configuration.allowsCellularAccess = YES;
+    
+    //超时时长,报文之间的时间
+    configuration.timeoutIntervalForRequest = 30;
+    
+    //整个资源请求时长，实际上提供了整体超时的特性，这应该只用于后台传输，而不是用户实际上可能想要等待的任何东西
+    configuration.timeoutIntervalForResource = 30;
+    
+    return configuration;
 }
 
 
@@ -214,18 +271,21 @@
     [task resume];
 }
 
+#pragma mark - 上传
+
 /**
  上传图片
- 
- @param url 请求地址url
+
+ @param url 地址url
  @param imageName 图片name
  @param key 请求的参数
  @param value 请求的值
+ @param token 请求头
  @param uploadKey 图片对应的key
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)upLoad:(NSString *)url imageName:(NSString *)imageName key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+- (void)upLoad:(NSString *)url imageName:(NSString *)imageName key:(NSString *)key value:(NSString *)value token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     
@@ -236,25 +296,28 @@
     [request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
     [request setTimeoutInterval:20];
     
-//    [request setValue:token forHTTPHeaderField:@"token"];
+    if (![self isBlankString:token])
+    {
+        [request setValue:token forHTTPHeaderField:@"token"];
+    }
     
     // 设置请求头
     [request setValue:[NSString stringWithFormat:@"multipart/form-data; charset=utf-8; boundary=%@", boundary]
-      forHTTPHeaderField:@"Content-Type"];
+   forHTTPHeaderField:@"Content-Type"];
     
     // 设置请求文件参数,请求体
-//    NSData *formData = [self setBodyData:@"1-1-登录.png" key:@"uid" value:@"1" uploadKey:@"img"];
+    //    NSData *formData = [self setBodyData:@"1-1-登录.png" key:@"uid" value:@"1" uploadKey:@"img"];
     NSData *formData = [self setBodyData:imageName key:key value:value uploadKey:uploadKey];
     
-    NSURLSessionUploadTask *task = [[NSURLSession sharedSession] uploadTaskWithRequest:request fromData:formData completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
+    NSURLSessionConfiguration *configurat = [self creatURLSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configurat];
+    NSURLSessionUploadTask *task = [session uploadTaskWithRequest:request fromData:formData completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+       
         if (error)
         {
-            NSLog(@"error   %@",error);
             if (failure) {
                 failure(error);
             }
-            
         }
         else
         {
@@ -271,6 +334,36 @@
 }
 
 /**
+ 上传图片
+ 
+ @param url 请求地址url
+ @param imageName 图片name
+ @param key 请求的参数
+ @param value 请求的值
+ @param uploadKey 图片对应的key
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)upLoad:(NSString *)url imageName:(NSString *)imageName key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+{
+    [self upLoad:url imageName:imageName key:key value:value token:nil uploadKey:uploadKey success:success failure:failure];
+}
+
+/**
+ 上传图片
+ 
+ @param url 请求地址url
+ @param imageName 图片name
+ @param uploadKey 图片对应的key
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)upLoad:(NSString *)url imageName:(NSString *)imageName token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+{
+    [self upLoad:url imageName:imageName key:nil value:nil token:token uploadKey:uploadKey success:success failure:failure];
+}
+
+/**
  拼接请求体body
 
  @param imageName 图片name
@@ -284,22 +377,159 @@
     // 设置请求文件参数
     NSMutableData *formData = [NSMutableData data];
     
-    // 参数,uid = 1
-    [formData appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-    [formData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n",key]
-                          dataUsingEncoding:NSUTF8StringEncoding]];
-    [formData appendData:[[NSString stringWithFormat:@"\r\n%@\r\n", value] dataUsingEncoding:NSUTF8StringEncoding]];
+    //1.请求参数，有就设置，没有就不需要设置
+    if (![self isBlankString:key] && ![self isBlankString:value])
+    {
+        // 参数,uid = 1
+        [formData appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [formData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n",key]
+                              dataUsingEncoding:NSUTF8StringEncoding]];
+        [formData appendData:[[NSString stringWithFormat:@"\r\n%@\r\n", value] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
     
-    // 文件,后台文件key为img
+    //2.文件,后台文件key为img
     [formData appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     [formData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", uploadKey, @"test2.png"] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    //3.上传文件的形式
     [formData appendData:[[NSString stringWithFormat:@"Content-Type: image/png\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
     [formData appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-    //    [formData appendData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"HQ_0011" ofType:@"png"]]];
     [formData appendData:UIImageJPEGRepresentation([UIImage imageNamed:imageName], 0.7)];
     [formData appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
     
-    // 结束
+    //4.结束
+    [formData appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    return formData;
+}
+
+/**
+ 上传图片
+ 
+ @param url 地址url
+ @param image 图片
+ @param key 请求的参数
+ @param value 请求的值
+ @param token 请求头
+ @param uploadKey 图片对应的key
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)upLoad:(NSString *)url image:(UIImage *)image key:(NSString *)key value:(NSString *)value token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+{
+    //1.NSMutableURLRequest
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    request.HTTPMethod = @"POST";
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];//这一行一定不能少，因为后面是转换成JSON发送的
+    [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [request setCachePolicy:NSURLRequestReloadIgnoringCacheData];
+    [request setTimeoutInterval:20];
+    
+    if (![self isBlankString:token])
+    {
+        [request setValue:token forHTTPHeaderField:@"token"];
+    }
+    
+    // 设置请求头
+    [request setValue:[NSString stringWithFormat:@"multipart/form-data; charset=utf-8; boundary=%@", boundary]
+   forHTTPHeaderField:@"Content-Type"];
+    
+    // 设置请求文件参数,请求体
+    //    NSData *formData = [self setBodyWithImage:@"1-1-登录.png" key:@"uid" value:@"1" uploadKey:@"img"];
+    NSData *formData = [self setBodyWithImage:image key:key value:value uploadKey:uploadKey];
+    
+    //2.NSURLSessionConfiguration
+    NSURLSessionConfiguration *configuration = [self creatURLSessionConfiguration];
+    
+    //3.NSURLSession
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    NSURLSessionUploadTask *task =[session uploadTaskWithRequest:request fromData:formData completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (error)
+        {
+            if (failure) {
+                failure(error);
+            }
+        }
+        else
+        {
+            if (success) {
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+                success(dict);
+            }
+        }
+        
+    }];
+    
+    [task resume];
+}
+
+/**
+ 上传图片
+ 
+ @param url 地址url
+ @param image 图片
+ @param token 请求头
+ @param uploadKey 图片对应的key
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)upLoad:(NSString *)url image:(UIImage *)image token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+{
+    [self upLoad:url image:image key:nil value:nil token:token uploadKey:uploadKey success:success failure:failure];
+}
+
+/**
+ 上传图片
+ 
+ @param url 地址url
+ @param image 图片
+ @param key 请求的参数
+ @param value 请求的值
+ @param uploadKey 图片对应的key
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)upLoad:(NSString *)url image:(UIImage *)image key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+{
+    [self upLoad:url image:image key:key value:value token:nil uploadKey:uploadKey success:success failure:failure];
+}
+
+/**
+ 拼接请求体body
+ 
+ @param image 图片
+ @param key 请求参数key
+ @param value 请求参数key的值
+ @param uploadKey 请求图片的key
+ @return 请求体body
+ */
+- (NSData *)setBodyWithImage:(UIImage *)image key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey
+{
+    // 设置请求文件参数
+    NSMutableData *formData = [NSMutableData data];
+    
+    //1.请求参数，有就设置，没有就不需要设置
+    if (![self isBlankString:key] && ![self isBlankString:value])
+    {
+        // 参数,uid = 1
+        [formData appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+        [formData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n",key]
+                              dataUsingEncoding:NSUTF8StringEncoding]];
+        [formData appendData:[[NSString stringWithFormat:@"\r\n%@\r\n", value] dataUsingEncoding:NSUTF8StringEncoding]];
+    }
+    
+    //2.文件,后台文件key为img
+    [formData appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
+    [formData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", uploadKey, @"test2.png"] dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    //3.上传文件的形式
+    [formData appendData:[[NSString stringWithFormat:@"Content-Type: image/png\r\n"] dataUsingEncoding:NSUTF8StringEncoding]];
+    [formData appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    [formData appendData:UIImageJPEGRepresentation(image, 0.7)];
+    [formData appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+    
+    //4.结束
     [formData appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     return formData;

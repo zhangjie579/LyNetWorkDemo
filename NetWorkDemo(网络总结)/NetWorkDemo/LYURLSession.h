@@ -89,9 +89,25 @@ NSJSONReadingAllowFragments：允许JSON字符串最外层既不是NSArray也不
  */
 - (void)get:(NSString *)url keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
+#pragma mark - 上传图片
+
 /**
  上传图片
+ 
+ @param url 地址url
+ @param imageName 图片name
+ @param key 请求的参数
+ @param value 请求的值
+ @param token 请求头
+ @param uploadKey 图片对应的key
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)upLoad:(NSString *)url imageName:(NSString *)imageName key:(NSString *)key value:(NSString *)value token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
+/**
+ 上传图片
+ 
  @param url 请求地址url
  @param imageName 图片name
  @param key 请求的参数
@@ -101,5 +117,55 @@ NSJSONReadingAllowFragments：允许JSON字符串最外层既不是NSArray也不
  @param failure 失败返回
  */
 - (void)upLoad:(NSString *)url imageName:(NSString *)imageName key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+
+/**
+ 上传图片
+ 
+ @param url 请求地址url
+ @param imageName 图片name
+ @param uploadKey 图片对应的key
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)upLoad:(NSString *)url imageName:(NSString *)imageName token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+
+/**
+ 上传图片
+ 
+ @param url 地址url
+ @param image 图片
+ @param key 请求的参数
+ @param value 请求的值
+ @param token 请求头
+ @param uploadKey 图片对应的key
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)upLoad:(NSString *)url image:(UIImage *)image key:(NSString *)key value:(NSString *)value token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+
+/**
+ 上传图片
+ 
+ @param url 地址url
+ @param image 图片
+ @param token 请求头
+ @param uploadKey 图片对应的key
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)upLoad:(NSString *)url image:(UIImage *)image token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+
+/**
+ 上传图片
+ 
+ @param url 地址url
+ @param image 图片
+ @param key 请求的参数
+ @param value 请求的值
+ @param uploadKey 图片对应的key
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)upLoad:(NSString *)url image:(UIImage *)image key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
 @end

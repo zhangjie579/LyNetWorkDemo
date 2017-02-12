@@ -28,6 +28,69 @@ typedef enum {
 - (void)getType:(HttpNetWorkType )type parameters:(NSDictionary *)parameters urlString:(NSString *)urlString success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure;
 
 /**
+ get请求(有请求头heard，请求body)
+
+ @param url 地址
+ @param token 请求头heard
+ @param parameters 请求body
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)get:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure;
+
+/**
+ get请求(有请求body)
+ 
+ @param url 地址
+ @param parameters 请求body
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)get:(NSString *)url parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure;
+
+/**
+ get请求(有请求头heard)
+ 
+ @param url 地址
+ @param token 请求头heard
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)get:(NSString *)url token:(NSString *)token success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure;
+
+/**
+ post请求(有请求头heard，请求body)
+ 
+ @param url 地址
+ @param token 请求头heard
+ @param parameters 请求body
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)post:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure;
+
+/**
+ post请求(请求body)
+ 
+ @param url 地址
+ @param parameters 请求body
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)post:(NSString *)url parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure;
+
+/**
+ post请求(有请求头heard)
+ 
+ @param url 地址
+ @param token 请求头heard
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)post:(NSString *)url token:(NSString *)token success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure;
+
+
+/**
  *  上传图片
  *
  *  @param urlString  urlString地址

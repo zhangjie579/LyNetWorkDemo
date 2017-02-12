@@ -33,6 +33,106 @@
     return self;
 }
 
+- (void)get:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    //设置http请求头
+    if (![self isBlankString:token])
+    {
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    }
+    
+    /**设置接受的类型*/
+    //接收类型不一致请替换一致text/html或别的
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+                                                         @"text/html",
+                                                         @"image/jpeg",
+                                                         @"image/png",
+                                                         @"application/octet-stream",
+                                                         @"text/json",
+                                                         @"text/javascript",
+                                                         nil];
+    id param = parameters;
+    if (param == nil) {
+        param = @"";
+    }
+    
+    [manager GET:url parameters:param progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if (success) {
+            success(responseObject);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+- (void)get:(NSString *)url parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
+{
+    [self get:url token:nil parameters:parameters success:success failure:failure];
+}
+
+- (void)get:(NSString *)url token:(NSString *)token success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
+{
+    [self get:url token:token parameters:nil success:success failure:failure];
+}
+
+- (void)post:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
+{
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    
+    //设置http请求头
+    if (![self isBlankString:token])
+    {
+        [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+    }
+    
+    /**设置接受的类型*/
+    //接收类型不一致请替换一致text/html或别的
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+                                                         @"text/html",
+                                                         @"image/jpeg",
+                                                         @"image/png",
+                                                         @"application/octet-stream",
+                                                         @"text/json",
+                                                         @"text/javascript",
+                                                         nil];
+    id param = parameters;
+    if (param == nil) {
+        param = @"";
+    }
+    
+    [manager POST:url parameters:param progress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        if (success) {
+            success(responseObject);
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (failure) {
+            failure(error);
+        }
+    }];
+}
+
+- (void)post:(NSString *)url parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
+{
+    [self post:url token:nil parameters:parameters success:success failure:failure];
+}
+
+- (void)post:(NSString *)url token:(NSString *)token success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
+{
+    [self post:url token:token parameters:nil success:success failure:failure];
+}
+
 /**
  *  发送请求
  *
@@ -184,6 +284,24 @@
             }
         }
     }];
+}
+
+//判断某字符串是否为空
+- (BOOL) isBlankString:(NSString *)string
+{
+    if (string == nil || string == NULL)
+    {
+        return YES;
+    }
+    if ([string isKindOfClass:[NSNull class]])
+    {
+        return YES;
+    }
+    if ([[string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length]==0)
+    {
+        return YES;
+    }
+    return NO;
 }
 
 @end

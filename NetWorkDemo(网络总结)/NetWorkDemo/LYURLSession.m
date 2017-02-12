@@ -23,6 +23,50 @@
     return manager;
 }
 
+
+/**
+ 格式化字典 -> (@"vid=1&p=1")
+
+ @param dict 字典
+ @return 请求体(@"vid=1&p=1")
+ */
+- (NSString *)formatWithDict:(NSDictionary *)dict
+{
+    if (dict == nil)
+    {
+        return @"";
+    }
+    else
+    {
+        NSMutableString *string = [[NSMutableString alloc] init];
+        NSMutableArray *array_key = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i < dict.allKeys.count; i++)
+        {
+            [array_key addObject:dict.allKeys[i]];
+        }
+        
+        NSMutableArray *array_value = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i < dict.allValues.count; i++)
+        {
+            [array_value addObject:dict.allValues[i]];
+        }
+        
+        for (NSInteger i = 0; i < array_key.count; i++)
+        {
+            if (i == array_key.count -1)
+            {
+                [string appendString:[NSString stringWithFormat:@"%@=%@",array_key[i],array_value[i]]];
+            }
+            else
+            {
+                [string appendString:[NSString stringWithFormat:@"%@=%@&",array_key[i],array_value[i]]];
+            }
+        }
+        
+        return string;
+    }
+}
+
 /**
  post请求(有请求头Header)
  
@@ -533,6 +577,45 @@
     [formData appendData:[[NSString stringWithFormat:@"--%@--\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
     
     return formData;
+}
+
+#pragma mark - 下载
+
+- (void)download:(NSString *)url token:(NSString *)token keyString:(NSString *)keyString success:(void(^)(NSString *filePath))success failure:(void(^)(NSError *error))failure
+{
+    /*
+     response.suggestedFilename是从相应中取出文件在服务器上存储路径的最后部分,如数据在服务器的url为http://www.daka.com/resources/image/icon.png, 那么其suggestedFilename就是icon.png.
+     */
+    
+    NSMutableURLRequest *request = [self requestWithUrl:url method:@"POST" token:token keyString:keyString];
+    
+    NSURLSessionConfiguration *configuration = [self creatURLSessionConfiguration];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    
+    NSURLSessionDownloadTask *task = [session downloadTaskWithRequest:request completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+        if (error)
+        {
+            if (failure) {
+                failure(error);
+            }
+        }
+        else
+        {
+            // location是沙盒中tmp文件夹下的一个临时url,文件下载后会存到这个位置,由于tmp中的文件随时可能被删除,所以我们需要自己需要把下载的文件挪到需要的地方
+            NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:response.suggestedFilename];
+            // 剪切文件
+            [[NSFileManager defaultManager] moveItemAtURL:location toURL:[NSURL fileURLWithPath:path] error:nil];
+            
+            if (success) {
+                success(path);
+            }
+        }
+        
+    }];
+    
+    [task resume];
 }
 
 //判断某字符串是否为空

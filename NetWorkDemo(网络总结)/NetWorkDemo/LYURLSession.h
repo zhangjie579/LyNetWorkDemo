@@ -46,48 +46,68 @@ NSJSONReadingAllowFragments：允许JSON字符串最外层既不是NSArray也不
 #pragma mark - post请求
 
 /**
- post请求(有请求头Header)
+ post请求(有请求头Header,请求体body)
 
  @param url 请求地址url
  @param token 请求头token
- @param keyString 请求参数 : @"vid=1&p=1"
+ @param parameters 请求参数 : 
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)post:(NSString *)url token:(NSString *)token keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+- (void)post:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
 /**
- post请求
+ post请求(有请求头heard)
  
  @param url 请求地址url
- @param keyString 请求参数 : @"vid=1&p=1"
+ @param token 请求头token
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)post:(NSString *)url keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+- (void)post:(NSString *)url token:(NSString *)token success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+
+/**
+ post请求（请求体body）
+ 
+ @param url 请求地址url
+ @param parameters 请求参数 :
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)post:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
 #pragma mark - get请求
+
+/**
+ get请求(有请求头Header，请求体)
+ 
+ @param url 请求地址url
+ @param token 请求头token
+ @param parameters 请求参数 :
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)get:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
 /**
  get请求(有请求头Header)
  
  @param url 请求地址url
  @param token 请求头token
- @param keyString 请求参数 : @"vid=1&p=1"
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)get:(NSString *)url token:(NSString *)token keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+- (void)get:(NSString *)url token:(NSString *)token success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
 /**
- get请求
+ get请求（请求体body）
  
  @param url 请求地址url
- @param keyString 请求参数 : @"vid=1&p=1"
+ @param parameters 请求参数 : 字典
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)get:(NSString *)url keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+- (void)get:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
 #pragma mark - 上传图片
 

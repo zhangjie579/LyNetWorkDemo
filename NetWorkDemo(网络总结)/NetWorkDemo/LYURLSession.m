@@ -23,48 +23,30 @@
     return manager;
 }
 
+/**
+ post请求(有请求头heard)
+ 
+ @param url 请求地址url
+ @param token 请求头token
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)post:(NSString *)url token:(NSString *)token success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+{
+    [self post:url token:token parameters:nil success:success failure:failure];
+}
 
 /**
- 格式化字典 -> (@"vid=1&p=1")
-
- @param dict 字典
- @return 请求体(@"vid=1&p=1")
+ post请求
+ 
+ @param url 请求地址url
+ @param parameters 请求参数 字典
+ @param success 成功返回
+ @param failure 失败返回
  */
-- (NSString *)formatWithDict:(NSDictionary *)dict
+- (void)post:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    if (dict == nil)
-    {
-        return @"";
-    }
-    else
-    {
-        NSMutableString *string = [[NSMutableString alloc] init];
-        NSMutableArray *array_key = [[NSMutableArray alloc] init];
-        for (NSInteger i = 0; i < dict.allKeys.count; i++)
-        {
-            [array_key addObject:dict.allKeys[i]];
-        }
-        
-        NSMutableArray *array_value = [[NSMutableArray alloc] init];
-        for (NSInteger i = 0; i < dict.allValues.count; i++)
-        {
-            [array_value addObject:dict.allValues[i]];
-        }
-        
-        for (NSInteger i = 0; i < array_key.count; i++)
-        {
-            if (i == array_key.count -1)
-            {
-                [string appendString:[NSString stringWithFormat:@"%@=%@",array_key[i],array_value[i]]];
-            }
-            else
-            {
-                [string appendString:[NSString stringWithFormat:@"%@=%@&",array_key[i],array_value[i]]];
-            }
-        }
-        
-        return string;
-    }
+    [self post:url token:nil parameters:parameters success:success failure:failure];
 }
 
 /**
@@ -72,13 +54,13 @@
  
  @param url 请求地址url
  @param token 请求头token
- @param keyString 请求参数 : @"vid=1&p=1"
+ @param parameters 请求参数 : 字典
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)post:(NSString *)url token:(NSString *)token keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+- (void)post:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    NSMutableURLRequest *request = [self requestWithUrl:url method:@"POST" token:token keyString:keyString];
+    NSMutableURLRequest *request = [self requestWithUrl:url method:@"POST" token:token parameters:parameters];
     
     //发送请求
 //    NSURLSessionConfiguration *configurat = [NSURLSessionConfiguration defaultSessionConfiguration];
@@ -159,6 +141,36 @@
     return configuration;
 }
 
+/**
+ 格式化字典 -> (@"vid=1&p=1")
+ 
+ @param dict 字典
+ @return 请求体(@"vid=1&p=1")
+ */
+- (NSString *)formatWithDict:(NSDictionary *)dict
+{
+    if (dict == nil)
+    {
+        return @"";
+    }
+    else
+    {
+        NSMutableString *string = [[NSMutableString alloc] init];
+        for (NSInteger i = 0; i < dict.allKeys.count; i++)
+        {
+            if (i == dict.allKeys.count -1)
+            {
+                [string appendString:[NSString stringWithFormat:@"%@=%@",dict.allKeys[i],dict.allValues[i]]];
+            }
+            else
+            {
+                [string appendString:[NSString stringWithFormat:@"%@=%@&",dict.allKeys[i],dict.allValues[i]]];
+            }
+            
+        }
+        return string;
+    }
+}
 
 /**
  创建请求NSMutableURLRequest
@@ -166,10 +178,10 @@
  @param url 请求的地址
  @param method 请求的发送，POST/GET
  @param token 请求头，如果没有传nil
- @param keyString 请求参数 @"vid=1&p=1"
+ @param parameters 请求参数字典 @"vid=1&p=1"
  @return NSMutableURLRequest
  */
-- (NSMutableURLRequest *)requestWithUrl:(NSString *)url method:(NSString *)method token:(NSString *)token keyString:(NSString *)keyString
+- (NSMutableURLRequest *)requestWithUrl:(NSString *)url method:(NSString *)method token:(NSString *)token parameters:(NSDictionary *)parameters
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     
@@ -183,7 +195,10 @@
     }
     
     //3.body
-    request.HTTPBody = [keyString dataUsingEncoding:NSUTF8StringEncoding];
+    if (parameters != nil)
+    {
+        request.HTTPBody = [[self formatWithDict:parameters] dataUsingEncoding:NSUTF8StringEncoding];
+    }
     
     //超时
     request.timeoutInterval = 30;
@@ -205,47 +220,29 @@
 }
 
 /**
- post请求
+ get请求(有请求头Header)
  
  @param url 请求地址url
- @param keyString 请求参数 : @"vid=1&p=1"
+ @param token 请求头token
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)post:(NSString *)url keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+- (void)get:(NSString *)url token:(NSString *)token success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    
-    [self post:url token:nil keyString:keyString success:success failure:failure];
-    
-//    NSMutableURLRequest *request = [self requestWithUrl:url method:@"POST" token:nil keyString:keyString];
-//    
-////    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-////    
-////    //1.请求方式
-////    request.HTTPMethod = @"POST";
-////    
-////    //2.body
-////    request.HTTPBody = [keyString dataUsingEncoding:NSUTF8StringEncoding];
-//    
-//    //3.发送请求
-//    NSURLSession *session = [NSURLSession sharedSession];
-//    
-//    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-//        
-//        if (error)
-//        {
-//            failure(error);
-//        }
-//        else
-//        {
-//            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-//            success(dict);
-//        }
-//        
-//    }];
-//    
-//    //发送请求
-//    [task resume];
+    [self get:url token:token parameters:nil success:success failure:failure];
+}
+
+/**
+ get请求
+ 
+ @param url 请求地址url
+ @param parameters 请求参数 : 字典
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)get:(NSString *)url parameters:(NSDictionary *)parameters success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+{
+    [self get:url token:nil parameters:parameters success:success failure:failure];
 }
 
 /**
@@ -253,13 +250,13 @@
  
  @param url 请求地址url
  @param token 请求头token
- @param keyString 请求参数 : @"vid=1&p=1"
+ @param parameters 请求参数 : 字典
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)get:(NSString *)url token:(NSString *)token keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+- (void)get:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    NSMutableURLRequest *request = [self requestWithUrl:url method:@"GET" token:token keyString:keyString];
+    NSMutableURLRequest *request = [self requestWithUrl:url method:@"GET" token:token parameters:parameters];
     
     //4.发送请求
     NSURLSession *session = [NSURLSession sharedSession];
@@ -282,40 +279,37 @@
     [task resume];
 }
 
+#pragma mark - 上传
+
 /**
- get请求
+ 上传图片
  
  @param url 请求地址url
- @param keyString 请求参数 : @"vid=1&p=1"
+ @param imageName 图片name
+ @param key 请求的参数
+ @param value 请求的值
+ @param uploadKey 图片对应的key
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)get:(NSString *)url keyString:(NSString *)keyString success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+- (void)upLoad:(NSString *)url imageName:(NSString *)imageName key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    NSMutableURLRequest *request = [self requestWithUrl:url method:@"GET" token:nil keyString:keyString];
-    
-    //3.发送请求
-    NSURLSession *session = [NSURLSession sharedSession];
-    
-    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        
-        if (error)
-        {
-            failure(error);
-        }
-        else
-        {
-            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-            success(dict);
-        }
-        
-    }];
-    
-    //发送请求
-    [task resume];
+    [self upLoad:url imageName:imageName key:key value:value token:nil uploadKey:uploadKey success:success failure:failure];
 }
 
-#pragma mark - 上传
+/**
+ 上传图片
+ 
+ @param url 请求地址url
+ @param imageName 图片name
+ @param uploadKey 图片对应的key
+ @param success 成功返回
+ @param failure 失败返回
+ */
+- (void)upLoad:(NSString *)url imageName:(NSString *)imageName token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+{
+    [self upLoad:url imageName:imageName key:nil value:nil token:token uploadKey:uploadKey success:success failure:failure];
+}
 
 /**
  上传图片
@@ -375,36 +369,6 @@
     }];
     
     [task resume];
-}
-
-/**
- 上传图片
- 
- @param url 请求地址url
- @param imageName 图片name
- @param key 请求的参数
- @param value 请求的值
- @param uploadKey 图片对应的key
- @param success 成功返回
- @param failure 失败返回
- */
-- (void)upLoad:(NSString *)url imageName:(NSString *)imageName key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
-{
-    [self upLoad:url imageName:imageName key:key value:value token:nil uploadKey:uploadKey success:success failure:failure];
-}
-
-/**
- 上传图片
- 
- @param url 请求地址url
- @param imageName 图片name
- @param uploadKey 图片对应的key
- @param success 成功返回
- @param failure 失败返回
- */
-- (void)upLoad:(NSString *)url imageName:(NSString *)imageName token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
-{
-    [self upLoad:url imageName:imageName key:nil value:nil token:token uploadKey:uploadKey success:success failure:failure];
 }
 
 /**
@@ -581,13 +545,13 @@
 
 #pragma mark - 下载
 
-- (void)download:(NSString *)url token:(NSString *)token keyString:(NSString *)keyString success:(void(^)(NSString *filePath))success failure:(void(^)(NSError *error))failure
+- (void)download:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void(^)(NSString *filePath))success failure:(void(^)(NSError *error))failure
 {
     /*
      response.suggestedFilename是从相应中取出文件在服务器上存储路径的最后部分,如数据在服务器的url为http://www.daka.com/resources/image/icon.png, 那么其suggestedFilename就是icon.png.
      */
     
-    NSMutableURLRequest *request = [self requestWithUrl:url method:@"POST" token:token keyString:keyString];
+    NSMutableURLRequest *request = [self requestWithUrl:url method:@"POST" token:token parameters:parameters];
     
     NSURLSessionConfiguration *configuration = [self creatURLSessionConfiguration];
     

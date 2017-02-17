@@ -25,33 +25,322 @@
     
 //    [self test3];
     
-//    [[LYURLSession shareTool] postWithUrl:@"http://zzy.bolemayy.com/video/comment/list" vid:@"1"];
+    [self testMore];
+//    LYURLSession *manager = [LYURLSession shareTool];
+//    
+//    
+//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//    queue.maxConcurrentOperationCount = 1;
+//    
+//    NSBlockOperation *op1 = [NSBlockOperation blockOperationWithBlock:^{
+//        [manager upLoad:@"http://182.254.228.211:9000/index.php/api/Auth/uploadImg" imageName:@"1-1-登录.png" parameters:@{@"uid" : @"1"} uploadKey:@"img" success:^(NSDictionary *dict) {
+//    
+//            NSLog(@"success   1");
+//    
+//        } failure:^(NSError *error) {
+//            NSLog(@"error   1");
+//        }];
+//    }];
+//    
+//    NSBlockOperation *op2 = [NSBlockOperation blockOperationWithBlock:^{
+//        [manager post:@"http://182.254.228.211:9000/index.php/Api/Circle/index" parameters:@{@"uid" : @"1" , @"p" : @"1"} success:^(NSDictionary *dict) {
+//    //        NSLog(@"success1   %@",dict);
+//            NSLog(@"success   2");
+//    
+//        } failure:^(NSError *error) {
+//    //        NSLog(@"error  %@",error);
+//    
+//            NSLog(@"error   2");
+//        }];
+//    }];
+//    
+//    NSBlockOperation *op3 = [NSBlockOperation blockOperationWithBlock:^{
+//        [manager post:@"http://zzy.bolemayy.com/video/index/index" token:@"8.1489715482.60595.efb58eae7707180960c2db861fa36908" parameters:@{@"p" : @"1"} success:^(NSDictionary *dict) {
+//    //        NSLog(@"success2   %@",dict);
+//    
+//            NSLog(@"success   3");
+//    
+//        } failure:^(NSError *error) {
+//    //        NSLog(@"error  %@",error);
+//    
+//            NSLog(@"error   3");
+//            
+//        }];
+//    }];
+//    
+//    NSBlockOperation *op4 = [NSBlockOperation blockOperationWithBlock:^{
+//        [manager upLoad:@"http://zzy.bolemayy.com/user/index/upload-img" imageName:@"1-1-登录.png" token:@"8.1489715482.60595.efb58eae7707180960c2db861fa36908" uploadKey:@"img" success:^(NSDictionary *dict) {
+//    //        NSLog(@"success   %@",dict);
+//            NSLog(@"success   4");
+//    
+//        } failure:^(NSError *error) {
+//    //        NSLog(@"error  %@",error);
+//                NSLog(@"error   4");
+//            
+//        }];
+//    }];
+//    
+//    [op4 addDependency:op3];
+//    [op3 addDependency:op2];
+//    [op2 addDependency:op1];
+//    
+//    [queue addOperation:op4];
+//    [queue addOperation:op3];
+//    [queue addOperation:op2];
+//    [queue addOperation:op1];
+    
+//    dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
+//    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+//        
+//        dispatch_group_wait(dispatchGroup, dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC));//是同步的所以不要放在主线程
+//        NSLog(@"完成");
+//    });
+    
+    
+//    [manager upLoad:@"http://182.254.228.211:9000/index.php/api/Auth/uploadImg" imageName:@"1-1-登录.png" parameters:@{@"uid" : @"1"} uploadKey:@"img" success:^(NSDictionary *dict) {
+//        
+//        dispatch_semaphore_signal(sema);
+//        NSLog(@"success   1");
+//        
+//    } failure:^(NSError *error) {
+//        dispatch_semaphore_signal(sema);
+//        NSLog(@"error   1");
+//    }];
+//    
+//    [manager post:@"http://182.254.228.211:9000/index.php/Api/Circle/index" parameters:@{@"uid" : @"1" , @"p" : @"1"} success:^(NSDictionary *dict) {
+////        NSLog(@"success1   %@",dict);
+//        dispatch_semaphore_signal(sema);
+//        NSLog(@"success   2");
+//        
+//    } failure:^(NSError *error) {
+////        NSLog(@"error  %@",error);
+//        
+//        dispatch_semaphore_signal(sema);
+//        NSLog(@"error   2");
+//    }];
+//
+//    [manager post:@"http://zzy.bolemayy.com/video/index/index" token:@"8.1489715482.60595.efb58eae7707180960c2db861fa36908" parameters:@{@"p" : @"1"} success:^(NSDictionary *dict) {
+////        NSLog(@"success2   %@",dict);
+//        
+//        dispatch_semaphore_signal(sema);
+//        NSLog(@"success   3");
+//        
+//    } failure:^(NSError *error) {
+////        NSLog(@"error  %@",error);
+//        
+//        dispatch_semaphore_signal(sema);
+//        NSLog(@"error   3");
+//        
+//    }];
+//    
+//    [manager upLoad:@"http://zzy.bolemayy.com/user/index/upload-img" imageName:@"1-1-登录.png" token:@"8.1489715482.60595.efb58eae7707180960c2db861fa36908" uploadKey:@"img" success:^(NSDictionary *dict) {
+////        NSLog(@"success   %@",dict);
+//        dispatch_semaphore_signal(sema);
+//        NSLog(@"success   4");
+//        
+//    } failure:^(NSError *error) {
+////        NSLog(@"error  %@",error);
+//        
+//        dispatch_semaphore_signal(sema);
+//        NSLog(@"error   4");
+//        
+//    }];
+    
+//    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
+    NSLog(@"主线5");
+}
+
+//多个请求的正确操作，注意：不过前面请求不是顺序的
+- (void)postMoreRequest
+{
+//    dispatch_group_t group = dispatch_group_create();
+//    dispatch_group_enter(group);
+//    //请求1
+//    [
+//     dispatch_group_leave(group);
+//    ];
+//    
+//    //请求2
+//    [
+//     dispatch_group_leave(group);
+//     ];
+//    
+//    //请求3
+//    [
+//     dispatch_group_leave(group);
+//     ];
+//    
+//    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+//        
+//    });
+    
+    
     
     LYURLSession *manager = [LYURLSession shareTool];
     
-//    [manager upLoad:@"http://182.254.228.211:9000/index.php/api/Auth/uploadImg" imageName:@"1-1-登录.png" key:@"uid" value:@"1" uploadKey:@"img" success:^(NSDictionary *dict) {
-//        
-//    } failure:^(NSError *error) {
-//        
-//    }];
+    dispatch_group_t dispatchGroup = dispatch_group_create();
+    dispatch_group_enter(dispatchGroup);
+    dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+        [manager upLoad:@"http://182.254.228.211:9000/index.php/api/Auth/uploadImg" imageName:@"1-1-登录.png" parameters:@{@"uid" : @"1"} uploadKey:@"img" success:^(NSDictionary *dict) {
+            
+            dispatch_group_leave(dispatchGroup);
+            NSLog(@"success   1");
+            
+        } failure:^(NSError *error) {
+            
+            dispatch_group_leave(dispatchGroup);
+            NSLog(@"error   1");
+        }];
+    });
+    dispatch_group_enter(dispatchGroup);
+    dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+        [manager post:@"http://182.254.228.211:9000/index.php/Api/Circle/index" parameters:@{@"uid" : @"1" , @"p" : @"1"} success:^(NSDictionary *dict) {
+            
+            dispatch_group_leave(dispatchGroup);
+            NSLog(@"success   2");
+            
+        } failure:^(NSError *error) {
+            
+            dispatch_group_leave(dispatchGroup);
+            NSLog(@"error   2");
+        }];
+
+    });
+    dispatch_group_enter(dispatchGroup);
+    dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+        [manager post:@"http://zzy.bolemayy.com/video/index/index" token:@"8.1489715482.60595.efb58eae7707180960c2db861fa36908" parameters:@{@"p" : @"1"} success:^(NSDictionary *dict) {
+            
+            dispatch_group_leave(dispatchGroup);
+            NSLog(@"success   3");
+            
+        } failure:^(NSError *error) {
+            
+            dispatch_group_leave(dispatchGroup);
+            NSLog(@"error   3");
+            
+        }];
+    });
     
-    [manager post:@"http://182.254.228.211:9000/index.php/api/worker/index" parameters:@{@"uid" : @"1"} success:^(NSDictionary *dict) {
-        NSLog(@"success1   %@",dict);
-    } failure:^(NSError *error) {
-        NSLog(@"error  %@",error);
-    }];
+    dispatch_group_enter(dispatchGroup);
+    dispatch_async(dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+        [manager upLoad:@"http://zzy.bolemayy.com/user/index/upload-img" imageName:@"1-1-登录.png" token:@"8.1489715482.60595.efb58eae7707180960c2db861fa36908" uploadKey:@"img" success:^(NSDictionary *dict) {
+            //        NSLog(@"success   %@",dict);
+            dispatch_group_leave(dispatchGroup);
+            NSLog(@"success   4");
+            
+        } failure:^(NSError *error) {
+            //        NSLog(@"error  %@",error);
+            
+            dispatch_group_leave(dispatchGroup);
+            NSLog(@"error   4");
+            
+        }];
+    });
     
-    [manager post:@"http://zzy.bolemayy.com/video/index/index" token:@"8.1489200645.43477.6133d147eb35145b305a96e22e7a30da" parameters:@{@"p" : @"1"} success:^(NSDictionary *dict) {
-        NSLog(@"success2   %@",dict);
-    } failure:^(NSError *error) {
-        NSLog(@"error  %@",error);
-    }];
+    //当队列dispatch_queue_t queue上的所有任务执行完毕时会执行dispatch_group_notify里的dispatch_block_t block的代码
     
-//    [manager upLoad:@"http://zzy.bolemayy.com/user/index/upload-img" imageName:@"1-1-登录.png" token:@"8.1489395432.79340.6c1836767b617e15cb1263f1e40b3b66" uploadKey:@"img" success:^(NSDictionary *dict) {
-//        NSLog(@"success   %@",dict);
-//    } failure:^(NSError *error) {
-//        NSLog(@"error  %@",error);
-//    }];
+    dispatch_group_notify(dispatchGroup, dispatch_get_main_queue(), ^{
+        NSLog(@"任务完成,主线刷新UI");
+    });
+    
+//    dispatch_group_notify(dispatchGroup, dispatch_get_global_queue(0, 0), ^{
+//        NSLog(@"任务完成,主线刷新UI");
+//    });
+
+    NSLog(@"主线5");
+}
+
+- (void)testMore
+{
+    // 创建组
+    dispatch_group_t group = dispatch_group_create();
+    LYURLSession *manager = [LYURLSession shareTool];
+    
+    dispatch_group_async(group, dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+        
+        // 创建信号量
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        
+        [manager upLoad:@"http://182.254.228.211:9000/index.php/api/Auth/uploadImg" imageName:@"1-1-登录.png" parameters:@{@"uid" : @"1"} uploadKey:@"img" success:^(NSDictionary *dict) {
+            
+            dispatch_semaphore_signal(semaphore);
+            NSLog(@"success   1");
+            
+        } failure:^(NSError *error) {
+            
+            dispatch_semaphore_signal(semaphore);
+            NSLog(@"error   1");
+        }];
+        
+        // 在网络请求任务成功之前，信号量等待中
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    });
+    
+    dispatch_group_async(group, dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+        
+        // 创建信号量
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        
+        [manager upLoad:@"http://182.254.228.211:9000/index.php/api/Auth/uploadImg" imageName:@"1-1-登录.png" parameters:@{@"uid" : @"1"} uploadKey:@"img" success:^(NSDictionary *dict) {
+            
+            dispatch_semaphore_signal(semaphore);
+            NSLog(@"success   2");
+            
+        } failure:^(NSError *error) {
+            
+            dispatch_semaphore_signal(semaphore);
+            NSLog(@"error   2");
+        }];
+        
+        // 在网络请求任务成功之前，信号量等待中
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    });
+    
+    dispatch_group_async(group, dispatch_get_global_queue(0, DISPATCH_QUEUE_PRIORITY_DEFAULT), ^{
+        
+        // 创建信号量
+        dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+        
+        [manager upLoad:@"http://182.254.228.211:9000/index.php/api/Auth/uploadImg" imageName:@"1-1-登录.png" parameters:@{@"uid" : @"1"} uploadKey:@"img" success:^(NSDictionary *dict) {
+            
+            dispatch_semaphore_signal(semaphore);
+            NSLog(@"success   3");
+            
+        } failure:^(NSError *error) {
+            
+            dispatch_semaphore_signal(semaphore);
+            NSLog(@"error   3");
+        }];
+        
+        // 在网络请求任务成功之前，信号量等待中
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    });
+    
+    dispatch_group_notify(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSLog(@"完成了网络请求，不管网络请求失败了还是成功了。");
+    });
+}
+
+- (void)groupSync
+{
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_group_enter(group);
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        sleep(5);
+        NSLog(@"任务一完成");
+        dispatch_group_leave(group);
+    });
+    dispatch_group_enter(group);
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        sleep(8);
+        NSLog(@"任务二完成");
+        dispatch_group_leave(group);
+    });
+    dispatch_group_notify(group, dispatch_get_global_queue(0, 0), ^{
+        NSLog(@"任务完成");
+    });
 }
 
 - (void)async

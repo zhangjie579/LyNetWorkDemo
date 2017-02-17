@@ -29,6 +29,7 @@
  
 */
 
+//注意事项:如果是自定义会话并指定了代理，会话会对代理进行强引用,在视图控制器销毁之前，需要取消网络会话，否则会造成内存泄漏
 
 /*
 
@@ -116,27 +117,25 @@ NSJSONReadingAllowFragments：允许JSON字符串最外层既不是NSArray也不
  
  @param url 地址url
  @param imageName 图片name
- @param key 请求的参数
- @param value 请求的值
+ @param parameters 请求体
  @param token 请求头
  @param uploadKey 图片对应的key
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)upLoad:(NSString *)url imageName:(NSString *)imageName key:(NSString *)key value:(NSString *)value token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+- (void)upLoad:(NSString *)url imageName:(NSString *)imageName token:(NSString *)token parameters:(NSDictionary *)parameters uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
 /**
  上传图片
  
  @param url 请求地址url
  @param imageName 图片name
- @param key 请求的参数
- @param value 请求的值
+ @param parameters 请求体
  @param uploadKey 图片对应的key
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)upLoad:(NSString *)url imageName:(NSString *)imageName key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+- (void)upLoad:(NSString *)url imageName:(NSString *)imageName parameters:(NSDictionary *)parameters uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
 /**
  上传图片
@@ -154,14 +153,13 @@ NSJSONReadingAllowFragments：允许JSON字符串最外层既不是NSArray也不
  
  @param url 地址url
  @param image 图片
- @param key 请求的参数
- @param value 请求的值
+ @param parameters 请求体
  @param token 请求头
  @param uploadKey 图片对应的key
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)upLoad:(NSString *)url image:(UIImage *)image key:(NSString *)key value:(NSString *)value token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+- (void)upLoad:(NSString *)url image:(UIImage *)image token:(NSString *)token parameters:(NSDictionary *)parameters uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
 /**
  上传图片
@@ -180,12 +178,11 @@ NSJSONReadingAllowFragments：允许JSON字符串最外层既不是NSArray也不
  
  @param url 地址url
  @param image 图片
- @param key 请求的参数
- @param value 请求的值
+ @param parameters 请求体
  @param uploadKey 图片对应的key
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)upLoad:(NSString *)url image:(UIImage *)image key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
+- (void)upLoad:(NSString *)url image:(UIImage *)image parameters:(NSDictionary *)parameters uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure;
 
 @end

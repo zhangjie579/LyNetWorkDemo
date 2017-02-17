@@ -286,15 +286,14 @@
  
  @param url 请求地址url
  @param imageName 图片name
- @param key 请求的参数
- @param value 请求的值
+ @param parameters 请求体
  @param uploadKey 图片对应的key
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)upLoad:(NSString *)url imageName:(NSString *)imageName key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+- (void)upLoad:(NSString *)url imageName:(NSString *)imageName parameters:(NSDictionary *)parameters uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    [self upLoad:url imageName:imageName key:key value:value token:nil uploadKey:uploadKey success:success failure:failure];
+    [self upLoad:url imageName:imageName token:nil parameters:parameters uploadKey:uploadKey success:success failure:failure];
 }
 
 /**
@@ -308,22 +307,21 @@
  */
 - (void)upLoad:(NSString *)url imageName:(NSString *)imageName token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    [self upLoad:url imageName:imageName key:nil value:nil token:token uploadKey:uploadKey success:success failure:failure];
+    [self upLoad:url imageName:imageName token:token parameters:nil uploadKey:uploadKey success:success failure:failure];
 }
 
 /**
  上传图片
-
+ 
  @param url 地址url
  @param imageName 图片name
- @param key 请求的参数
- @param value 请求的值
+ @param parameters 请求体
  @param token 请求头
  @param uploadKey 图片对应的key
  @param success 成功返回
  @param failure 失败返回
  */
-- (void)upLoad:(NSString *)url imageName:(NSString *)imageName key:(NSString *)key value:(NSString *)value token:(NSString *)token uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
+- (void)upLoad:(NSString *)url imageName:(NSString *)imageName token:(NSString *)token parameters:(NSDictionary *)parameters uploadKey:(NSString *)uploadKey success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     
@@ -345,7 +343,7 @@
     
     // 设置请求文件参数,请求体
     //    NSData *formData = [self setBodyData:@"1-1-登录.png" key:@"uid" value:@"1" uploadKey:@"img"];
-    NSData *formData = [self setBodyData:imageName key:key value:value uploadKey:uploadKey];
+    NSData *formData = [self setBodyData:imageName parameters:parameters uploadKey:uploadKey];
     
     NSURLSessionConfiguration *configurat = [self creatURLSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configurat];
@@ -360,7 +358,7 @@
         else
         {
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-            NSLog(@"success  %@",dict);
+//            NSLog(@"success  %@",dict);
             if (success) {
                 success(dict);
             }
@@ -375,24 +373,23 @@
  拼接请求体body
 
  @param imageName 图片name
- @param key 请求参数key
- @param value 请求参数key的值
+ @param parameters 请求体
  @param uploadKey 请求图片的key
  @return 请求体body
  */
-- (NSData *)setBodyData:(NSString *)imageName key:(NSString *)key value:(NSString *)value uploadKey:(NSString *)uploadKey
+- (NSData *)setBodyData:(NSString *)imageName parameters:(NSDictionary *)parameters uploadKey:(NSString *)uploadKey
 {
     // 设置请求文件参数
     NSMutableData *formData = [NSMutableData data];
     
     //1.请求参数，有就设置，没有就不需要设置
-    if (![self isBlankString:key] && ![self isBlankString:value])
+    if (parameters != nil)
     {
         // 参数,uid = 1
         [formData appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-        [formData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n",key]
+        [formData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n",parameters.allKeys[0]]
                               dataUsingEncoding:NSUTF8StringEncoding]];
-        [formData appendData:[[NSString stringWithFormat:@"\r\n%@\r\n", value] dataUsingEncoding:NSUTF8StringEncoding]];
+        [formData appendData:[[NSString stringWithFormat:@"\r\n%@\r\n", parameters.allValues[0]] dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
     //2.文件,后台文件key为img
@@ -580,6 +577,14 @@
     }];
     
     [task resume];
+}
+
+#warning 避免NSURLSession内存泄漏
+//注意事项:如果是自定义会话并指定了代理，会话会对代理进行强引用,在视图控制器销毁之前，需要取消网络会话，否则会造成内存泄漏
+- (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
+didCompleteWithError:(nullable NSError *)error
+{
+    [session finishTasksAndInvalidate];
 }
 
 //判断某字符串是否为空

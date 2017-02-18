@@ -8,5 +8,7 @@ target 'NetWorkDemo' do
 pod 'MJExtension’
 pod 'YTKNetwork’
 pod 'FMDB'
+pod 'SDWebImage'
+pod 'MBProgressHUD'
 
 end

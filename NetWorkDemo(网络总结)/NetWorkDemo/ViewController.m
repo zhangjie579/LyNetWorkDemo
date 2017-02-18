@@ -13,6 +13,8 @@
 #import "YTKBatchRequest.h"
 #import "LYURLSession.h"
 #import "LyJsonTool.h"
+#import "HttpNetWork.h"
+#import "LyNetSetting.h"
 
 @interface ViewController ()
 
@@ -24,8 +26,9 @@
     [super viewDidLoad];
     
 //    [self test3];
-    
-    [self testMore];
+    self.view.backgroundColor = [UIColor lightGrayColor];
+//    [self testMore];
+    [self AFNRequest];
 //    LYURLSession *manager = [LYURLSession shareTool];
 //    
 //    
@@ -149,7 +152,31 @@
     
 //    dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     
-    NSLog(@"主线5");
+//    NSLog(@"主线5");
+}
+
+- (void)AFNRequest
+{
+    LyNetSetting *netSetting = [[LyNetSetting alloc] init];
+    netSetting.isCtrlHub = YES;
+    netSetting.cachePolicy = LyCacheNormal;
+    netSetting.isEncrypt = NO;
+    netSetting.baseUrl = @"http://182.254.228.211:9000";
+    HttpNetWork *tool = [HttpNetWork sharkNetWorkWithNetSetting:netSetting];
+    
+    [tool post:@"/index.php/Api/Circle/getLabel" token:nil parameters:@{@"uid" : @"1"} success:^(id resquestData) {
+        
+        NSLog(@"success1   %@",resquestData);
+        
+    } failure:^(NSError *error) {
+        NSLog(@"error1 %@",error);
+    }];
+    
+    [tool post:@"http://182.254.228.211:9000/index.php/Api/Circle/messageList" parameters:@{@"uid" : @"1" , @"p" : @"1"} success:^(id resquestData) {
+        NSLog(@"success2   %@",resquestData);
+    } failure:^(NSError *error) {
+        NSLog(@"error2 %@",error);
+    }];
 }
 
 //多个请求的正确操作，注意：不过前面请求不是顺序的

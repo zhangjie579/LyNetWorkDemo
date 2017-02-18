@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "YTKNetworkConfig.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [self setupBaseNetWork];
+    
+    self.window = [[UIWindow alloc] init];
+    self.window.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[ViewController alloc] init] ];
+    [self.window makeKeyAndVisible];
     
     return YES;
 }

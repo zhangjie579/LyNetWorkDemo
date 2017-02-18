@@ -8,57 +8,106 @@
 
 #import "HttpNetWork.h"
 #import "AFNetworking.h"
+#import <CommonCrypto/CommonDigest.h>
+#import "LyNetWorkTaskError.h"
+#import "MBProgressHUD+Ly.h"
 
 @interface HttpNetWork ()
+
+@property(nonatomic,strong)AFHTTPSessionManager *manager;
 
 @end
 
 @implementation HttpNetWork
 
-+ (instancetype)sharkNetWork
++ (instancetype)sharkNetWorkWithNetSetting:(LyNetSetting *)netSetting
 {
     static HttpNetWork *manage = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        manage = [[self alloc] init];
+        manage = [[self alloc] initWithNetSetting:netSetting];
     });
     return manage;
 }
 
-- (instancetype)init
++ (instancetype)sharkNetWork
 {
-    if (self = [super init]) {
+    LyNetSetting *netSetting = [[LyNetSetting alloc] init];
+    netSetting.isCtrlHub = NO;
+    netSetting.cachePolicy = LyCacheNormal;
+    netSetting.isEncrypt = NO;
+    netSetting.baseUrl = nil;
     
+    return [HttpNetWork sharkNetWorkWithNetSetting:netSetting];
+}
+
+- (instancetype)initWithNetSetting:(LyNetSetting *)netSetting
+{
+    if (self = [super init])
+    {
+        self.netSetting = netSetting;
+        
+        self.manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:netSetting.baseUrl]];
+        
+        /**设置请求超时时间*/
+        
+        self.manager.requestSerializer.timeoutInterval = 3;
+        
+        /**设置相应的缓存策略*/
+        /*
+         NSURLRequestReloadIgnoringLocalCacheData = 1, URL应该加载源端数据，不使用本地缓存数据
+         　　NSURLRequestReloadIgnoringLocalAndRemoteCacheData =4, 本地缓存数据、代理和其他中介都要忽视他们的缓存，直接加载源数据
+         　　NSURLRequestReloadIgnoringCacheData = NSURLRequestReloadIgnoringLocalCacheData, 两个的设置相同
+         　　NSURLRequestReturnCacheDataElseLoad = 2, 指定已存的缓存数据应该用来响应请求，不管它的生命时长和过期时间。如果在缓存中没有已存数据来响应请求的话，数据从源端加载。
+         　　NSURLRequestReturnCacheDataDontLoad = 3, 指定已存的缓存数据用来满足请求，不管生命时长和过期时间。如果在缓存中没有已存数据来响应URL加载请求的话，不去尝试从源段加载数据，此时认为加载请求失败。这个常量指定了一个类似于离线模式的行为
+         　　NSURLRequestReloadRevalidatingCacheData = 5 指定如果已存的缓存数据被提供它的源段确认为有效则允许使用缓存数据响应请求，否则从源段加载数据
+         */
+        self.manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+        
+        
+        /**分别设置请求以及相应的序列化器*/
+        self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        
+        AFJSONResponseSerializer * response = [AFJSONResponseSerializer serializer];
+        
+        response.removesKeysWithNullValues = YES;
+        
+        self.manager.responseSerializer = response;
+        
+        /**复杂的参数类型 需要使用json传值-设置请求内容的类型*/
+        
+        //        [self.manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        /**设置接受的类型*/
+        //接收类型不一致请替换一致text/html或别的
+        self.manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+                                                                  @"text/html",
+                                                                  @"image/jpeg",
+                                                                  @"image/png",
+                                                                  @"application/octet-stream",
+                                                                  @"text/json",
+                                                                  @"text/javascript",
+                                                                  nil];
     }
     return self;
 }
 
 - (void)get:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     //设置http请求头
     if (![self isBlankString:token])
     {
-        [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+        [self.manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     }
     
-    /**设置接受的类型*/
-    //接收类型不一致请替换一致text/html或别的
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
-                                                         @"text/html",
-                                                         @"image/jpeg",
-                                                         @"image/png",
-                                                         @"application/octet-stream",
-                                                         @"text/json",
-                                                         @"text/javascript",
-                                                         nil];
     id param = parameters;
     if (param == nil) {
         param = @"";
     }
     
-    [manager GET:url parameters:param progress:^(NSProgress * _Nonnull downloadProgress) {
+    [self.manager GET:url parameters:param progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
@@ -68,7 +117,7 @@
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {
-            failure(error);
+            failure([self formatError:error]);
         }
     }];
 }
@@ -85,40 +134,54 @@
 
 - (void)post:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
     //设置http请求头
     if (![self isBlankString:token])
     {
-        [manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
+        [self.manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     }
     
-    /**设置接受的类型*/
-    //接收类型不一致请替换一致text/html或别的
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
-                                                         @"text/html",
-                                                         @"image/jpeg",
-                                                         @"image/png",
-                                                         @"application/octet-stream",
-                                                         @"text/json",
-                                                         @"text/javascript",
-                                                         nil];
+//    /**设置接受的类型*/
+//    //接收类型不一致请替换一致text/html或别的
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+//                                                         @"text/html",
+//                                                         @"image/jpeg",
+//                                                         @"image/png",
+//                                                         @"application/octet-stream",
+//                                                         @"text/json",
+//                                                         @"text/javascript",
+//                                                         nil];
     id param = parameters;
     if (param == nil) {
         param = @"";
     }
     
-    [manager POST:url parameters:param progress:^(NSProgress * _Nonnull downloadProgress) {
+    if (self.netSetting.isCtrlHub)
+    {
+        [MBProgressHUD showHUDAddedTo:[self topViewController].view animated:YES];
+    }
+    
+    [self.manager POST:url parameters:param progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        
+        if (self.netSetting.isCtrlHub)
+        {
+//            [MBProgressHUD hideHUDForView:[self topViewController].view animated:YES];
+            [MBProgressHUD hideAllHUDsForView:[self topViewController].view animated:YES];
+        }
         if (success) {
             success(responseObject);
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        if (self.netSetting.isCtrlHub)
+        {
+//            [MBProgressHUD hideHUDForView:[self topViewController].view animated:YES];
+            [MBProgressHUD hideAllHUDsForView:[self topViewController].view animated:YES];
+        }
         if (failure) {
-            failure(error);
+            failure([self formatError:error]);
         }
     }];
 }
@@ -144,26 +207,9 @@
  */
 - (void)getType:(HttpNetWorkType )type parameters:(NSDictionary *)parameters urlString:(NSString *)urlString success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    //设置http请求头
-    //    manager.requestSerializer.HTTPRequestHeaders
-    //    [manager.requestSerializer setValue:@"" forHTTPHeaderField:@"token"];
-    
-    /**设置接受的类型*/
-    //接收类型不一致请替换一致text/html或别的
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
-                                                         @"text/html",
-                                                         @"image/jpeg",
-                                                         @"image/png",
-                                                         @"application/octet-stream",
-                                                         @"text/json",
-                                                         @"text/javascript",
-                                                         nil];
-    
     if (type == HttpNetWorkTypePost)
     {
-        [manager POST:urlString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
+        [self.manager POST:urlString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
             
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             
@@ -173,13 +219,13 @@
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             if (failure) {
-                failure(error);
+                failure([self formatError:error]);
             }
         }];
     }
     else
     {
-        [manager GET:urlString parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
+        [self.manager GET:urlString parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
 
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             if (success) {
@@ -187,7 +233,7 @@
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             if (failure) {
-                failure(error);
+                failure([self formatError:error]);
             }
         }];
     }
@@ -205,24 +251,24 @@
  */
 - (void)uploadWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters imageArray:(NSArray *)imageArray success:(void (^)(id))success failure:(void (^)(NSError *))failure progress:(void(^)(float progress))progress
 {
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
-    /**设置接受的类型*/
-    //接收类型不一致请替换一致text/html或别的
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
-                                                         @"text/html",
-                                                         @"image/jpeg",
-                                                         @"image/png",
-                                                         @"application/octet-stream",
-                                                         @"text/json",
-                                                         @"text/javascript",
-                                                         nil];
+//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+//    
+//    /**设置接受的类型*/
+//    //接收类型不一致请替换一致text/html或别的
+//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+//                                                         @"text/html",
+//                                                         @"image/jpeg",
+//                                                         @"image/png",
+//                                                         @"application/octet-stream",
+//                                                         @"text/json",
+//                                                         @"text/javascript",
+//                                                         nil];
     
     //设置http请求头
 //    manager.requestSerializer.HTTPRequestHeaders
 //    [manager.requestSerializer setValue:@"" forHTTPHeaderField:@"token"];
     
-    [manager POST:urlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [self.manager POST:urlString parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         for (NSInteger i = 0; i < imageArray.count; i++)
         {
             UIImage *image = imageArray[i];
@@ -246,9 +292,88 @@
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         if (failure) {
-            failure(error);
+            failure([self formatError:error]);
         }
     }];
+}
+
+///**
+// 拼接url
+// 
+// @param path 请求的url
+// @param useHttps 是否为https
+// @return url
+// */
+//- (NSString *)urlStringWithPath:(NSString *)path useHttps:(BOOL)useHttps {
+//    
+//    if ([path hasPrefix:@"http"])
+//    {
+//        return path;
+//    }
+//    else
+//    {
+//        
+//        NSString *baseUrlString = @"";
+//        if (![self isBlankString:self.baseUrl])
+//        {
+//            baseUrlString = self.baseUrl;
+//        }
+//        
+//        if (useHttps && baseUrlString.length > 4)
+//        {
+//            
+//            NSMutableString *mString = [NSMutableString stringWithString:baseUrlString];
+//            [mString insertString:@"s" atIndex:4];
+//            baseUrlString = [mString copy];
+//        }
+//        return [NSString stringWithFormat:@"%@%@", baseUrlString, path];
+//    }
+//}
+
+#pragma mark -   取消指定的url请求/
+/**
+ *  取消指定的url请求
+ *
+ *  @param requestType 该请求的请求类型
+ *  @param string      该请求的完整url
+ */
+- (void)cancelHttpRequestWithRequestType:(NSString *)requestType requestUrlString:(NSString *)string
+{
+    NSError * error;
+    
+    /**根据请求的类型 以及 请求的url创建一个NSMutableURLRequest---通过该url去匹配请求队列中是否有该url,如果有的话 那么就取消该请求*/
+    
+    NSString * urlToPeCanced = [[[self.manager.requestSerializer requestWithMethod:requestType URLString:string parameters:nil error:&error] URL] path];
+    
+    
+    for (NSOperation * operation in self.manager.operationQueue.operations) {
+        
+        //如果是请求队列
+        if ([operation isKindOfClass:[NSURLSessionTask class]]) {
+            
+            //请求的类型匹配
+            BOOL hasMatchRequestType = [requestType isEqualToString:[[(NSURLSessionTask *)operation currentRequest] HTTPMethod]];
+            
+            //请求的url匹配
+            BOOL hasMatchRequestUrlString = [urlToPeCanced isEqualToString:[[[(NSURLSessionTask *)operation currentRequest] URL] path]];
+            
+            //两项都匹配的话  取消该请求
+            if (hasMatchRequestType && hasMatchRequestUrlString) {
+                
+                [operation cancel];
+                
+            }
+        }
+        
+    }
+
+}
+
+- (void)cancelAllRequest
+{
+    
+    [self.manager.operationQueue cancelAllOperations];
+    
 }
 
 #pragma mark - 检测网络连接
@@ -284,6 +409,78 @@
             }
         }
     }];
+}
+
+#pragma mark - Utils
+//判断错误的状态
+- (NSError *)formatError:(NSError *)error {
+    
+    if (error != nil) {
+        switch (error.code) {
+            case NSURLErrorCancelled: {
+                error = LyError(LyDefaultErrorNotice, LyNetworkTaskErrorCanceled);
+            }   break;
+                
+            case NSURLErrorTimedOut: {
+                error = LyError(LyTimeoutErrorNotice, LyNetworkTaskErrorTimeOut);
+                break;
+            }
+                
+            case NSURLErrorCannotFindHost:
+            case NSURLErrorCannotConnectToHost:
+            case NSURLErrorNotConnectedToInternet:{
+                error = LyError(LyNetworkErrorNotice, LyNetworkTaskErrorCannotConnectedToInternet);
+                break;
+            }
+            case NSURLErrorUnsupportedURL: {
+                error = LyError(LyErrorUnsupportedURL, LyNetworkTaskErrorUnsupportedURL);
+                break;
+            }
+            default: {
+                error = LyError(LyNoDataErrorNotice, LyNetworkTaskErrorDefault);
+            }   break;
+        }
+    }
+    return error;
+}
+
+//加密
+- (NSString *)md5WithString:(NSString *)string {
+    const char *cStr = [string UTF8String];
+    unsigned char result[16];
+    CC_MD5(cStr, (CC_LONG)strlen(cStr), result);
+    //    CC_MD5( cStr, strlen(cStr), result );
+    return [[[NSString alloc] initWithFormat:
+             @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
+             result[0], result[1], result[2], result[3],
+             result[4], result[5], result[6], result[7],
+             result[8], result[9], result[10], result[11],
+             result[12], result[13], result[14], result[15]
+             ] lowercaseString];
+}
+
+- (UIViewController*)topViewController
+{
+    return [self topViewControllerWithRootViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+}
+
+- (UIViewController*)topViewControllerWithRootViewController:(UIViewController*)rootViewController
+{
+    if ([rootViewController isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabBarController = (UITabBarController *)rootViewController;
+        return [self topViewControllerWithRootViewController:tabBarController.selectedViewController];
+    }
+    else if ([rootViewController isKindOfClass:[UINavigationController class]]) {
+        UINavigationController* navigationController = (UINavigationController*)rootViewController;
+        return [self topViewControllerWithRootViewController:navigationController.visibleViewController];
+    }
+    else if (rootViewController.presentedViewController) {
+        UIViewController* presentedViewController = rootViewController.presentedViewController;
+        return [self topViewControllerWithRootViewController:presentedViewController];
+    }
+    else {
+        return rootViewController;
+    }
 }
 
 //判断某字符串是否为空

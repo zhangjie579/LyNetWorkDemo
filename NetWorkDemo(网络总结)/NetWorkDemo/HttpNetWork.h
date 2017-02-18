@@ -11,10 +11,15 @@ typedef enum {
 }HttpNetWorkType;
 
 #import <Foundation/Foundation.h>
+#import "LyNetSetting.h"
 
 @interface HttpNetWork : NSObject
 
 + (instancetype)sharkNetWork;
++ (instancetype)sharkNetWorkWithNetSetting:(LyNetSetting *)netSetting;
+
+@property(nonatomic,strong)LyNetSetting *netSetting;
+
 
 /**
  *  发送请求

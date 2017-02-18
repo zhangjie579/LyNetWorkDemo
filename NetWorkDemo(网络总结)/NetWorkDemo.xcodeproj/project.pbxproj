@@ -29,6 +29,9 @@
 		2F7CFDD61E4C17CD00D7A19F /* NSDictionary+log.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7CFDD51E4C17CD00D7A19F /* NSDictionary+log.m */; };
 		2F7CFDD91E4C18F400D7A19F /* NSArray+log.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7CFDD81E4C18F400D7A19F /* NSArray+log.m */; };
 		2FAF98881E514D7000A9CE09 /* NSString+Lybase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF98871E514D7000A9CE09 /* NSString+Lybase64.m */; };
+		2FFF32861E57DD6900DE1885 /* LyConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32851E57DD6900DE1885 /* LyConfiguration.m */; };
+		2FFF32891E57DE6700DE1885 /* LyNetSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32881E57DE6700DE1885 /* LyNetSetting.m */; };
+		2FFF32911E57EA8300DE1885 /* MBProgressHUD+Ly.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32901E57EA8300DE1885 /* MBProgressHUD+Ly.m */; };
 		7DEA2B5391F47881C007F938 /* Pods_NetWorkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E5DE4D4774122EDD0FE4DF /* Pods_NetWorkDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +97,13 @@
 		2F7CFDD81E4C18F400D7A19F /* NSArray+log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+log.m"; sourceTree = "<group>"; };
 		2FAF98861E514D7000A9CE09 /* NSString+Lybase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Lybase64.h"; sourceTree = "<group>"; };
 		2FAF98871E514D7000A9CE09 /* NSString+Lybase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Lybase64.m"; sourceTree = "<group>"; };
+		2FFF32841E57DD6900DE1885 /* LyConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyConfiguration.h; sourceTree = "<group>"; };
+		2FFF32851E57DD6900DE1885 /* LyConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyConfiguration.m; sourceTree = "<group>"; };
+		2FFF32871E57DE6700DE1885 /* LyNetSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetSetting.h; sourceTree = "<group>"; };
+		2FFF32881E57DE6700DE1885 /* LyNetSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyNetSetting.m; sourceTree = "<group>"; };
+		2FFF328D1E57E56500DE1885 /* LyNetWorkTaskError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetWorkTaskError.h; sourceTree = "<group>"; };
+		2FFF328F1E57EA8300DE1885 /* MBProgressHUD+Ly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Ly.h"; sourceTree = "<group>"; };
+		2FFF32901E57EA8300DE1885 /* MBProgressHUD+Ly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Ly.m"; sourceTree = "<group>"; };
 		38E36D5F94E7D8DB68B6C815 /* Pods-NetWorkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetWorkDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetWorkDemo/Pods-NetWorkDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		46E5DE4D4774122EDD0FE4DF /* Pods_NetWorkDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetWorkDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EBB150BB0E6F596679C1E35 /* Pods-NetWorkDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetWorkDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetWorkDemo/Pods-NetWorkDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -168,6 +178,7 @@
 		2F616A851E3231F000F606DD /* NetWorkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				2FFF328E1E57EA6700DE1885 /* 提示框 */,
 				2FAF98851E514D3700A9CE09 /* 加密 */,
 				2F7CFDDC1E4C7A0100D7A19F /* 格式化输出 */,
 				2F7CFDD31E4C0B0600D7A19F /* json与dict互转 */,
@@ -258,6 +269,11 @@
 			children = (
 				2F616AC71E32420B00F606DD /* HttpNetWork.h */,
 				2F616AC81E32420B00F606DD /* HttpNetWork.m */,
+				2FFF32841E57DD6900DE1885 /* LyConfiguration.h */,
+				2FFF32851E57DD6900DE1885 /* LyConfiguration.m */,
+				2FFF32871E57DE6700DE1885 /* LyNetSetting.h */,
+				2FFF32881E57DE6700DE1885 /* LyNetSetting.m */,
+				2FFF328D1E57E56500DE1885 /* LyNetWorkTaskError.h */,
 			);
 			name = "AFN封装";
 			sourceTree = "<group>";
@@ -311,6 +327,15 @@
 				2FAF98871E514D7000A9CE09 /* NSString+Lybase64.m */,
 			);
 			name = "加密";
+			sourceTree = "<group>";
+		};
+		2FFF328E1E57EA6700DE1885 /* 提示框 */ = {
+			isa = PBXGroup;
+			children = (
+				2FFF328F1E57EA8300DE1885 /* MBProgressHUD+Ly.h */,
+				2FFF32901E57EA8300DE1885 /* MBProgressHUD+Ly.m */,
+			);
+			name = "提示框";
 			sourceTree = "<group>";
 		};
 		C221D9359F547D8F7FD2267B /* Frameworks */ = {
@@ -519,8 +544,11 @@
 				2F616A8E1E3231F000F606DD /* ViewController.m in Sources */,
 				2F616AC11E32356F00F606DD /* LoginApi.m in Sources */,
 				2F616AC51E32361B00F606DD /* MyUserInfoUploadImageApi.m in Sources */,
+				2FFF32861E57DD6900DE1885 /* LyConfiguration.m in Sources */,
+				2FFF32911E57EA8300DE1885 /* MBProgressHUD+Ly.m in Sources */,
 				2F7CFDD91E4C18F400D7A19F /* NSArray+log.m in Sources */,
 				2FAF98881E514D7000A9CE09 /* NSString+Lybase64.m in Sources */,
+				2FFF32891E57DE6700DE1885 /* LyNetSetting.m in Sources */,
 				2F616A8B1E3231F000F606DD /* AppDelegate.m in Sources */,
 				2F616AD11E32432000F606DD /* LyViewController.m in Sources */,
 				2F616A881E3231F000F606DD /* main.m in Sources */,

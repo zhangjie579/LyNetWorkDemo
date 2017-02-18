@@ -13,8 +13,9 @@
 #import "YTKBatchRequest.h"
 #import "LYURLSession.h"
 #import "LyJsonTool.h"
-#import "HttpNetWork.h"
+#import "LyHttpNetWork.h"
 #import "LyNetSetting.h"
+#import "ZJViewController.h"
 
 @interface ViewController ()
 
@@ -155,6 +156,14 @@
 //    NSLog(@"主线5");
 }
 
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [super touchesBegan:touches withEvent:event];
+    
+    ZJViewController *vc = [[ZJViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)AFNRequest
 {
     LyNetSetting *netSetting = [[LyNetSetting alloc] init];
@@ -162,7 +171,7 @@
     netSetting.cachePolicy = LyCacheNormal;
     netSetting.isEncrypt = NO;
     netSetting.baseUrl = @"http://182.254.228.211:9000";
-    HttpNetWork *tool = [HttpNetWork sharkNetWorkWithNetSetting:netSetting];
+    LyHttpNetWork *tool = [LyHttpNetWork sharkNetWorkWithNetSetting:netSetting];
     
     [tool post:@"/index.php/Api/Circle/getLabel" token:nil parameters:@{@"uid" : @"1"} success:^(id resquestData) {
         
@@ -177,6 +186,9 @@
     } failure:^(NSError *error) {
         NSLog(@"error2 %@",error);
     }];
+    
+    [tool cancelHttpRequestWithRequestType:@"POST" requestUrlString:@"http://182.254.228.211:9000/index.php/Api/Circle/messageList"];
+//    [tool cancelAllRequest];
 }
 
 //多个请求的正确操作，注意：不过前面请求不是顺序的

@@ -1,14 +1,13 @@
 //
-//  LyNetSetting.m
+//  ZJViewController.h
 //  NetWorkDemo
 //
 //  Created by 张杰 on 2017/2/18.
 //  Copyright © 2017年 张杰. All rights reserved.
 //
 
-#import "LyNetSetting.h"
+#import <UIKit/UIKit.h>
 
-@implementation LyNetSetting
-
+@interface ZJViewController : UIViewController
 
 @end

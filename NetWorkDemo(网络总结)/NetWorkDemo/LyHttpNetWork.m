@@ -1,28 +1,29 @@
 //
-//  HttpNetWork.m
+//  LyHttpNetWork.m
 //  028
 //
 //  Created by bona on 16/10/19.
 //  Copyright © 2016年 bona. All rights reserved.
 //
 
-#import "HttpNetWork.h"
+#import "LyHttpNetWork.h"
 #import "AFNetworking.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "LyNetWorkTaskError.h"
 #import "MBProgressHUD+Ly.h"
 
-@interface HttpNetWork ()
+@interface LyHttpNetWork ()
 
 @property(nonatomic,strong)AFHTTPSessionManager *manager;
+@property(nonatomic,strong)NSMutableArray<NSURLSessionTask *> *array_task;
 
 @end
 
-@implementation HttpNetWork
+@implementation LyHttpNetWork
 
 + (instancetype)sharkNetWorkWithNetSetting:(LyNetSetting *)netSetting
 {
-    static HttpNetWork *manage = nil;
+    static LyHttpNetWork *manage = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         manage = [[self alloc] initWithNetSetting:netSetting];
@@ -38,7 +39,7 @@
     netSetting.isEncrypt = NO;
     netSetting.baseUrl = nil;
     
-    return [HttpNetWork sharkNetWorkWithNetSetting:netSetting];
+    return [LyHttpNetWork sharkNetWorkWithNetSetting:netSetting];
 }
 
 - (instancetype)initWithNetSetting:(LyNetSetting *)netSetting
@@ -92,10 +93,18 @@
     return self;
 }
 
+- (void)get:(NSString *)url parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
+{
+    [self get:url token:nil parameters:parameters success:success failure:failure];
+}
+
+- (void)get:(NSString *)url token:(NSString *)token success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
+{
+    [self get:url token:token parameters:nil success:success failure:failure];
+}
+
 - (void)get:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
 {
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
     //设置http请求头
     if (![self isBlankString:token])
     {
@@ -122,36 +131,24 @@
     }];
 }
 
-- (void)get:(NSString *)url parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
+- (void)post:(NSString *)url parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
 {
-    [self get:url token:nil parameters:parameters success:success failure:failure];
+    [self post:url token:nil parameters:parameters success:success failure:failure];
 }
 
-- (void)get:(NSString *)url token:(NSString *)token success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
+- (void)post:(NSString *)url token:(NSString *)token success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
 {
-    [self get:url token:token parameters:nil success:success failure:failure];
+    [self post:url token:token parameters:nil success:success failure:failure];
 }
 
 - (void)post:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
 {
-//    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
     //设置http请求头
     if (![self isBlankString:token])
     {
         [self.manager.requestSerializer setValue:token forHTTPHeaderField:@"token"];
     }
     
-//    /**设置接受的类型*/
-//    //接收类型不一致请替换一致text/html或别的
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
-//                                                         @"text/html",
-//                                                         @"image/jpeg",
-//                                                         @"image/png",
-//                                                         @"application/octet-stream",
-//                                                         @"text/json",
-//                                                         @"text/javascript",
-//                                                         nil];
     id param = parameters;
     if (param == nil) {
         param = @"";
@@ -161,13 +158,20 @@
     {
         [MBProgressHUD showHUDAddedTo:[self topViewController].view animated:YES];
     }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     
-    [self.manager POST:url parameters:param progress:^(NSProgress * _Nonnull downloadProgress) {
+    NSURLSessionTask *task = [self.manager POST:url parameters:param progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        //不管请求成功失败，读要把请求从数组中移除
+        [self.array_task removeObject:task];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        //隐藏提示框
         if (self.netSetting.isCtrlHub)
         {
-//            [MBProgressHUD hideHUDForView:[self topViewController].view animated:YES];
+            //            [MBProgressHUD hideHUDForView:[self topViewController].view animated:YES];
             [MBProgressHUD hideAllHUDsForView:[self topViewController].view animated:YES];
         }
         if (success) {
@@ -175,25 +179,23 @@
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        
+        //不管请求成功失败，读要把请求从数组中移除
+        [self.array_task removeObject:task];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        //隐藏提示框
         if (self.netSetting.isCtrlHub)
         {
-//            [MBProgressHUD hideHUDForView:[self topViewController].view animated:YES];
+            //            [MBProgressHUD hideHUDForView:[self topViewController].view animated:YES];
             [MBProgressHUD hideAllHUDsForView:[self topViewController].view animated:YES];
         }
         if (failure) {
             failure([self formatError:error]);
         }
     }];
-}
-
-- (void)post:(NSString *)url parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
-{
-    [self post:url token:nil parameters:parameters success:success failure:failure];
-}
-
-- (void)post:(NSString *)url token:(NSString *)token success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
-{
-    [self post:url token:token parameters:nil success:success failure:failure];
+    
+    [self.array_task addObject:task];
 }
 
 /**
@@ -205,9 +207,9 @@
  *  @param success    成功时返回的数据
  *  @param failure    失败返回的数据
  */
-- (void)getType:(HttpNetWorkType )type parameters:(NSDictionary *)parameters urlString:(NSString *)urlString success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
+- (void)getType:(LyHttpNetWorkType )type parameters:(NSDictionary *)parameters urlString:(NSString *)urlString success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
 {
-    if (type == HttpNetWorkTypePost)
+    if (type == LyHttpNetWorkTypePost)
     {
         [self.manager POST:urlString parameters:parameters progress:^(NSProgress * _Nonnull uploadProgress) {
             
@@ -339,40 +341,42 @@
  */
 - (void)cancelHttpRequestWithRequestType:(NSString *)requestType requestUrlString:(NSString *)string
 {
-    NSError * error;
-    
-    /**根据请求的类型 以及 请求的url创建一个NSMutableURLRequest---通过该url去匹配请求队列中是否有该url,如果有的话 那么就取消该请求*/
-    
-    NSString * urlToPeCanced = [[[self.manager.requestSerializer requestWithMethod:requestType URLString:string parameters:nil error:&error] URL] path];
-    
-    
-    for (NSOperation * operation in self.manager.operationQueue.operations) {
+    for (NSInteger i = 0; i < self.array_task.count; i++)
+    {
+        NSURLSessionTask *task = self.array_task[i];
         
-        //如果是请求队列
-        if ([operation isKindOfClass:[NSURLSessionTask class]]) {
+        //请求方式
+        requestType = [requestType uppercaseString];
+        BOOL hasMatchRequestType = [requestType isEqualToString:[task currentRequest].HTTPMethod];
+        
+        //请求的url
+//        if ([string containsString:@"http"] && ![self isBlankString:self.netSetting.baseUrl])
+//        {
+//            string = [string substringFromIndex:self.netSetting.baseUrl.length];
+//        }
+        NSError *error;
+        NSString * urlToPeCanced = [[[self.manager.requestSerializer requestWithMethod:requestType URLString:string parameters:nil error:&error] URL] path];
+        
+        BOOL hasMatchRequestUrlString = [urlToPeCanced isEqualToString:[task currentRequest].URL.path];
+        
+        //两项都匹配的话  取消该请求
+        if (hasMatchRequestType && hasMatchRequestUrlString) {
             
-            //请求的类型匹配
-            BOOL hasMatchRequestType = [requestType isEqualToString:[[(NSURLSessionTask *)operation currentRequest] HTTPMethod]];
+            [task cancel];
             
-            //请求的url匹配
-            BOOL hasMatchRequestUrlString = [urlToPeCanced isEqualToString:[[[(NSURLSessionTask *)operation currentRequest] URL] path]];
-            
-            //两项都匹配的话  取消该请求
-            if (hasMatchRequestType && hasMatchRequestUrlString) {
-                
-                [operation cancel];
-                
-            }
         }
-        
     }
-
 }
 
+//取消全部请求
 - (void)cancelAllRequest
 {
-    
-    [self.manager.operationQueue cancelAllOperations];
+    for (NSInteger i = 0; i < self.array_task.count; i++)
+    {
+        NSURLSessionTask *task = self.array_task[i];
+        [task cancel];
+    }
+//    [self.manager.operationQueue cancelAllOperations];
     
 }
 
@@ -499,6 +503,14 @@
         return YES;
     }
     return NO;
+}
+
+- (NSMutableArray<NSURLSessionTask *> *)array_task
+{
+    if (!_array_task) {
+        _array_task = [[NSMutableArray alloc] init];
+    }
+    return _array_task;
 }
 
 @end

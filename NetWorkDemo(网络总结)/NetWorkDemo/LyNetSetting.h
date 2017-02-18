@@ -4,7 +4,7 @@
 //
 //  Created by 张杰 on 2017/2/18.
 //  Copyright © 2017年 张杰. All rights reserved.
-//
+//  网络的一些设置
 
 #import <Foundation/Foundation.h>
 

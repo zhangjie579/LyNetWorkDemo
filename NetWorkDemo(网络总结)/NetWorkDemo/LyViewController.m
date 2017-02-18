@@ -8,7 +8,7 @@
 
 #import "LyViewController.h"
 #import "AFNetworking.h"
-#import "HttpNetWork.h"
+#import "LyHttpNetWork.h"
 #import "FMDB.h"
 #import "StatusModel.h"
 #import "MJExtension.h"
@@ -88,14 +88,14 @@
     }
     else
     {
-        HttpNetWork *http = [HttpNetWork sharkNetWork];
+        LyHttpNetWork *http = [LyHttpNetWork sharkNetWork];
         
         NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
         dict[@"uid"] = @"1";
         
         NSLog(@"%@",[self dictionaryToJson:dict]);
         
-        [http getType:HttpNetWorkTypePost parameters:dict urlString:@"http://182.254.228.211:9000/index.php/Api/ServiceContact/index" success:^(id resquestData) {
+        [http getType:LyHttpNetWorkTypePost parameters:dict urlString:@"http://182.254.228.211:9000/index.php/Api/ServiceContact/index" success:^(id resquestData) {
             
             if ([[resquestData[@"status"] description] isEqualToString:@"0"])
             {

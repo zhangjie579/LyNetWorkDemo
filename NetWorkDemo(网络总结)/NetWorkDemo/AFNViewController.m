@@ -7,7 +7,7 @@
 //
 
 #import "AFNViewController.h"
-#import "HttpNetWork.h"
+#import "LyHttpNetWork.h"
 #import "FMDB.h"
 #import "MJExtension.h"
 #import "MessageModel.h"
@@ -47,9 +47,9 @@
     }
     else
     {
-        HttpNetWork *tool = [HttpNetWork sharkNetWork];
+        LyHttpNetWork *tool = [LyHttpNetWork sharkNetWork];
         
-        [tool getType:HttpNetWorkTypePost parameters:@{@"uid":@"1"} urlString:@"http://182.254.228.211:9000/index.php/Api/Circle/messageList" success:^(id resquestData) {
+        [tool getType:LyHttpNetWorkTypePost parameters:@{@"uid":@"1"} urlString:@"http://182.254.228.211:9000/index.php/Api/Circle/messageList" success:^(id resquestData) {
             
             if ([[resquestData[@"status"] description] isEqualToString:@"0"])
             {

@@ -19,7 +19,7 @@
 		2F616ABE1E32345100F606DD /* CourseAddCommentApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616ABD1E32345100F606DD /* CourseAddCommentApi.m */; };
 		2F616AC11E32356F00F606DD /* LoginApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616AC01E32356F00F606DD /* LoginApi.m */; };
 		2F616AC51E32361B00F606DD /* MyUserInfoUploadImageApi.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616AC41E32361B00F606DD /* MyUserInfoUploadImageApi.m */; };
-		2F616AC91E32420B00F606DD /* HttpNetWork.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616AC81E32420B00F606DD /* HttpNetWork.m */; };
+		2F616AC91E32420B00F606DD /* LyHttpNetWork.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616AC81E32420B00F606DD /* LyHttpNetWork.m */; };
 		2F616ACE1E3242E000F606DD /* StatusModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616ACD1E3242E000F606DD /* StatusModel.m */; };
 		2F616AD11E32432000F606DD /* LyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616AD01E32432000F606DD /* LyViewController.m */; };
 		2F616AD41E3243A700F606DD /* CacheTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616AD31E3243A700F606DD /* CacheTool.m */; };
@@ -32,6 +32,13 @@
 		2FFF32861E57DD6900DE1885 /* LyConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32851E57DD6900DE1885 /* LyConfiguration.m */; };
 		2FFF32891E57DE6700DE1885 /* LyNetSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32881E57DE6700DE1885 /* LyNetSetting.m */; };
 		2FFF32911E57EA8300DE1885 /* MBProgressHUD+Ly.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32901E57EA8300DE1885 /* MBProgressHUD+Ly.m */; };
+		2FFF32971E582F6500DE1885 /* LyHttpNetWorkTaskGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32961E582F6500DE1885 /* LyHttpNetWorkTaskGroup.m */; };
+		2FFF329A1E58362600DE1885 /* LyURLRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32991E58362600DE1885 /* LyURLRequestManager.m */; };
+		2FFF329D1E58395000DE1885 /* LyUploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF329C1E58395000DE1885 /* LyUploadFile.m */; };
+		2FFF32A01E583EDC00DE1885 /* LyHttpNetWorkTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF329F1E583EDC00DE1885 /* LyHttpNetWorkTask.m */; };
+		2FFF32A31E5845D700DE1885 /* ZJViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32A21E5845D700DE1885 /* ZJViewController.m */; };
+		2FFF32A71E5847E000DE1885 /* LyHttpNetWorkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32A61E5847E000DE1885 /* LyHttpNetWorkManager.m */; };
+		2FFF32AB1E58506500DE1885 /* LyNetWorkReachTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32AA1E58506500DE1885 /* LyNetWorkReachTool.m */; };
 		7DEA2B5391F47881C007F938 /* Pods_NetWorkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E5DE4D4774122EDD0FE4DF /* Pods_NetWorkDemo.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,8 +84,8 @@
 		2F616AC01E32356F00F606DD /* LoginApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginApi.m; sourceTree = "<group>"; };
 		2F616AC31E32361B00F606DD /* MyUserInfoUploadImageApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyUserInfoUploadImageApi.h; sourceTree = "<group>"; };
 		2F616AC41E32361B00F606DD /* MyUserInfoUploadImageApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyUserInfoUploadImageApi.m; sourceTree = "<group>"; };
-		2F616AC71E32420B00F606DD /* HttpNetWork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HttpNetWork.h; sourceTree = "<group>"; };
-		2F616AC81E32420B00F606DD /* HttpNetWork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HttpNetWork.m; sourceTree = "<group>"; };
+		2F616AC71E32420B00F606DD /* LyHttpNetWork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyHttpNetWork.h; sourceTree = "<group>"; };
+		2F616AC81E32420B00F606DD /* LyHttpNetWork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyHttpNetWork.m; sourceTree = "<group>"; };
 		2F616ACC1E3242E000F606DD /* StatusModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusModel.h; sourceTree = "<group>"; };
 		2F616ACD1E3242E000F606DD /* StatusModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusModel.m; sourceTree = "<group>"; };
 		2F616ACF1E32432000F606DD /* LyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyViewController.h; sourceTree = "<group>"; };
@@ -104,6 +111,21 @@
 		2FFF328D1E57E56500DE1885 /* LyNetWorkTaskError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetWorkTaskError.h; sourceTree = "<group>"; };
 		2FFF328F1E57EA8300DE1885 /* MBProgressHUD+Ly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Ly.h"; sourceTree = "<group>"; };
 		2FFF32901E57EA8300DE1885 /* MBProgressHUD+Ly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Ly.m"; sourceTree = "<group>"; };
+		2FFF32951E582F6500DE1885 /* LyHttpNetWorkTaskGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyHttpNetWorkTaskGroup.h; sourceTree = "<group>"; };
+		2FFF32961E582F6500DE1885 /* LyHttpNetWorkTaskGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyHttpNetWorkTaskGroup.m; sourceTree = "<group>"; };
+		2FFF32981E58362600DE1885 /* LyURLRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyURLRequestManager.h; sourceTree = "<group>"; };
+		2FFF32991E58362600DE1885 /* LyURLRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyURLRequestManager.m; sourceTree = "<group>"; };
+		2FFF329B1E58395000DE1885 /* LyUploadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyUploadFile.h; sourceTree = "<group>"; };
+		2FFF329C1E58395000DE1885 /* LyUploadFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyUploadFile.m; sourceTree = "<group>"; };
+		2FFF329E1E583EDC00DE1885 /* LyHttpNetWorkTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyHttpNetWorkTask.h; sourceTree = "<group>"; };
+		2FFF329F1E583EDC00DE1885 /* LyHttpNetWorkTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyHttpNetWorkTask.m; sourceTree = "<group>"; };
+		2FFF32A11E5845D700DE1885 /* ZJViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZJViewController.h; sourceTree = "<group>"; };
+		2FFF32A21E5845D700DE1885 /* ZJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJViewController.m; sourceTree = "<group>"; };
+		2FFF32A51E5847E000DE1885 /* LyHttpNetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyHttpNetWorkManager.h; sourceTree = "<group>"; };
+		2FFF32A61E5847E000DE1885 /* LyHttpNetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyHttpNetWorkManager.m; sourceTree = "<group>"; };
+		2FFF32A81E58499100DE1885 /* HHNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHNetworkConfig.h; sourceTree = "<group>"; };
+		2FFF32A91E58506500DE1885 /* LyNetWorkReachTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetWorkReachTool.h; sourceTree = "<group>"; };
+		2FFF32AA1E58506500DE1885 /* LyNetWorkReachTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyNetWorkReachTool.m; sourceTree = "<group>"; };
 		38E36D5F94E7D8DB68B6C815 /* Pods-NetWorkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetWorkDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetWorkDemo/Pods-NetWorkDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		46E5DE4D4774122EDD0FE4DF /* Pods_NetWorkDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NetWorkDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EBB150BB0E6F596679C1E35 /* Pods-NetWorkDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetWorkDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-NetWorkDemo/Pods-NetWorkDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -178,6 +200,7 @@
 		2F616A851E3231F000F606DD /* NetWorkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				2FFF32A41E58476600DE1885 /* 封装AFN */,
 				2FFF328E1E57EA6700DE1885 /* 提示框 */,
 				2FAF98851E514D3700A9CE09 /* 加密 */,
 				2F7CFDDC1E4C7A0100D7A19F /* 格式化输出 */,
@@ -197,6 +220,8 @@
 				2F616A941E3231F000F606DD /* LaunchScreen.storyboard */,
 				2F616A971E3231F000F606DD /* Info.plist */,
 				2F616A861E3231F000F606DD /* Supporting Files */,
+				2FFF32A11E5845D700DE1885 /* ZJViewController.h */,
+				2FFF32A21E5845D700DE1885 /* ZJViewController.m */,
 			);
 			path = NetWorkDemo;
 			sourceTree = "<group>";
@@ -267,13 +292,12 @@
 		2F616AC61E3241F500F606DD /* AFN封装 */ = {
 			isa = PBXGroup;
 			children = (
-				2F616AC71E32420B00F606DD /* HttpNetWork.h */,
-				2F616AC81E32420B00F606DD /* HttpNetWork.m */,
+				2FFF32951E582F6500DE1885 /* LyHttpNetWorkTaskGroup.h */,
+				2FFF32961E582F6500DE1885 /* LyHttpNetWorkTaskGroup.m */,
+				2F616AC71E32420B00F606DD /* LyHttpNetWork.h */,
+				2F616AC81E32420B00F606DD /* LyHttpNetWork.m */,
 				2FFF32841E57DD6900DE1885 /* LyConfiguration.h */,
 				2FFF32851E57DD6900DE1885 /* LyConfiguration.m */,
-				2FFF32871E57DE6700DE1885 /* LyNetSetting.h */,
-				2FFF32881E57DE6700DE1885 /* LyNetSetting.m */,
-				2FFF328D1E57E56500DE1885 /* LyNetWorkTaskError.h */,
 			);
 			name = "AFN封装";
 			sourceTree = "<group>";
@@ -336,6 +360,27 @@
 				2FFF32901E57EA8300DE1885 /* MBProgressHUD+Ly.m */,
 			);
 			name = "提示框";
+			sourceTree = "<group>";
+		};
+		2FFF32A41E58476600DE1885 /* 封装AFN */ = {
+			isa = PBXGroup;
+			children = (
+				2FFF32871E57DE6700DE1885 /* LyNetSetting.h */,
+				2FFF32881E57DE6700DE1885 /* LyNetSetting.m */,
+				2FFF328D1E57E56500DE1885 /* LyNetWorkTaskError.h */,
+				2FFF329B1E58395000DE1885 /* LyUploadFile.h */,
+				2FFF329C1E58395000DE1885 /* LyUploadFile.m */,
+				2FFF32981E58362600DE1885 /* LyURLRequestManager.h */,
+				2FFF32991E58362600DE1885 /* LyURLRequestManager.m */,
+				2FFF32A81E58499100DE1885 /* HHNetworkConfig.h */,
+				2FFF32A91E58506500DE1885 /* LyNetWorkReachTool.h */,
+				2FFF32AA1E58506500DE1885 /* LyNetWorkReachTool.m */,
+				2FFF329E1E583EDC00DE1885 /* LyHttpNetWorkTask.h */,
+				2FFF329F1E583EDC00DE1885 /* LyHttpNetWorkTask.m */,
+				2FFF32A51E5847E000DE1885 /* LyHttpNetWorkManager.h */,
+				2FFF32A61E5847E000DE1885 /* LyHttpNetWorkManager.m */,
+			);
+			name = "封装AFN";
 			sourceTree = "<group>";
 		};
 		C221D9359F547D8F7FD2267B /* Frameworks */ = {
@@ -539,22 +584,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FFF32A01E583EDC00DE1885 /* LyHttpNetWorkTask.m in Sources */,
 				2F616AD41E3243A700F606DD /* CacheTool.m in Sources */,
 				2F616AD91E3243DD00F606DD /* AFNViewController.m in Sources */,
+				2FFF32AB1E58506500DE1885 /* LyNetWorkReachTool.m in Sources */,
 				2F616A8E1E3231F000F606DD /* ViewController.m in Sources */,
+				2FFF32A31E5845D700DE1885 /* ZJViewController.m in Sources */,
 				2F616AC11E32356F00F606DD /* LoginApi.m in Sources */,
 				2F616AC51E32361B00F606DD /* MyUserInfoUploadImageApi.m in Sources */,
 				2FFF32861E57DD6900DE1885 /* LyConfiguration.m in Sources */,
 				2FFF32911E57EA8300DE1885 /* MBProgressHUD+Ly.m in Sources */,
+				2FFF329D1E58395000DE1885 /* LyUploadFile.m in Sources */,
 				2F7CFDD91E4C18F400D7A19F /* NSArray+log.m in Sources */,
+				2FFF329A1E58362600DE1885 /* LyURLRequestManager.m in Sources */,
 				2FAF98881E514D7000A9CE09 /* NSString+Lybase64.m in Sources */,
 				2FFF32891E57DE6700DE1885 /* LyNetSetting.m in Sources */,
 				2F616A8B1E3231F000F606DD /* AppDelegate.m in Sources */,
 				2F616AD11E32432000F606DD /* LyViewController.m in Sources */,
+				2FFF32971E582F6500DE1885 /* LyHttpNetWorkTaskGroup.m in Sources */,
 				2F616A881E3231F000F606DD /* main.m in Sources */,
 				2F7CFDD61E4C17CD00D7A19F /* NSDictionary+log.m in Sources */,
+				2FFF32A71E5847E000DE1885 /* LyHttpNetWorkManager.m in Sources */,
 				2F616ACE1E3242E000F606DD /* StatusModel.m in Sources */,
-				2F616AC91E32420B00F606DD /* HttpNetWork.m in Sources */,
+				2F616AC91E32420B00F606DD /* LyHttpNetWork.m in Sources */,
 				2F3DEF0C1E32F56200B61047 /* LYURLSession.m in Sources */,
 				2F616ABE1E32345100F606DD /* CourseAddCommentApi.m in Sources */,
 				2F7CFDD21E4C086300D7A19F /* LyJsonTool.m in Sources */,

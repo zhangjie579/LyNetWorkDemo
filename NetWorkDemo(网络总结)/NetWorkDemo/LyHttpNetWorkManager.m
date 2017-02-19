@@ -8,9 +8,10 @@
 
 #import "LyHttpNetWorkManager.h"
 #import "LyHttpNetWorkTask.h"
-#import "HHNetworkConfig.h"
+#import "LyNetworkConfig.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "MBProgressHUD+Ly.h"
+#import "LyNetworkCacheManager.h"
 
 @implementation LyHttpNetWorkManager
 
@@ -106,8 +107,48 @@
 
 - (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString heard:(NSDictionary *)heard parameters:(NSDictionary *)parameters success:(void (^)(id resquestData))success failure:(void (^)(NSError *error))failure
 {
+    //0.处理urlString
     urlString = [self settingWithUrlString:urlString];
+    
+    //1.缓存
+    NSString *cacheKey;
+    
+    NSMutableString *mString = [[NSMutableString alloc] initWithString:urlString];
+    
+    [heard enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [mString appendFormat:@"&%@=%@",key, obj];
+    }];
+    
+    [parameters enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [mString appendFormat:@"&%@=%@",key, obj];
+    }];
+    
+    //加密
+    cacheKey = [self md5WithString:[mString copy]];
+    
+    //取出缓存
+    LyNetworkCacheManager *cacheTool = [LyNetworkCacheManager sharedManager];
+    
+    if (self.settingNetWork != nil && self.settingNetWork.isCache)
+    {
+        LyNetworkCache *cache = [cacheTool objcetForKey:cacheKey];
+        
+        //判断缓存是否存在
+        if (!cache.isValid)
+        {
+            [cacheTool removeObejectForKey:cacheKey];
+        }
+        else//存在
+        {
+            if (success) {
+                success(cache.data);
+            }
+            return;
+        }
+        
+    }
 
+    //2.处理网络请求
     if (method == LyHttpNetWorkTaskMethodGet)//get
     {
         [[LyHttpNetWorkTask sharkNetWork] get:urlString heard:heard parameters:parameters success:^(id requestData) {
@@ -119,6 +160,9 @@
             if (success) {
                 success(requestData);
             }
+            
+            //缓存
+            [self cacheDataWithKey:cacheKey requestData:requestData];
             
         } failure:^(NSError *error) {
             if (self.settingNetWork != nil && self.settingNetWork.isCtrlHub)
@@ -142,6 +186,9 @@
                 success(requestData);
             }
             
+            //缓存
+            [self cacheDataWithKey:cacheKey requestData:requestData];
+            
         } failure:^(NSError *error) {
             if (self.settingNetWork != nil && self.settingNetWork.isCtrlHub)
             {
@@ -151,6 +198,22 @@
                 failure(error);
             }
         }];
+    }
+}
+
+/**
+ 缓存数据
+
+ @param cacheKey 缓存的key
+ @param requestData 数据
+ */
+- (void)cacheDataWithKey:(NSString *)cacheKey requestData:(id)requestData
+{
+    //缓存
+    if (self.settingNetWork != nil && self.settingNetWork.isCache && self.settingNetWork.cacheValidTimeInterval > 0)
+    {
+        LyNetworkCache *cache = [LyNetworkCache cacheWithData:requestData validTimeInterval:self.settingNetWork.cacheValidTimeInterval];
+        [[LyNetworkCacheManager sharedManager] setObjcet:cache forKey:cacheKey];
     }
 }
 

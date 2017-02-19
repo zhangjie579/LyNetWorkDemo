@@ -11,7 +11,8 @@
 #import "LyURLRequestManager.h"
 #import "LyNetWorkTaskError.h"
 #import <CommonCrypto/CommonDigest.h>
-#import "HHNetworkConfig.h"
+#import "LyNetworkConfig.h"
+#import "LyNetWorkReachTool.h"
 
 @interface LyHttpNetWorkTask ()
 
@@ -20,6 +21,7 @@
 
 @end
 
+//static dispatch_semaphore_t lock;
 @implementation LyHttpNetWorkTask
 
 + (instancetype)sharkNetWork
@@ -27,6 +29,7 @@
     static LyHttpNetWorkTask *tool = nil;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
+//        lock = dispatch_semaphore_create(1);
         tool = [[self alloc] init];
     });
     return tool;
@@ -163,6 +166,15 @@
 
 - (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString heard:(NSDictionary *)heard parameters:(NSDictionary *)parameters success:(void (^)(id requestData))success failure:(void (^)(NSError *error))failure
 {
+//    //1.先判断网络是否可用
+//    LyNetWorkReachTool *tool = [LyNetWorkReachTool sharedInstance];
+//    if (!tool.isReachable) {
+//        if (failure) {
+//            NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSURLErrorCannotConnectToHost userInfo:nil];
+//            failure([self formatError:error]);
+//        }
+//    }
+    
     LyURLRequestManager *requestTool = [LyURLRequestManager shareTool];
     NSMutableURLRequest *request = nil;
     if (method == LyHttpNetWorkTaskMethodGet)
@@ -180,7 +192,9 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         });
+//        dispatch_semaphore_wait(lock, DISPATCH_TIME_FOREVER);
         [self.loadingTaskArray removeObject:task];
+//        dispatch_semaphore_signal(lock);
         if (error)
         {
             if (failure) {
@@ -189,7 +203,9 @@
         }
         else
         {
-            success(responseObject);
+            if (success) {
+                success(responseObject);
+            }
         }
         
     }];
@@ -203,12 +219,12 @@
  *  @param urlString  urlString地址
  *  @param header     请求头
  *  @param parameters 请求参数
- *  @param imageArray 图片数组
+ *  @param imageArray LyUploadFile数组
  *  @param success    成功时返回的数据
  *  @param failure    失败返回的数据
  *  @param progress   上传进程
  */
-- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters imageArray:(NSArray *)imageArray success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
+- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters imageArray:(NSArray<LyUploadFile *> *)imageArray success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
 {
     NSMutableURLRequest *request = [[LyURLRequestManager shareTool] uploadRequestUrlPath:urlString method:@"POST" params:parameters contents:imageArray header:header];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;

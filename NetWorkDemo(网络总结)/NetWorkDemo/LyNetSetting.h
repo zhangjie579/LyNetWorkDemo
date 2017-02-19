@@ -22,6 +22,12 @@ typedef NS_ENUM(int, LyCacheTime) {
 //加载动画控制方式，yes表示由调用的控制器控制，NO表示有AFNetWork类控制
 @property (nonatomic,assign) BOOL isCtrlHub;
 
+//是否缓存
+@property (nonatomic,assign) BOOL isCache;
+
+//缓存时长
+@property (nonatomic,assign) NSTimeInterval cacheValidTimeInterval;
+
 //缓存的策略
 @property (nonatomic,assign) LyCacheTime cachePolicy;
 

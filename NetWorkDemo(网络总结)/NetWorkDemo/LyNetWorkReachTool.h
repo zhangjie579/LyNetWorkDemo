@@ -7,7 +7,7 @@
 //  判断网络的状态
 
 #import <Foundation/Foundation.h>
-#import "HHNetworkConfig.h"
+#import "LyNetworkConfig.h"
 
 @interface LyNetWorkReachTool : NSObject
 

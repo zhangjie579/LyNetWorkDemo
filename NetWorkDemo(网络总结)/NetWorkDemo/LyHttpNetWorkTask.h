@@ -7,7 +7,7 @@
 //  最底层的请求封装
 
 #import <Foundation/Foundation.h>
-//#import "LyNetSetting.h"
+#import "LyUploadFile.h"
 
 @interface LyHttpNetWorkTask : NSObject
 
@@ -85,12 +85,12 @@
  *  @param urlString  urlString地址
  *  @param header     请求头
  *  @param parameters 请求参数
- *  @param imageArray 图片数组
+ *  @param imageArray LyUploadFile数组
  *  @param success    成功时返回的数据
  *  @param failure    失败返回的数据
  *  @param progress   上传进程
  */
-- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters imageArray:(NSArray *)imageArray success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
+- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters imageArray:(NSArray<LyUploadFile *> *)imageArray success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
 
 #pragma mark - 取消请求
 //取消全部请求

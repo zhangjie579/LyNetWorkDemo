@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F2704261E5942BC003FD45E /* LyNetworkCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2704251E5942BC003FD45E /* LyNetworkCacheManager.m */; };
 		2F3DEF0C1E32F56200B61047 /* LYURLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3DEF0B1E32F56200B61047 /* LYURLSession.m */; };
 		2F616A881E3231F000F606DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616A871E3231F000F606DD /* main.m */; };
 		2F616A8B1E3231F000F606DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616A8A1E3231F000F606DD /* AppDelegate.m */; };
@@ -60,6 +61,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F2704241E5942BC003FD45E /* LyNetworkCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetworkCacheManager.h; sourceTree = "<group>"; };
+		2F2704251E5942BC003FD45E /* LyNetworkCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyNetworkCacheManager.m; sourceTree = "<group>"; };
 		2F3DEF0A1E32F56200B61047 /* LYURLSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYURLSession.h; sourceTree = "<group>"; };
 		2F3DEF0B1E32F56200B61047 /* LYURLSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYURLSession.m; sourceTree = "<group>"; };
 		2F616A831E3231F000F606DD /* NetWorkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetWorkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,7 +126,7 @@
 		2FFF32A21E5845D700DE1885 /* ZJViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZJViewController.m; sourceTree = "<group>"; };
 		2FFF32A51E5847E000DE1885 /* LyHttpNetWorkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyHttpNetWorkManager.h; sourceTree = "<group>"; };
 		2FFF32A61E5847E000DE1885 /* LyHttpNetWorkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyHttpNetWorkManager.m; sourceTree = "<group>"; };
-		2FFF32A81E58499100DE1885 /* HHNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HHNetworkConfig.h; sourceTree = "<group>"; };
+		2FFF32A81E58499100DE1885 /* LyNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetworkConfig.h; sourceTree = "<group>"; };
 		2FFF32A91E58506500DE1885 /* LyNetWorkReachTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetWorkReachTool.h; sourceTree = "<group>"; };
 		2FFF32AA1E58506500DE1885 /* LyNetWorkReachTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyNetWorkReachTool.m; sourceTree = "<group>"; };
 		38E36D5F94E7D8DB68B6C815 /* Pods-NetWorkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NetWorkDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NetWorkDemo/Pods-NetWorkDemo.debug.xcconfig"; sourceTree = "<group>"; };
@@ -200,7 +203,7 @@
 		2F616A851E3231F000F606DD /* NetWorkDemo */ = {
 			isa = PBXGroup;
 			children = (
-				2FFF32A41E58476600DE1885 /* 封装AFN */,
+				2FFF32A41E58476600DE1885 /* 终极封装AFN */,
 				2FFF328E1E57EA6700DE1885 /* 提示框 */,
 				2FAF98851E514D3700A9CE09 /* 加密 */,
 				2F7CFDDC1E4C7A0100D7A19F /* 格式化输出 */,
@@ -292,8 +295,6 @@
 		2F616AC61E3241F500F606DD /* AFN封装 */ = {
 			isa = PBXGroup;
 			children = (
-				2FFF32951E582F6500DE1885 /* LyHttpNetWorkTaskGroup.h */,
-				2FFF32961E582F6500DE1885 /* LyHttpNetWorkTaskGroup.m */,
 				2F616AC71E32420B00F606DD /* LyHttpNetWork.h */,
 				2F616AC81E32420B00F606DD /* LyHttpNetWork.m */,
 				2FFF32841E57DD6900DE1885 /* LyConfiguration.h */,
@@ -362,7 +363,7 @@
 			name = "提示框";
 			sourceTree = "<group>";
 		};
-		2FFF32A41E58476600DE1885 /* 封装AFN */ = {
+		2FFF32A41E58476600DE1885 /* 终极封装AFN */ = {
 			isa = PBXGroup;
 			children = (
 				2FFF32871E57DE6700DE1885 /* LyNetSetting.h */,
@@ -372,15 +373,19 @@
 				2FFF329C1E58395000DE1885 /* LyUploadFile.m */,
 				2FFF32981E58362600DE1885 /* LyURLRequestManager.h */,
 				2FFF32991E58362600DE1885 /* LyURLRequestManager.m */,
-				2FFF32A81E58499100DE1885 /* HHNetworkConfig.h */,
+				2FFF32A81E58499100DE1885 /* LyNetworkConfig.h */,
 				2FFF32A91E58506500DE1885 /* LyNetWorkReachTool.h */,
 				2FFF32AA1E58506500DE1885 /* LyNetWorkReachTool.m */,
 				2FFF329E1E583EDC00DE1885 /* LyHttpNetWorkTask.h */,
 				2FFF329F1E583EDC00DE1885 /* LyHttpNetWorkTask.m */,
+				2FFF32951E582F6500DE1885 /* LyHttpNetWorkTaskGroup.h */,
+				2FFF32961E582F6500DE1885 /* LyHttpNetWorkTaskGroup.m */,
 				2FFF32A51E5847E000DE1885 /* LyHttpNetWorkManager.h */,
 				2FFF32A61E5847E000DE1885 /* LyHttpNetWorkManager.m */,
+				2F2704241E5942BC003FD45E /* LyNetworkCacheManager.h */,
+				2F2704251E5942BC003FD45E /* LyNetworkCacheManager.m */,
 			);
-			name = "封装AFN";
+			name = "终极封装AFN";
 			sourceTree = "<group>";
 		};
 		C221D9359F547D8F7FD2267B /* Frameworks */ = {
@@ -588,6 +593,7 @@
 				2F616AD41E3243A700F606DD /* CacheTool.m in Sources */,
 				2F616AD91E3243DD00F606DD /* AFNViewController.m in Sources */,
 				2FFF32AB1E58506500DE1885 /* LyNetWorkReachTool.m in Sources */,
+				2F2704261E5942BC003FD45E /* LyNetworkCacheManager.m in Sources */,
 				2F616A8E1E3231F000F606DD /* ViewController.m in Sources */,
 				2FFF32A31E5845D700DE1885 /* ZJViewController.m in Sources */,
 				2F616AC11E32356F00F606DD /* LoginApi.m in Sources */,

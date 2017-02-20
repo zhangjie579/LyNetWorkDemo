@@ -371,6 +371,8 @@
 				2FFF328D1E57E56500DE1885 /* LyNetWorkTaskError.h */,
 				2FFF329B1E58395000DE1885 /* LyUploadFile.h */,
 				2FFF329C1E58395000DE1885 /* LyUploadFile.m */,
+				2F2704241E5942BC003FD45E /* LyNetworkCacheManager.h */,
+				2F2704251E5942BC003FD45E /* LyNetworkCacheManager.m */,
 				2FFF32981E58362600DE1885 /* LyURLRequestManager.h */,
 				2FFF32991E58362600DE1885 /* LyURLRequestManager.m */,
 				2FFF32A81E58499100DE1885 /* LyNetworkConfig.h */,
@@ -378,12 +380,10 @@
 				2FFF32AA1E58506500DE1885 /* LyNetWorkReachTool.m */,
 				2FFF329E1E583EDC00DE1885 /* LyHttpNetWorkTask.h */,
 				2FFF329F1E583EDC00DE1885 /* LyHttpNetWorkTask.m */,
-				2FFF32951E582F6500DE1885 /* LyHttpNetWorkTaskGroup.h */,
-				2FFF32961E582F6500DE1885 /* LyHttpNetWorkTaskGroup.m */,
 				2FFF32A51E5847E000DE1885 /* LyHttpNetWorkManager.h */,
 				2FFF32A61E5847E000DE1885 /* LyHttpNetWorkManager.m */,
-				2F2704241E5942BC003FD45E /* LyNetworkCacheManager.h */,
-				2F2704251E5942BC003FD45E /* LyNetworkCacheManager.m */,
+				2FFF32951E582F6500DE1885 /* LyHttpNetWorkTaskGroup.h */,
+				2FFF32961E582F6500DE1885 /* LyHttpNetWorkTaskGroup.m */,
 			);
 			name = "终极封装AFN";
 			sourceTree = "<group>";

@@ -93,7 +93,6 @@
     
     dispatch_async(queue, ^{
         
-        
         [manager uploadWithUrlString:@"/index.php/api/Auth/uploadImg" parameters:@{@"uid" : @"1"} file:file success:^(id responseData) {
     
             dispatch_semaphore_signal(semaphore);

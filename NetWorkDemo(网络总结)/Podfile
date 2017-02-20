@@ -6,7 +6,8 @@ inhibit_all_warnings!
 
 target 'NetWorkDemo' do
 pod 'MJExtension’
-pod 'YTKNetwork’
+#pod 'YTKNetwork’
+pod 'AFNetworking'
 pod 'FMDB'
 pod 'SDWebImage'
 pod 'MBProgressHUD'

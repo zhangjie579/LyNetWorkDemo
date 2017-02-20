@@ -6,7 +6,8 @@
 //  Copyright © 2017年 张杰. All rights reserved.
 //
 
-#import <YTKNetwork/YTKNetwork.h>
+//#import <YTKNetwork/YTKNetwork.h>
+#import "YTKNetwork.h"
 #import <UIKit/UIKit.h>
 
 @interface MyUserInfoUploadImageApi : YTKRequest

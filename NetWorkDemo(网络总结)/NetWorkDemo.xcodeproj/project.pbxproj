@@ -30,6 +30,15 @@
 		2F7CFDD61E4C17CD00D7A19F /* NSDictionary+log.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7CFDD51E4C17CD00D7A19F /* NSDictionary+log.m */; };
 		2F7CFDD91E4C18F400D7A19F /* NSArray+log.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7CFDD81E4C18F400D7A19F /* NSArray+log.m */; };
 		2FAF98881E514D7000A9CE09 /* NSString+Lybase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FAF98871E514D7000A9CE09 /* NSString+Lybase64.m */; };
+		2FB19F371E5AD27E000C1EA9 /* YTKBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F251E5AD27E000C1EA9 /* YTKBaseRequest.m */; };
+		2FB19F381E5AD27E000C1EA9 /* YTKBatchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F271E5AD27E000C1EA9 /* YTKBatchRequest.m */; };
+		2FB19F391E5AD27E000C1EA9 /* YTKBatchRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F291E5AD27E000C1EA9 /* YTKBatchRequestAgent.m */; };
+		2FB19F3A1E5AD27E000C1EA9 /* YTKChainRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F2B1E5AD27E000C1EA9 /* YTKChainRequest.m */; };
+		2FB19F3B1E5AD27E000C1EA9 /* YTKChainRequestAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F2D1E5AD27E000C1EA9 /* YTKChainRequestAgent.m */; };
+		2FB19F3C1E5AD27E000C1EA9 /* YTKNetworkAgent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F301E5AD27E000C1EA9 /* YTKNetworkAgent.m */; };
+		2FB19F3D1E5AD27E000C1EA9 /* YTKNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F321E5AD27E000C1EA9 /* YTKNetworkConfig.m */; };
+		2FB19F3E1E5AD27E000C1EA9 /* YTKNetworkPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F341E5AD27E000C1EA9 /* YTKNetworkPrivate.m */; };
+		2FB19F3F1E5AD27E000C1EA9 /* YTKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F361E5AD27E000C1EA9 /* YTKRequest.m */; };
 		2FFF32861E57DD6900DE1885 /* LyConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32851E57DD6900DE1885 /* LyConfiguration.m */; };
 		2FFF32891E57DE6700DE1885 /* LyNetSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32881E57DE6700DE1885 /* LyNetSetting.m */; };
 		2FFF32911E57EA8300DE1885 /* MBProgressHUD+Ly.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32901E57EA8300DE1885 /* MBProgressHUD+Ly.m */; };
@@ -107,6 +116,25 @@
 		2F7CFDD81E4C18F400D7A19F /* NSArray+log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+log.m"; sourceTree = "<group>"; };
 		2FAF98861E514D7000A9CE09 /* NSString+Lybase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Lybase64.h"; sourceTree = "<group>"; };
 		2FAF98871E514D7000A9CE09 /* NSString+Lybase64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Lybase64.m"; sourceTree = "<group>"; };
+		2FB19F241E5AD27E000C1EA9 /* YTKBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKBaseRequest.h; sourceTree = "<group>"; };
+		2FB19F251E5AD27E000C1EA9 /* YTKBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKBaseRequest.m; sourceTree = "<group>"; };
+		2FB19F261E5AD27E000C1EA9 /* YTKBatchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKBatchRequest.h; sourceTree = "<group>"; };
+		2FB19F271E5AD27E000C1EA9 /* YTKBatchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKBatchRequest.m; sourceTree = "<group>"; };
+		2FB19F281E5AD27E000C1EA9 /* YTKBatchRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKBatchRequestAgent.h; sourceTree = "<group>"; };
+		2FB19F291E5AD27E000C1EA9 /* YTKBatchRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKBatchRequestAgent.m; sourceTree = "<group>"; };
+		2FB19F2A1E5AD27E000C1EA9 /* YTKChainRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKChainRequest.h; sourceTree = "<group>"; };
+		2FB19F2B1E5AD27E000C1EA9 /* YTKChainRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKChainRequest.m; sourceTree = "<group>"; };
+		2FB19F2C1E5AD27E000C1EA9 /* YTKChainRequestAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKChainRequestAgent.h; sourceTree = "<group>"; };
+		2FB19F2D1E5AD27E000C1EA9 /* YTKChainRequestAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKChainRequestAgent.m; sourceTree = "<group>"; };
+		2FB19F2E1E5AD27E000C1EA9 /* YTKNetwork.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKNetwork.h; sourceTree = "<group>"; };
+		2FB19F2F1E5AD27E000C1EA9 /* YTKNetworkAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKNetworkAgent.h; sourceTree = "<group>"; };
+		2FB19F301E5AD27E000C1EA9 /* YTKNetworkAgent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKNetworkAgent.m; sourceTree = "<group>"; };
+		2FB19F311E5AD27E000C1EA9 /* YTKNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKNetworkConfig.h; sourceTree = "<group>"; };
+		2FB19F321E5AD27E000C1EA9 /* YTKNetworkConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKNetworkConfig.m; sourceTree = "<group>"; };
+		2FB19F331E5AD27E000C1EA9 /* YTKNetworkPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKNetworkPrivate.h; sourceTree = "<group>"; };
+		2FB19F341E5AD27E000C1EA9 /* YTKNetworkPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKNetworkPrivate.m; sourceTree = "<group>"; };
+		2FB19F351E5AD27E000C1EA9 /* YTKRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKRequest.h; sourceTree = "<group>"; };
+		2FB19F361E5AD27E000C1EA9 /* YTKRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKRequest.m; sourceTree = "<group>"; };
 		2FFF32841E57DD6900DE1885 /* LyConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyConfiguration.h; sourceTree = "<group>"; };
 		2FFF32851E57DD6900DE1885 /* LyConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyConfiguration.m; sourceTree = "<group>"; };
 		2FFF32871E57DE6700DE1885 /* LyNetSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetSetting.h; sourceTree = "<group>"; };
@@ -203,6 +231,7 @@
 		2F616A851E3231F000F606DD /* NetWorkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				2FB19F221E5AD270000C1EA9 /* SDK */,
 				2FFF32A41E58476600DE1885 /* 终极封装AFN */,
 				2FFF328E1E57EA6700DE1885 /* 提示框 */,
 				2FAF98851E514D3700A9CE09 /* 加密 */,
@@ -352,6 +381,40 @@
 				2FAF98871E514D7000A9CE09 /* NSString+Lybase64.m */,
 			);
 			name = "加密";
+			sourceTree = "<group>";
+		};
+		2FB19F221E5AD270000C1EA9 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				2FB19F231E5AD27E000C1EA9 /* YTKNetwork */,
+			);
+			name = SDK;
+			sourceTree = "<group>";
+		};
+		2FB19F231E5AD27E000C1EA9 /* YTKNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				2FB19F241E5AD27E000C1EA9 /* YTKBaseRequest.h */,
+				2FB19F251E5AD27E000C1EA9 /* YTKBaseRequest.m */,
+				2FB19F261E5AD27E000C1EA9 /* YTKBatchRequest.h */,
+				2FB19F271E5AD27E000C1EA9 /* YTKBatchRequest.m */,
+				2FB19F281E5AD27E000C1EA9 /* YTKBatchRequestAgent.h */,
+				2FB19F291E5AD27E000C1EA9 /* YTKBatchRequestAgent.m */,
+				2FB19F2A1E5AD27E000C1EA9 /* YTKChainRequest.h */,
+				2FB19F2B1E5AD27E000C1EA9 /* YTKChainRequest.m */,
+				2FB19F2C1E5AD27E000C1EA9 /* YTKChainRequestAgent.h */,
+				2FB19F2D1E5AD27E000C1EA9 /* YTKChainRequestAgent.m */,
+				2FB19F2E1E5AD27E000C1EA9 /* YTKNetwork.h */,
+				2FB19F2F1E5AD27E000C1EA9 /* YTKNetworkAgent.h */,
+				2FB19F301E5AD27E000C1EA9 /* YTKNetworkAgent.m */,
+				2FB19F311E5AD27E000C1EA9 /* YTKNetworkConfig.h */,
+				2FB19F321E5AD27E000C1EA9 /* YTKNetworkConfig.m */,
+				2FB19F331E5AD27E000C1EA9 /* YTKNetworkPrivate.h */,
+				2FB19F341E5AD27E000C1EA9 /* YTKNetworkPrivate.m */,
+				2FB19F351E5AD27E000C1EA9 /* YTKRequest.h */,
+				2FB19F361E5AD27E000C1EA9 /* YTKRequest.m */,
+			);
+			path = YTKNetwork;
 			sourceTree = "<group>";
 		};
 		2FFF328E1E57EA6700DE1885 /* 提示框 */ = {
@@ -593,6 +656,7 @@
 				2F616AD41E3243A700F606DD /* CacheTool.m in Sources */,
 				2F616AD91E3243DD00F606DD /* AFNViewController.m in Sources */,
 				2FFF32AB1E58506500DE1885 /* LyNetWorkReachTool.m in Sources */,
+				2FB19F3B1E5AD27E000C1EA9 /* YTKChainRequestAgent.m in Sources */,
 				2F2704261E5942BC003FD45E /* LyNetworkCacheManager.m in Sources */,
 				2F616A8E1E3231F000F606DD /* ViewController.m in Sources */,
 				2FFF32A31E5845D700DE1885 /* ZJViewController.m in Sources */,
@@ -603,20 +667,28 @@
 				2FFF329D1E58395000DE1885 /* LyUploadFile.m in Sources */,
 				2F7CFDD91E4C18F400D7A19F /* NSArray+log.m in Sources */,
 				2FFF329A1E58362600DE1885 /* LyURLRequestManager.m in Sources */,
+				2FB19F3D1E5AD27E000C1EA9 /* YTKNetworkConfig.m in Sources */,
 				2FAF98881E514D7000A9CE09 /* NSString+Lybase64.m in Sources */,
 				2FFF32891E57DE6700DE1885 /* LyNetSetting.m in Sources */,
+				2FB19F3A1E5AD27E000C1EA9 /* YTKChainRequest.m in Sources */,
 				2F616A8B1E3231F000F606DD /* AppDelegate.m in Sources */,
 				2F616AD11E32432000F606DD /* LyViewController.m in Sources */,
 				2FFF32971E582F6500DE1885 /* LyHttpNetWorkTaskGroup.m in Sources */,
 				2F616A881E3231F000F606DD /* main.m in Sources */,
 				2F7CFDD61E4C17CD00D7A19F /* NSDictionary+log.m in Sources */,
+				2FB19F3C1E5AD27E000C1EA9 /* YTKNetworkAgent.m in Sources */,
 				2FFF32A71E5847E000DE1885 /* LyHttpNetWorkManager.m in Sources */,
 				2F616ACE1E3242E000F606DD /* StatusModel.m in Sources */,
 				2F616AC91E32420B00F606DD /* LyHttpNetWork.m in Sources */,
 				2F3DEF0C1E32F56200B61047 /* LYURLSession.m in Sources */,
+				2FB19F381E5AD27E000C1EA9 /* YTKBatchRequest.m in Sources */,
 				2F616ABE1E32345100F606DD /* CourseAddCommentApi.m in Sources */,
+				2FB19F3E1E5AD27E000C1EA9 /* YTKNetworkPrivate.m in Sources */,
 				2F7CFDD21E4C086300D7A19F /* LyJsonTool.m in Sources */,
+				2FB19F391E5AD27E000C1EA9 /* YTKBatchRequestAgent.m in Sources */,
+				2FB19F371E5AD27E000C1EA9 /* YTKBaseRequest.m in Sources */,
 				2F616ADA1E3243DD00F606DD /* MessageModel.m in Sources */,
+				2FB19F3F1E5AD27E000C1EA9 /* YTKRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

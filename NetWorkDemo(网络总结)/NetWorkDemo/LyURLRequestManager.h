@@ -7,6 +7,7 @@
 //  创建NSMutableURLRequest
 
 #import <Foundation/Foundation.h>
+#import "LyUploadFile.h"
 
 @interface LyURLRequestManager : NSObject
 
@@ -33,6 +34,6 @@
  @param header 请求头
  @return NSMutableURLRequest
  */
-- (NSMutableURLRequest *)uploadRequestUrlPath:(NSString *)urlPath method:(NSString *)method params:(NSDictionary *)params contents:(NSArray *)contents header:(NSDictionary *)header;
+- (NSMutableURLRequest *)uploadRequestUrlPath:(NSString *)urlPath method:(NSString *)method params:(NSDictionary *)params contents:(NSArray<LyUploadFile *> *)contents header:(NSDictionary *)header;
 
 @end

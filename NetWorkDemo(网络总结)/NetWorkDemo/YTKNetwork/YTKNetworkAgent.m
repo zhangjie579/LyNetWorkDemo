@@ -95,7 +95,7 @@
 }
 
 #pragma mark -
-
+//拼接请求的url
 - (NSString *)buildRequestUrl:(YTKBaseRequest *)request {
     NSParameterAssert(request != nil);
 
@@ -135,6 +135,7 @@
     return [NSURL URLWithString:detailUrl relativeToURL:url].absoluteString;
 }
 
+//创建AFN网络请求的对象
 - (AFHTTPRequestSerializer *)requestSerializerForRequest:(YTKBaseRequest *)request {
     AFHTTPRequestSerializer *requestSerializer = nil;
     if (request.requestSerializerType == YTKRequestSerializerTypeHTTP) {
@@ -143,16 +144,20 @@
         requestSerializer = [AFJSONRequestSerializer serializer];
     }
 
+    //请求超时时间
     requestSerializer.timeoutInterval = [request requestTimeoutInterval];
+    //是否允许使用流量
     requestSerializer.allowsCellularAccess = [request allowsCellularAccess];
 
     // If api needs server username and password
+    // 如果请求需要授权证书，这里设置用户名和密码
     NSArray<NSString *> *authorizationHeaderFieldArray = [request requestAuthorizationHeaderFieldArray];
     if (authorizationHeaderFieldArray != nil) {
         [requestSerializer setAuthorizationHeaderFieldWithUsername:authorizationHeaderFieldArray.firstObject
                                                           password:authorizationHeaderFieldArray.lastObject];
     }
 
+    //自定义请求头
     // If api needs to add custom value to HTTPHeaderField
     NSDictionary<NSString *, NSString *> *headerFieldValueDictionary = [request requestHeaderFieldValueDictionary];
     if (headerFieldValueDictionary != nil) {
@@ -165,10 +170,15 @@
 }
 
 - (NSURLSessionTask *)sessionTaskForRequest:(YTKBaseRequest *)request error:(NSError * _Nullable __autoreleasing *)error {
+    //1.请求方式
     YTKRequestMethod method = [request requestMethod];
+    //2.url
     NSString *url = [self buildRequestUrl:request];
+    //3.请求参数httpBody
     id param = request.requestArgument;
+    //用于设置上传文件，重新YTKBaseRequest类的这个方法
     AFConstructingBlock constructingBlock = [request constructingBodyBlock];
+    //4.创建请求对象
     AFHTTPRequestSerializer *requestSerializer = [self requestSerializerForRequest:request];
 
     switch (method) {
@@ -190,12 +200,13 @@
             return [self dataTaskWithHTTPMethod:@"PATCH" requestSerializer:requestSerializer URLString:url parameters:param error:error];
     }
 }
-
-- (void)addRequest:(YTKBaseRequest *)request {
+//添加1个请求
+- (void):(YTKBaseRequest *)request {
     NSParameterAssert(request != nil);
 
     NSError * __autoreleasing requestSerializationError = nil;
 
+    //是否使用自定义的NSURLRequest
     NSURLRequest *customUrlRequest= [request buildCustomUrlRequest];
     if (customUrlRequest) {
         __block NSURLSessionDataTask *dataTask = nil;
@@ -285,6 +296,7 @@
     return YES;
 }
 
+//处理请求完的数据
 - (void)handleRequestResult:(NSURLSessionTask *)task responseObject:(id)responseObject error:(NSError *)error {
     Lock();
     YTKBaseRequest *request = _requestsRecord[@(task.taskIdentifier)];
@@ -308,6 +320,7 @@
     BOOL succeed = NO;
 
     request.responseObject = responseObject;
+    //根据类型对应的解析json/xml
     if ([request.responseObject isKindOfClass:[NSData class]]) {
         request.responseData = responseObject;
         request.responseString = [[NSString alloc] initWithData:responseObject encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
@@ -336,9 +349,9 @@
         requestError = validationError;
     }
     if (succeed) {
-        [self requestDidSucceedWithRequest:request];
+        [self requestDidSucceedWithRequest:request];//成功，返回的block
     } else {
-        [self requestDidFailWithRequest:request error:requestError];
+        [self requestDidFailWithRequest:request error:requestError];//失败，返回的block
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -369,7 +382,7 @@
         [request toggleAccessoriesDidStopCallBack];
     });
 }
-
+//处理请求错误
 - (void)requestDidFailWithRequest:(YTKBaseRequest *)request error:(NSError *)error {
     request.error = error;
     YTKLog(@"Request %@ failed, status code = %ld, error = %@",
@@ -442,6 +455,7 @@
     NSMutableURLRequest *request = nil;
 
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    //有block说明是上传文件
     if (block) {
         request = [requestSerializer multipartFormRequestWithMethod:method URLString:URLString parameters:parameters constructingBodyWithBlock:block error:error];
     } else {

@@ -9,6 +9,12 @@
 
 #import "LYURLSession.h"
 
+@interface LYURLSession ()
+
+@property(nonatomic,strong)NSURLSession *session;
+
+@end
+
 @implementation LYURLSession
 
 + (instancetype)shareTool
@@ -66,8 +72,11 @@
 //    NSURLSessionConfiguration *configurat = [NSURLSessionConfiguration defaultSessionConfiguration];
     NSURLSessionConfiguration *configurat = [self creatURLSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configurat];
+
+//    self.session = session;
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
         
         if (error)
         {
@@ -120,10 +129,10 @@
     // 设置客户端类型
     NSString *userAgentString = @"iPhone AppleWebKit";
     
-    configuration.HTTPAdditionalHeaders = @{@"Accept": @"application/json",
-                                            @"Accept-Language": @"en",
-                                            @"Authorization": authString,
-                                            @"User-Agent": userAgentString};
+//    configuration.HTTPAdditionalHeaders = @{@"Accept": @"application/json",
+//                                            @"Accept-Language": @"en",
+//                                            @"Authorization": authString,
+//                                            @"User-Agent": userAgentString};
     
     
     //网络类型
@@ -256,7 +265,27 @@
  */
 - (void)get:(NSString *)url token:(NSString *)token parameters:(NSDictionary *)parameters success:(void(^)(NSDictionary *dict))success failure:(void(^)(NSError *error))failure
 {
-    NSMutableURLRequest *request = [self requestWithUrl:url method:@"GET" token:token parameters:parameters];
+//    NSMutableURLRequest *request = [self requestWithUrl:url method:@"GET" token:token parameters:parameters];
+    
+    NSMutableString *string = [[NSMutableString alloc] initWithString:url];
+    
+    for (NSInteger i = 0; i < parameters.allKeys.count; i++)
+    {
+        if (i == 0)
+        {
+            [string appendString:[NSString stringWithFormat:@"?%@=%@",parameters.allKeys[i],parameters.allValues[i]]];
+        }
+        else
+        {
+            [string appendString:[NSString stringWithFormat:@"&%@=%@",parameters.allKeys[i],parameters.allValues[i]]];
+        }
+    }
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:string]];
+    
+    request.HTTPMethod = @"GET";
+    
+    [request setValue:token forHTTPHeaderField:@"token"];
     
     //4.发送请求
     NSURLSession *session = [NSURLSession sharedSession];
@@ -582,7 +611,7 @@
 #warning 避免NSURLSession内存泄漏
 //注意事项:如果是自定义会话并指定了代理，会话会对代理进行强引用,在视图控制器销毁之前，需要取消网络会话，否则会造成内存泄漏
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
-didCompleteWithError:(nullable NSError *)error
+didCompleteWithError:(nullable NSError *)error;
 {
     [session finishTasksAndInvalidate];
 }

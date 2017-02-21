@@ -60,7 +60,7 @@
  @param header 请求头
  @return NSMutableURLRequest
  */
-- (NSMutableURLRequest *)uploadRequestUrlPath:(NSString *)urlPath method:(NSString *)method params:(NSDictionary *)params contents:(NSArray *)contents header:(NSDictionary *)header
+- (NSMutableURLRequest *)uploadRequestUrlPath:(NSString *)urlPath method:(NSString *)method params:(NSDictionary *)params contents:(NSArray<LyUploadFile *> *)contents header:(NSDictionary *)header
 {
     
     NSMutableURLRequest *request = [self.requestSerialize multipartFormRequestWithMethod:[method uppercaseString] URLString:urlPath parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {

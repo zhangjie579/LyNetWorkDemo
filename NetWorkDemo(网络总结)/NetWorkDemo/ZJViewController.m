@@ -10,6 +10,7 @@
 #import "LyHttpNetWorkTask.h"
 #import "LyHttpNetWorkManager.h"
 #import "LyHttpNetWorkTaskGroup.h"
+#import "LYURLSession.h"
 
 @interface ZJViewController ()
 
@@ -22,6 +23,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self demo3];
+    
 }
 
 - (void)dealloc

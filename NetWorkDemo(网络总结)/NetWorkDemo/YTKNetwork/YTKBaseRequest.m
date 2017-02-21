@@ -177,6 +177,7 @@ NSString *const YTKRequestValidationErrorDomain = @"com.yuantiku.request.validat
     return nil;
 }
 
+//自定义请求头
 - (NSDictionary *)requestHeaderFieldValueDictionary {
     return nil;
 }

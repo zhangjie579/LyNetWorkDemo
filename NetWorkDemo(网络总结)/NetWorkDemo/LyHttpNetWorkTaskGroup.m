@@ -122,13 +122,15 @@
                     });
                 }
                 
-                if (success) {
-                    success(requestArray);
-                }
-                
-                if (failure) {
-                    failure(errorArray);
-                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (success) {
+                        success(requestArray);
+                    }
+                    
+                    if (failure) {
+                        failure(errorArray);
+                    }
+                });
             }
         }
     });

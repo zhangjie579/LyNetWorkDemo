@@ -29,7 +29,7 @@
 //    [self test3];
     self.view.backgroundColor = [UIColor lightGrayColor];
 //    [self testMore];
-    [self AFNRequest];
+//    [self postMoreRequest];
 //    LYURLSession *manager = [LYURLSession shareTool];
 //    
 //    

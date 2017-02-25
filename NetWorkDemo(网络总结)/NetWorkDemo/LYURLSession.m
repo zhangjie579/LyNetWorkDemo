@@ -29,6 +29,13 @@
     return manager;
 }
 
+//移除session
+- (void)removeSession
+{
+    [self.session invalidateAndCancel];
+    self.session = nil;
+}
+
 /**
  post请求(有请求头heard)
  
@@ -73,7 +80,7 @@
     NSURLSessionConfiguration *configurat = [self creatURLSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configurat];
 
-//    self.session = session;
+    self.session = session;
     
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
@@ -290,6 +297,8 @@
     //4.发送请求
     NSURLSession *session = [NSURLSession sharedSession];
     
+    self.session = session;
+    
     NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         
         if (error)
@@ -376,6 +385,7 @@
     
     NSURLSessionConfiguration *configurat = [self creatURLSessionConfiguration];
     NSURLSession *session = [NSURLSession sessionWithConfiguration:configurat];
+    self.session = session;
     NSURLSessionUploadTask *task = [session uploadTaskWithRequest:request fromData:formData completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
        
         if (error)
@@ -608,7 +618,7 @@
     [task resume];
 }
 
-#warning 避免NSURLSession内存泄漏
+#pragma mark - 避免NSURLSession内存泄漏,然后发现根本不调用
 //注意事项:如果是自定义会话并指定了代理，会话会对代理进行强引用,在视图控制器销毁之前，需要取消网络会话，否则会造成内存泄漏
 - (void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task
 didCompleteWithError:(nullable NSError *)error;

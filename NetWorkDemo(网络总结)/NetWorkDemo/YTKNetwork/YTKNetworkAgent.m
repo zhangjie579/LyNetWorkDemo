@@ -201,7 +201,7 @@
     }
 }
 //添加1个请求
-- (void):(YTKBaseRequest *)request {
+- (void)addRequest:(YTKBaseRequest *)request {
     NSParameterAssert(request != nil);
 
     NSError * __autoreleasing requestSerializationError = nil;
@@ -218,6 +218,7 @@
         request.requestTask = [self sessionTaskForRequest:request error:&requestSerializationError];
     }
 
+    //如果有错误，返回错误，return
     if (requestSerializationError) {
         [self requestDidFailWithRequest:request error:requestSerializationError];
         return;
@@ -325,6 +326,7 @@
         request.responseData = responseObject;
         request.responseString = [[NSString alloc] initWithData:responseObject encoding:[YTKNetworkUtils stringEncodingWithRequest:request]];
 
+        //根据请求的结果判定，如果解析
         switch (request.responseSerializerType) {
             case YTKResponseSerializerTypeHTTP:
                 // Default serializer. Do nothing.
@@ -428,7 +430,7 @@
     _requestsRecord[@(request.requestTask.taskIdentifier)] = request;
     Unlock();
 }
-
+//从数组中移除请求
 - (void)removeRequestFromRecord:(YTKBaseRequest *)request {
     Lock();
     [_requestsRecord removeObjectForKey:@(request.requestTask.taskIdentifier)];
@@ -445,7 +447,7 @@
                                            error:(NSError * _Nullable __autoreleasing *)error {
     return [self dataTaskWithHTTPMethod:method requestSerializer:requestSerializer URLString:URLString parameters:parameters constructingBodyWithBlock:nil error:error];
 }
-
+//除了下载，全部的请求读最后走这个方法
 - (NSURLSessionDataTask *)dataTaskWithHTTPMethod:(NSString *)method
                                requestSerializer:(AFHTTPRequestSerializer *)requestSerializer
                                        URLString:(NSString *)URLString
@@ -454,20 +456,23 @@
                                            error:(NSError * _Nullable __autoreleasing *)error {
     NSMutableURLRequest *request = nil;
 
+    //添加statusbar上面的转圈
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
     //有block说明是上传文件
     if (block) {
         request = [requestSerializer multipartFormRequestWithMethod:method URLString:URLString parameters:parameters constructingBodyWithBlock:block error:error];
-    } else {
+    } else {//普通请求
         request = [requestSerializer requestWithMethod:method URLString:URLString parameters:parameters error:error];
     }
 
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [_manager dataTaskWithRequest:request
                            completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *_error) {
+                               //隐藏statusBar上面的转圈
                                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                                    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
                                });
+                               //处理请求
                                [self handleRequestResult:dataTask responseObject:responseObject error:_error];
                            }];
 

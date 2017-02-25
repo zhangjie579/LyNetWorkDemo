@@ -16,8 +16,11 @@
 #import "LyHttpNetWork.h"
 #import "LyNetSetting.h"
 #import "ZJViewController.h"
+#import "DemoViewController.h"
 
 @interface ViewController ()
+
+@property(nonatomic,strong)UIButton *btn;
 
 @end
 
@@ -28,6 +31,7 @@
     
 //    [self test3];
     self.view.backgroundColor = [UIColor lightGrayColor];
+    [self.view addSubview:self.btn];
 //    [self testMore];
 //    [self postMoreRequest];
 //    LYURLSession *manager = [LYURLSession shareTool];
@@ -514,5 +518,20 @@
     }];
 }
 
+- (void)btnClick
+{
+    [self.navigationController pushViewController:[[DemoViewController alloc] init] animated:YES];
+}
+
+- (UIButton *)btn
+{
+    if (!_btn) {
+        _btn = [[UIButton alloc] init];
+        _btn.backgroundColor = [UIColor greenColor];
+        [_btn addTarget:self action:@selector(btnClick) forControlEvents:UIControlEventTouchUpInside];
+        _btn.frame = CGRectMake(100, 100, 100, 100);
+    }
+    return _btn;
+}
 
 @end

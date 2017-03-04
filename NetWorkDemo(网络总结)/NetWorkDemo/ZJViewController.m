@@ -21,6 +21,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor whiteColor];
+    self.title = @"ZJViewController";
     [self demo3];
     
 }

@@ -371,6 +371,7 @@
     [[LyHttpNetWorkTask sharkNetWork] cancelHttpRequestWithRequestMethod:requestMethod requestUrlString:urlString];
 }
 
+#pragma mark - 
 //加密
 - (NSString *)md5WithString:(NSString *)string {
     const char *cStr = [string UTF8String];

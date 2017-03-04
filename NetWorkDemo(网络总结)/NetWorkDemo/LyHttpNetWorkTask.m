@@ -166,8 +166,9 @@
 
 - (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString heard:(NSDictionary *)heard parameters:(NSDictionary *)parameters success:(void (^)(id requestData))success failure:(void (^)(NSError *error))failure
 {
-//    //1.先判断网络是否可用
+    //1.先判断网络是否可用
 //    LyNetWorkReachTool *tool = [LyNetWorkReachTool sharedInstance];
+      //由于这是blcok返回的，so回调没那么快，初始值就一直为No
 //    if (!tool.isReachable) {
 //        if (failure) {
 //            NSError *error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSURLErrorCannotConnectToHost userInfo:nil];

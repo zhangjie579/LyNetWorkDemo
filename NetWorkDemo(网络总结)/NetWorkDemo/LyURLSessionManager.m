@@ -53,6 +53,63 @@ typedef enum {
     return self;
 }
 
+#pragma mark - 设置NSURLSessionConfiguration
+/**
+ 设置NSURLSessionConfiguration
+ 
+ @return NSURLSessionConfiguration
+ */
+- (NSURLSessionConfiguration *)creatURLSessionConfiguration
+{
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    /*
+     HTTPAdditionalHeaders           HTTP 请求头，告诉服务器有关客户端的附加信息，这对于跨会话共享信息，
+     如内容类型，语言，用户代理，身份认证，是很有用的。
+     
+     Accept                      告诉服务器客户端可接收的数据类型，如：@"application/json" 。
+     Accept-Language             告诉服务器客户端使用的语言类型，如：@"en" 。
+     Authorization               验证身份信息，如：authString 。
+     User-Agent                  告诉服务器客户端类型，如：@"iPhone AppleWebKit" 。
+     range                       用于断点续传，如：bytes=10- 。
+     */
+    
+    // 设置同时连接到一台服务器的最大连接数
+    configuration.HTTPMaximumConnectionsPerHost = 4;
+    
+    // 设置授权信息，WebDav 的身份验证
+    NSString *username = @"admin";
+    NSString *password = @"adminpasswd";
+    
+    NSString *userPasswordString = [NSString stringWithFormat:@"%@:%@", username, password];
+    NSData   *userPasswordData = [userPasswordString dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64EncodedCredential = [userPasswordData base64EncodedStringWithOptions:0];
+    NSString *authString = [NSString stringWithFormat:@"Basic: %@", base64EncodedCredential];
+    
+    // 设置客户端类型
+    NSString *userAgentString = @"iPhone AppleWebKit";
+    
+    //    configuration.HTTPAdditionalHeaders = @{@"Accept": @"application/json",
+    //                                            @"Accept-Language": @"en",
+    //                                            @"Authorization": authString,
+    //                                            @"User-Agent": userAgentString};
+    
+    
+    //网络类型
+    configuration.networkServiceType = NSURLNetworkServiceTypeDefault;
+    
+    //允许蜂窝访问
+    configuration.allowsCellularAccess = YES;
+    
+    //超时时长,报文之间的时间
+    configuration.timeoutIntervalForRequest = 30;
+    
+    //整个资源请求时长，实际上提供了整体超时的特性，这应该只用于后台传输，而不是用户实际上可能想要等待的任何东西
+    configuration.timeoutIntervalForResource = 30;
+    
+    return configuration;
+}
+
 #pragma mark - post请求
 /**
  post请求(有请求头heard)
@@ -338,63 +395,6 @@ typedef enum {
     [task resume];
 }
 
-#pragma mark - 设置NSURLSessionConfiguration
-/**
- 设置NSURLSessionConfiguration
- 
- @return NSURLSessionConfiguration
- */
-- (NSURLSessionConfiguration *)creatURLSessionConfiguration
-{
-    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    /*
-     HTTPAdditionalHeaders           HTTP 请求头，告诉服务器有关客户端的附加信息，这对于跨会话共享信息，
-     如内容类型，语言，用户代理，身份认证，是很有用的。
-     
-     Accept                      告诉服务器客户端可接收的数据类型，如：@"application/json" 。
-     Accept-Language             告诉服务器客户端使用的语言类型，如：@"en" 。
-     Authorization               验证身份信息，如：authString 。
-     User-Agent                  告诉服务器客户端类型，如：@"iPhone AppleWebKit" 。
-     range                       用于断点续传，如：bytes=10- 。
-     */
-    
-    // 设置同时连接到一台服务器的最大连接数
-    configuration.HTTPMaximumConnectionsPerHost = 4;
-    
-    // 设置授权信息，WebDav 的身份验证
-    NSString *username = @"admin";
-    NSString *password = @"adminpasswd";
-    
-    NSString *userPasswordString = [NSString stringWithFormat:@"%@:%@", username, password];
-    NSData   *userPasswordData = [userPasswordString dataUsingEncoding:NSUTF8StringEncoding];
-    NSString *base64EncodedCredential = [userPasswordData base64EncodedStringWithOptions:0];
-    NSString *authString = [NSString stringWithFormat:@"Basic: %@", base64EncodedCredential];
-    
-    // 设置客户端类型
-    NSString *userAgentString = @"iPhone AppleWebKit";
-    
-    //    configuration.HTTPAdditionalHeaders = @{@"Accept": @"application/json",
-    //                                            @"Accept-Language": @"en",
-    //                                            @"Authorization": authString,
-    //                                            @"User-Agent": userAgentString};
-    
-    
-    //网络类型
-    configuration.networkServiceType = NSURLNetworkServiceTypeDefault;
-    
-    //允许蜂窝访问
-    configuration.allowsCellularAccess = YES;
-    
-    //超时时长,报文之间的时间
-    configuration.timeoutIntervalForRequest = 30;
-    
-    //整个资源请求时长，实际上提供了整体超时的特性，这应该只用于后台传输，而不是用户实际上可能想要等待的任何东西
-    configuration.timeoutIntervalForResource = 30;
-    
-    return configuration;
-}
-
 #pragma mark - 创建NSMutableURLRequest
 /**
  创建请求NSMutableURLRequest
@@ -526,7 +526,7 @@ typedef enum {
             [formData appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n",key]
                                   dataUsingEncoding:NSUTF8StringEncoding]];
             [formData appendData:[[NSString stringWithFormat:@"\r\n%@\r\n", value] dataUsingEncoding:NSUTF8StringEncoding]];
-        }];
+        }]; 
     }
     
     //2.文件,后台文件key为img

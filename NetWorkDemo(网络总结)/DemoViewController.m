@@ -8,6 +8,7 @@
 
 #import "DemoViewController.h"
 #import "LyURLSessionManager.h"
+#import <objc/message.h>
 
 @interface DemoViewController ()<NSURLSessionDelegate,NSURLSessionTaskDelegate>
 
@@ -27,7 +28,12 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor lightGrayColor];
-    [self lyURLSessionManager];
+//    [self lyURLSessionManager];
+    
+//    [NSTimer scheduledTimerWithTimeInterval:<#(NSTimeInterval)#> repeats:<#(BOOL)#> block:^(NSTimer * _Nonnull timer) {
+//        
+//    }]
+
 }
 
 - (void)dealloc
@@ -153,6 +159,5 @@
     }];
     dispatch_semaphore_wait(semap, DISPATCH_TIME_FOREVER);
 }
-
 
 @end

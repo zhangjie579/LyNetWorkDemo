@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F14CB701E76CF9C005452F2 /* MCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F14CB6F1E76CF9C005452F2 /* MCViewController.m */; };
 		2F2704261E5942BC003FD45E /* LyNetworkCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2704251E5942BC003FD45E /* LyNetworkCacheManager.m */; };
 		2F3DEF0C1E32F56200B61047 /* LYURLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3DEF0B1E32F56200B61047 /* LYURLSession.m */; };
 		2F594C0F1E606852003E3826 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F594C0E1E606852003E3826 /* DemoViewController.m */; };
@@ -72,6 +73,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2F14CB6E1E76CF9C005452F2 /* MCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCViewController.h; sourceTree = "<group>"; };
+		2F14CB6F1E76CF9C005452F2 /* MCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCViewController.m; sourceTree = "<group>"; };
 		2F2704241E5942BC003FD45E /* LyNetworkCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetworkCacheManager.h; sourceTree = "<group>"; };
 		2F2704251E5942BC003FD45E /* LyNetworkCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyNetworkCacheManager.m; sourceTree = "<group>"; };
 		2F3DEF0A1E32F56200B61047 /* LYURLSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYURLSession.h; sourceTree = "<group>"; };
@@ -194,6 +197,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F14CB6D1E76CF7F005452F2 /* HTTPS */ = {
+			isa = PBXGroup;
+			children = (
+				2F14CB6E1E76CF9C005452F2 /* MCViewController.h */,
+				2F14CB6F1E76CF9C005452F2 /* MCViewController.m */,
+			);
+			name = HTTPS;
+			sourceTree = "<group>";
+		};
 		2F3DEF091E32F53D00B61047 /* NSURLSession封装 */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +251,7 @@
 		2F616A851E3231F000F606DD /* NetWorkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				2F14CB6D1E76CF7F005452F2 /* HTTPS */,
 				2FB19F221E5AD270000C1EA9 /* SDK */,
 				2FFF32A41E58476600DE1885 /* 终极封装AFN */,
 				2FFF328E1E57EA6700DE1885 /* 提示框 */,
@@ -682,6 +695,7 @@
 				2F7607261E612017001C72BF /* LyURLSessionManager.m in Sources */,
 				2F594C0F1E606852003E3826 /* DemoViewController.m in Sources */,
 				2FFF32891E57DE6700DE1885 /* LyNetSetting.m in Sources */,
+				2F14CB701E76CF9C005452F2 /* MCViewController.m in Sources */,
 				2FB19F3A1E5AD27E000C1EA9 /* YTKChainRequest.m in Sources */,
 				2F616A8B1E3231F000F606DD /* AppDelegate.m in Sources */,
 				2F616AD11E32432000F606DD /* LyViewController.m in Sources */,

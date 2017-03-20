@@ -42,6 +42,8 @@
 		2FB19F3D1E5AD27E000C1EA9 /* YTKNetworkConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F321E5AD27E000C1EA9 /* YTKNetworkConfig.m */; };
 		2FB19F3E1E5AD27E000C1EA9 /* YTKNetworkPrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F341E5AD27E000C1EA9 /* YTKNetworkPrivate.m */; };
 		2FB19F3F1E5AD27E000C1EA9 /* YTKRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FB19F361E5AD27E000C1EA9 /* YTKRequest.m */; };
+		2FBBABE11E7F7F9500E2F713 /* LyCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBBABE01E7F7F9500E2F713 /* LyCacheManager.m */; };
+		2FBBABE41E7FB02200E2F713 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FBBABE31E7FB02200E2F713 /* Person.m */; };
 		2FFF32861E57DD6900DE1885 /* LyConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32851E57DD6900DE1885 /* LyConfiguration.m */; };
 		2FFF32891E57DE6700DE1885 /* LyNetSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32881E57DE6700DE1885 /* LyNetSetting.m */; };
 		2FFF32911E57EA8300DE1885 /* MBProgressHUD+Ly.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FFF32901E57EA8300DE1885 /* MBProgressHUD+Ly.m */; };
@@ -144,6 +146,10 @@
 		2FB19F341E5AD27E000C1EA9 /* YTKNetworkPrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKNetworkPrivate.m; sourceTree = "<group>"; };
 		2FB19F351E5AD27E000C1EA9 /* YTKRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTKRequest.h; sourceTree = "<group>"; };
 		2FB19F361E5AD27E000C1EA9 /* YTKRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTKRequest.m; sourceTree = "<group>"; };
+		2FBBABDF1E7F7F9500E2F713 /* LyCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyCacheManager.h; sourceTree = "<group>"; };
+		2FBBABE01E7F7F9500E2F713 /* LyCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyCacheManager.m; sourceTree = "<group>"; };
+		2FBBABE21E7FB02200E2F713 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		2FBBABE31E7FB02200E2F713 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		2FFF32841E57DD6900DE1885 /* LyConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyConfiguration.h; sourceTree = "<group>"; };
 		2FFF32851E57DD6900DE1885 /* LyConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyConfiguration.m; sourceTree = "<group>"; };
 		2FFF32871E57DE6700DE1885 /* LyNetSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetSetting.h; sourceTree = "<group>"; };
@@ -222,6 +228,8 @@
 			children = (
 				2F616AD21E3243A700F606DD /* CacheTool.h */,
 				2F616AD31E3243A700F606DD /* CacheTool.m */,
+				2FBBABDF1E7F7F9500E2F713 /* LyCacheManager.h */,
+				2FBBABE01E7F7F9500E2F713 /* LyCacheManager.m */,
 			);
 			name = "缓存";
 			sourceTree = "<group>";
@@ -277,6 +285,8 @@
 				2FFF32A21E5845D700DE1885 /* ZJViewController.m */,
 				2F594C0D1E606852003E3826 /* DemoViewController.h */,
 				2F594C0E1E606852003E3826 /* DemoViewController.m */,
+				2FBBABE21E7FB02200E2F713 /* Person.h */,
+				2FBBABE31E7FB02200E2F713 /* Person.m */,
 			);
 			path = NetWorkDemo;
 			sourceTree = "<group>";
@@ -561,6 +571,7 @@
 				TargetAttributes = {
 					2F616A821E3231F000F606DD = {
 						CreatedOnToolsVersion = 8.1;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 					2F616A9B1E3231F000F606DD = {
@@ -682,6 +693,7 @@
 				2FB19F3B1E5AD27E000C1EA9 /* YTKChainRequestAgent.m in Sources */,
 				2F2704261E5942BC003FD45E /* LyNetworkCacheManager.m in Sources */,
 				2F616A8E1E3231F000F606DD /* ViewController.m in Sources */,
+				2FBBABE11E7F7F9500E2F713 /* LyCacheManager.m in Sources */,
 				2FFF32A31E5845D700DE1885 /* ZJViewController.m in Sources */,
 				2F616AC11E32356F00F606DD /* LoginApi.m in Sources */,
 				2F616AC51E32361B00F606DD /* MyUserInfoUploadImageApi.m in Sources */,
@@ -704,6 +716,7 @@
 				2F7CFDD61E4C17CD00D7A19F /* NSDictionary+log.m in Sources */,
 				2FB19F3C1E5AD27E000C1EA9 /* YTKNetworkAgent.m in Sources */,
 				2FFF32A71E5847E000DE1885 /* LyHttpNetWorkManager.m in Sources */,
+				2FBBABE41E7FB02200E2F713 /* Person.m in Sources */,
 				2F616ACE1E3242E000F606DD /* StatusModel.m in Sources */,
 				2F616AC91E32420B00F606DD /* LyHttpNetWork.m in Sources */,
 				2F3DEF0C1E32F56200B61047 /* LYURLSession.m in Sources */,
@@ -864,10 +877,14 @@
 			baseConfigurationReference = 38E36D5F94E7D8DB68B6C815 /* Pods-NetWorkDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = NetWorkDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bona.NetWorkDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -876,10 +893,13 @@
 			baseConfigurationReference = 6EBB150BB0E6F596679C1E35 /* Pods-NetWorkDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = NetWorkDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bona.NetWorkDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

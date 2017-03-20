@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "YTKNetworkConfig.h"
 #import "ViewController.h"
+#import "ZJViewController.h"
 
 @interface AppDelegate ()
 

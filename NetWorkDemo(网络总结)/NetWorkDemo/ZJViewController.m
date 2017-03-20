@@ -10,6 +10,8 @@
 #import "LyHttpNetWorkTask.h"
 #import "LyHttpNetWorkManager.h"
 #import "LyHttpNetWorkTaskGroup.h"
+#import "LyCacheManager.h"
+#import "Person.h"
 
 @interface ZJViewController ()
 
@@ -22,8 +24,6 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"ZJViewController";
-    [self demo3];
-    
 }
 
 - (void)dealloc
@@ -197,31 +197,6 @@
     });
     
     NSLog(@"主线1");
-    
-//    [manager uploadWithUrlString:@"/index.php/api/Auth/uploadImg" parameters:@{@"uid" : @"1"} file:file success:^(id responseData) {
-//
-//        NSLog(@"success1 %@",responseData);
-//
-//    } failure:^(NSError *error) {
-//        NSLog(@"error1   %@",error);
-//    } progress:^(float progress) {
-//
-//    }];
-//
-//    [manager post:@"/index.php/Api/Circle/messageList" parameters:@{@"uid" : @"1" , @"p" : @"1"} success:^(id resquestData) {
-//        NSLog(@"success2   %@",resquestData);
-//    } failure:^(NSError *error) {
-//        NSLog(@"error2 %@",error);
-//    }];
-//
-//    [manager post:@"/index.php/Api/Circle/getLabel" parameters:@{@"uid" : @"1"} success:^(id resquestData) {
-//        NSLog(@"success3   %@",resquestData);
-//    } failure:^(NSError *error) {
-//        NSLog(@"error3 %@",error);
-//    }];
-
-//    [tool cancelHttpRequestWithRequestMethod:@"POST" requestUrlString:@"/index.php/Api/Circle/messageList"];
-    //    [tool cancelAllRequest];
 }
 
 @end

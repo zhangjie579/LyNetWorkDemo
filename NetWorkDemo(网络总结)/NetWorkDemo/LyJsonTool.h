@@ -26,4 +26,11 @@
  */
 + (NSDictionary *)dictWithJson:(NSString *)str;
 
+/**
+ 转为dict
+ 
+ @param data 数据
+ @return dict
+ */
++ (NSDictionary *)dictWithData:(NSData *)data;
 @end

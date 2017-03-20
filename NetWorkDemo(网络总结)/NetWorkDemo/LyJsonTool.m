@@ -34,9 +34,20 @@
     if (![self isBlankString:str]) {
         NSString *requestTmp = [NSString stringWithString:str];
         NSData *resData = [[NSData alloc] initWithData:[requestTmp dataUsingEncoding:NSUTF8StringEncoding]];
-        resultDic = [NSJSONSerialization JSONObjectWithData:resData options:NSJSONReadingMutableLeaves error:nil];
+        resultDic = [self dictWithData:resData];
     }
     return resultDic;
+}
+
+/**
+ 转为dict
+
+ @param data 数据
+ @return dict
+ */
++ (NSDictionary *)dictWithData:(NSData *)data
+{
+    return [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
 }
 
 //判断某字符串是否为空

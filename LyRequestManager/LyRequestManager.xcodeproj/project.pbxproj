@@ -1,0 +1,710 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2F4324AB1E824A6300DE1677 /* LyRequestDataTaskGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4324AA1E824A6300DE1677 /* LyRequestDataTaskGroup.m */; };
+		2F4324AF1E825CC400DE1677 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4324AE1E825CC400DE1677 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		2F4324B31E8261FF00DE1677 /* LyKeyChainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4324B21E8261FF00DE1677 /* LyKeyChainItem.m */; };
+		2FEF4E5D1E80D8040024E900 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E5C1E80D8040024E900 /* main.m */; };
+		2FEF4E601E80D8040024E900 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E5F1E80D8040024E900 /* AppDelegate.m */; };
+		2FEF4E631E80D8040024E900 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E621E80D8040024E900 /* ViewController.m */; };
+		2FEF4E661E80D8040024E900 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FEF4E641E80D8040024E900 /* Main.storyboard */; };
+		2FEF4E681E80D8040024E900 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2FEF4E671E80D8040024E900 /* Assets.xcassets */; };
+		2FEF4E6B1E80D8040024E900 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FEF4E691E80D8040024E900 /* LaunchScreen.storyboard */; };
+		2FEF4E761E80D8050024E900 /* LyRequestManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E751E80D8050024E900 /* LyRequestManagerTests.m */; };
+		2FEF4E811E80D8050024E900 /* LyRequestManagerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E801E80D8050024E900 /* LyRequestManagerUITests.m */; };
+		2FEF4E911E80D9EB0024E900 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E901E80D9EB0024E900 /* Reachability.m */; };
+		2FEF4E9C1E80DACA0024E900 /* LyNetSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E931E80DACA0024E900 /* LyNetSetting.m */; };
+		2FEF4E9D1E80DACA0024E900 /* LyUploadFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E961E80DACA0024E900 /* LyUploadFile.m */; };
+		2FEF4E9E1E80DACA0024E900 /* LyNetworkCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E981E80DACA0024E900 /* LyNetworkCacheManager.m */; };
+		2FEF4EA21E80F3D70024E900 /* LyRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4EA11E80F3D60024E900 /* LyRequestManager.m */; };
+		2FEF4EA61E80FAC90024E900 /* MBProgressHUD+Ly.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4EA51E80FAC90024E900 /* MBProgressHUD+Ly.m */; };
+		2FEF4EA91E8103E60024E900 /* LyRequestDataTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4EA81E8103E60024E900 /* LyRequestDataTask.m */; };
+		D2A263C3F1376352DDE1A7A6 /* Pods_LyRequestManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 006E71895CBE554708F39CA6 /* Pods_LyRequestManager.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2FEF4E721E80D8050024E900 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2FEF4E501E80D8040024E900 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FEF4E571E80D8040024E900;
+			remoteInfo = LyRequestManager;
+		};
+		2FEF4E7D1E80D8050024E900 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2FEF4E501E80D8040024E900 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2FEF4E571E80D8040024E900;
+			remoteInfo = LyRequestManager;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		006E71895CBE554708F39CA6 /* Pods_LyRequestManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LyRequestManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F4324A91E824A6300DE1677 /* LyRequestDataTaskGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyRequestDataTaskGroup.h; sourceTree = "<group>"; };
+		2F4324AA1E824A6300DE1677 /* LyRequestDataTaskGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyRequestDataTaskGroup.m; sourceTree = "<group>"; };
+		2F4324AD1E825CC400DE1677 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		2F4324AE1E825CC400DE1677 /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		2F4324B01E825EEB00DE1677 /* LyRequestManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LyRequestManager.entitlements; sourceTree = "<group>"; };
+		2F4324B11E8261FF00DE1677 /* LyKeyChainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyKeyChainItem.h; sourceTree = "<group>"; };
+		2F4324B21E8261FF00DE1677 /* LyKeyChainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyKeyChainItem.m; sourceTree = "<group>"; };
+		2FEF4E581E80D8040024E900 /* LyRequestManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LyRequestManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FEF4E5C1E80D8040024E900 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2FEF4E5E1E80D8040024E900 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		2FEF4E5F1E80D8040024E900 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		2FEF4E611E80D8040024E900 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		2FEF4E621E80D8040024E900 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		2FEF4E651E80D8040024E900 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2FEF4E671E80D8040024E900 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		2FEF4E6A1E80D8040024E900 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		2FEF4E6C1E80D8040024E900 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2FEF4E711E80D8050024E900 /* LyRequestManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LyRequestManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FEF4E751E80D8050024E900 /* LyRequestManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LyRequestManagerTests.m; sourceTree = "<group>"; };
+		2FEF4E771E80D8050024E900 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2FEF4E7C1E80D8050024E900 /* LyRequestManagerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LyRequestManagerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FEF4E801E80D8050024E900 /* LyRequestManagerUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LyRequestManagerUITests.m; sourceTree = "<group>"; };
+		2FEF4E821E80D8050024E900 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2FEF4E8F1E80D9EB0024E900 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		2FEF4E901E80D9EB0024E900 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		2FEF4E921E80DACA0024E900 /* LyNetSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetSetting.h; sourceTree = "<group>"; };
+		2FEF4E931E80DACA0024E900 /* LyNetSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyNetSetting.m; sourceTree = "<group>"; };
+		2FEF4E951E80DACA0024E900 /* LyUploadFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyUploadFile.h; sourceTree = "<group>"; };
+		2FEF4E961E80DACA0024E900 /* LyUploadFile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyUploadFile.m; sourceTree = "<group>"; };
+		2FEF4E971E80DACA0024E900 /* LyNetworkCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetworkCacheManager.h; sourceTree = "<group>"; };
+		2FEF4E981E80DACA0024E900 /* LyNetworkCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyNetworkCacheManager.m; sourceTree = "<group>"; };
+		2FEF4E9B1E80DACA0024E900 /* LyNetworkConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyNetworkConfig.h; sourceTree = "<group>"; };
+		2FEF4EA01E80F3D60024E900 /* LyRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyRequestManager.h; sourceTree = "<group>"; };
+		2FEF4EA11E80F3D60024E900 /* LyRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyRequestManager.m; sourceTree = "<group>"; };
+		2FEF4EA41E80FAC90024E900 /* MBProgressHUD+Ly.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Ly.h"; sourceTree = "<group>"; };
+		2FEF4EA51E80FAC90024E900 /* MBProgressHUD+Ly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Ly.m"; sourceTree = "<group>"; };
+		2FEF4EA71E8103E60024E900 /* LyRequestDataTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyRequestDataTask.h; sourceTree = "<group>"; };
+		2FEF4EA81E8103E60024E900 /* LyRequestDataTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyRequestDataTask.m; sourceTree = "<group>"; };
+		DB552614F2830B425ADA4F60 /* Pods-LyRequestManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LyRequestManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LyRequestManager/Pods-LyRequestManager.debug.xcconfig"; sourceTree = "<group>"; };
+		F6AB45FFCE148525C607A0B8 /* Pods-LyRequestManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LyRequestManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-LyRequestManager/Pods-LyRequestManager.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		2FEF4E551E80D8040024E900 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D2A263C3F1376352DDE1A7A6 /* Pods_LyRequestManager.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FEF4E6E1E80D8050024E900 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FEF4E791E80D8050024E900 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2F4324AC1E825CC400DE1677 /* KeychainItemWrapper */ = {
+			isa = PBXGroup;
+			children = (
+				2F4324AD1E825CC400DE1677 /* KeychainItemWrapper.h */,
+				2F4324AE1E825CC400DE1677 /* KeychainItemWrapper.m */,
+				2F4324B11E8261FF00DE1677 /* LyKeyChainItem.h */,
+				2F4324B21E8261FF00DE1677 /* LyKeyChainItem.m */,
+			);
+			path = KeychainItemWrapper;
+			sourceTree = "<group>";
+		};
+		2FEF4E4F1E80D8040024E900 = {
+			isa = PBXGroup;
+			children = (
+				2FEF4E5A1E80D8040024E900 /* LyRequestManager */,
+				2FEF4E741E80D8050024E900 /* LyRequestManagerTests */,
+				2FEF4E7F1E80D8050024E900 /* LyRequestManagerUITests */,
+				2FEF4E591E80D8040024E900 /* Products */,
+				B07C35804EE8CD6181714719 /* Pods */,
+				AD79862A406ED0697DB90D7F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		2FEF4E591E80D8040024E900 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2FEF4E581E80D8040024E900 /* LyRequestManager.app */,
+				2FEF4E711E80D8050024E900 /* LyRequestManagerTests.xctest */,
+				2FEF4E7C1E80D8050024E900 /* LyRequestManagerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2FEF4E5A1E80D8040024E900 /* LyRequestManager */ = {
+			isa = PBXGroup;
+			children = (
+				2F4324B01E825EEB00DE1677 /* LyRequestManager.entitlements */,
+				2F4324AC1E825CC400DE1677 /* KeychainItemWrapper */,
+				2FEF4EA31E80FAC30024E900 /* 提示框 */,
+				2FEF4E8E1E80D9DC0024E900 /* 网络库 */,
+				2FEF4E5E1E80D8040024E900 /* AppDelegate.h */,
+				2FEF4E5F1E80D8040024E900 /* AppDelegate.m */,
+				2FEF4E611E80D8040024E900 /* ViewController.h */,
+				2FEF4E621E80D8040024E900 /* ViewController.m */,
+				2FEF4E641E80D8040024E900 /* Main.storyboard */,
+				2FEF4E671E80D8040024E900 /* Assets.xcassets */,
+				2FEF4E691E80D8040024E900 /* LaunchScreen.storyboard */,
+				2FEF4E6C1E80D8040024E900 /* Info.plist */,
+				2FEF4E5B1E80D8040024E900 /* Supporting Files */,
+			);
+			path = LyRequestManager;
+			sourceTree = "<group>";
+		};
+		2FEF4E5B1E80D8040024E900 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				2FEF4E5C1E80D8040024E900 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2FEF4E741E80D8050024E900 /* LyRequestManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				2FEF4E751E80D8050024E900 /* LyRequestManagerTests.m */,
+				2FEF4E771E80D8050024E900 /* Info.plist */,
+			);
+			path = LyRequestManagerTests;
+			sourceTree = "<group>";
+		};
+		2FEF4E7F1E80D8050024E900 /* LyRequestManagerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				2FEF4E801E80D8050024E900 /* LyRequestManagerUITests.m */,
+				2FEF4E821E80D8050024E900 /* Info.plist */,
+			);
+			path = LyRequestManagerUITests;
+			sourceTree = "<group>";
+		};
+		2FEF4E8E1E80D9DC0024E900 /* 网络库 */ = {
+			isa = PBXGroup;
+			children = (
+				2FEF4E9B1E80DACA0024E900 /* LyNetworkConfig.h */,
+				2FEF4E921E80DACA0024E900 /* LyNetSetting.h */,
+				2FEF4E931E80DACA0024E900 /* LyNetSetting.m */,
+				2FEF4E951E80DACA0024E900 /* LyUploadFile.h */,
+				2FEF4E961E80DACA0024E900 /* LyUploadFile.m */,
+				2FEF4E8F1E80D9EB0024E900 /* Reachability.h */,
+				2FEF4E901E80D9EB0024E900 /* Reachability.m */,
+				2FEF4E971E80DACA0024E900 /* LyNetworkCacheManager.h */,
+				2FEF4E981E80DACA0024E900 /* LyNetworkCacheManager.m */,
+				2FEF4EA01E80F3D60024E900 /* LyRequestManager.h */,
+				2FEF4EA11E80F3D60024E900 /* LyRequestManager.m */,
+				2FEF4EA71E8103E60024E900 /* LyRequestDataTask.h */,
+				2FEF4EA81E8103E60024E900 /* LyRequestDataTask.m */,
+				2F4324A91E824A6300DE1677 /* LyRequestDataTaskGroup.h */,
+				2F4324AA1E824A6300DE1677 /* LyRequestDataTaskGroup.m */,
+			);
+			path = "网络库";
+			sourceTree = "<group>";
+		};
+		2FEF4EA31E80FAC30024E900 /* 提示框 */ = {
+			isa = PBXGroup;
+			children = (
+				2FEF4EA41E80FAC90024E900 /* MBProgressHUD+Ly.h */,
+				2FEF4EA51E80FAC90024E900 /* MBProgressHUD+Ly.m */,
+			);
+			path = "提示框";
+			sourceTree = "<group>";
+		};
+		AD79862A406ED0697DB90D7F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				006E71895CBE554708F39CA6 /* Pods_LyRequestManager.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B07C35804EE8CD6181714719 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DB552614F2830B425ADA4F60 /* Pods-LyRequestManager.debug.xcconfig */,
+				F6AB45FFCE148525C607A0B8 /* Pods-LyRequestManager.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2FEF4E571E80D8040024E900 /* LyRequestManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FEF4E851E80D8050024E900 /* Build configuration list for PBXNativeTarget "LyRequestManager" */;
+			buildPhases = (
+				0F02F0034DF4E686DAB9D530 /* 📦 Check Pods Manifest.lock */,
+				2FEF4E541E80D8040024E900 /* Sources */,
+				2FEF4E551E80D8040024E900 /* Frameworks */,
+				2FEF4E561E80D8040024E900 /* Resources */,
+				047E0CB6DDDC674E081AAB9A /* 📦 Embed Pods Frameworks */,
+				C91F228ADCE9E8B9DEC0A175 /* 📦 Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LyRequestManager;
+			productName = LyRequestManager;
+			productReference = 2FEF4E581E80D8040024E900 /* LyRequestManager.app */;
+			productType = "com.apple.product-type.application";
+		};
+		2FEF4E701E80D8050024E900 /* LyRequestManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FEF4E881E80D8050024E900 /* Build configuration list for PBXNativeTarget "LyRequestManagerTests" */;
+			buildPhases = (
+				2FEF4E6D1E80D8050024E900 /* Sources */,
+				2FEF4E6E1E80D8050024E900 /* Frameworks */,
+				2FEF4E6F1E80D8050024E900 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2FEF4E731E80D8050024E900 /* PBXTargetDependency */,
+			);
+			name = LyRequestManagerTests;
+			productName = LyRequestManagerTests;
+			productReference = 2FEF4E711E80D8050024E900 /* LyRequestManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		2FEF4E7B1E80D8050024E900 /* LyRequestManagerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2FEF4E8B1E80D8050024E900 /* Build configuration list for PBXNativeTarget "LyRequestManagerUITests" */;
+			buildPhases = (
+				2FEF4E781E80D8050024E900 /* Sources */,
+				2FEF4E791E80D8050024E900 /* Frameworks */,
+				2FEF4E7A1E80D8050024E900 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2FEF4E7E1E80D8050024E900 /* PBXTargetDependency */,
+			);
+			name = LyRequestManagerUITests;
+			productName = LyRequestManagerUITests;
+			productReference = 2FEF4E7C1E80D8050024E900 /* LyRequestManagerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2FEF4E501E80D8040024E900 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = "张杰";
+				TargetAttributes = {
+					2FEF4E571E80D8040024E900 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = EJ5YJ9SVS7;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
+					};
+					2FEF4E701E80D8050024E900 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 2FEF4E571E80D8040024E900;
+					};
+					2FEF4E7B1E80D8050024E900 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 2FEF4E571E80D8040024E900;
+					};
+				};
+			};
+			buildConfigurationList = 2FEF4E531E80D8040024E900 /* Build configuration list for PBXProject "LyRequestManager" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 2FEF4E4F1E80D8040024E900;
+			productRefGroup = 2FEF4E591E80D8040024E900 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2FEF4E571E80D8040024E900 /* LyRequestManager */,
+				2FEF4E701E80D8050024E900 /* LyRequestManagerTests */,
+				2FEF4E7B1E80D8050024E900 /* LyRequestManagerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		2FEF4E561E80D8040024E900 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FEF4E6B1E80D8040024E900 /* LaunchScreen.storyboard in Resources */,
+				2FEF4E681E80D8040024E900 /* Assets.xcassets in Resources */,
+				2FEF4E661E80D8040024E900 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FEF4E6F1E80D8050024E900 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FEF4E7A1E80D8050024E900 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		047E0CB6DDDC674E081AAB9A /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LyRequestManager/Pods-LyRequestManager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0F02F0034DF4E686DAB9D530 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C91F228ADCE9E8B9DEC0A175 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LyRequestManager/Pods-LyRequestManager-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2FEF4E541E80D8040024E900 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FEF4E9C1E80DACA0024E900 /* LyNetSetting.m in Sources */,
+				2FEF4EA91E8103E60024E900 /* LyRequestDataTask.m in Sources */,
+				2FEF4E631E80D8040024E900 /* ViewController.m in Sources */,
+				2F4324AB1E824A6300DE1677 /* LyRequestDataTaskGroup.m in Sources */,
+				2FEF4E601E80D8040024E900 /* AppDelegate.m in Sources */,
+				2FEF4E911E80D9EB0024E900 /* Reachability.m in Sources */,
+				2FEF4E9E1E80DACA0024E900 /* LyNetworkCacheManager.m in Sources */,
+				2FEF4EA61E80FAC90024E900 /* MBProgressHUD+Ly.m in Sources */,
+				2F4324AF1E825CC400DE1677 /* KeychainItemWrapper.m in Sources */,
+				2F4324B31E8261FF00DE1677 /* LyKeyChainItem.m in Sources */,
+				2FEF4EA21E80F3D70024E900 /* LyRequestManager.m in Sources */,
+				2FEF4E5D1E80D8040024E900 /* main.m in Sources */,
+				2FEF4E9D1E80DACA0024E900 /* LyUploadFile.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FEF4E6D1E80D8050024E900 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FEF4E761E80D8050024E900 /* LyRequestManagerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2FEF4E781E80D8050024E900 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2FEF4E811E80D8050024E900 /* LyRequestManagerUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2FEF4E731E80D8050024E900 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2FEF4E571E80D8040024E900 /* LyRequestManager */;
+			targetProxy = 2FEF4E721E80D8050024E900 /* PBXContainerItemProxy */;
+		};
+		2FEF4E7E1E80D8050024E900 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2FEF4E571E80D8040024E900 /* LyRequestManager */;
+			targetProxy = 2FEF4E7D1E80D8050024E900 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		2FEF4E641E80D8040024E900 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2FEF4E651E80D8040024E900 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		2FEF4E691E80D8040024E900 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2FEF4E6A1E80D8040024E900 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		2FEF4E831E80D8050024E900 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2FEF4E841E80D8050024E900 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		2FEF4E861E80D8050024E900 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB552614F2830B425ADA4F60 /* Pods-LyRequestManager.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LyRequestManager/LyRequestManager.entitlements;
+				DEVELOPMENT_TEAM = EJ5YJ9SVS7;
+				INFOPLIST_FILE = LyRequestManager/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bona.LyRequestManager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
+			};
+			name = Debug;
+		};
+		2FEF4E871E80D8050024E900 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F6AB45FFCE148525C607A0B8 /* Pods-LyRequestManager.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = LyRequestManager/LyRequestManager.entitlements;
+				DEVELOPMENT_TEAM = EJ5YJ9SVS7;
+				INFOPLIST_FILE = LyRequestManager/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bona.LyRequestManager;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(PODS_ROOT)/**";
+			};
+			name = Release;
+		};
+		2FEF4E891E80D8050024E900 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LyRequestManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bona.LyRequestManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LyRequestManager.app/LyRequestManager";
+			};
+			name = Debug;
+		};
+		2FEF4E8A1E80D8050024E900 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = LyRequestManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bona.LyRequestManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LyRequestManager.app/LyRequestManager";
+			};
+			name = Release;
+		};
+		2FEF4E8C1E80D8050024E900 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LyRequestManagerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bona.LyRequestManagerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LyRequestManager;
+			};
+			name = Debug;
+		};
+		2FEF4E8D1E80D8050024E900 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = LyRequestManagerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bona.LyRequestManagerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = LyRequestManager;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2FEF4E531E80D8040024E900 /* Build configuration list for PBXProject "LyRequestManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FEF4E831E80D8050024E900 /* Debug */,
+				2FEF4E841E80D8050024E900 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2FEF4E851E80D8050024E900 /* Build configuration list for PBXNativeTarget "LyRequestManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FEF4E861E80D8050024E900 /* Debug */,
+				2FEF4E871E80D8050024E900 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2FEF4E881E80D8050024E900 /* Build configuration list for PBXNativeTarget "LyRequestManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FEF4E891E80D8050024E900 /* Debug */,
+				2FEF4E8A1E80D8050024E900 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2FEF4E8B1E80D8050024E900 /* Build configuration list for PBXNativeTarget "LyRequestManagerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2FEF4E8C1E80D8050024E900 /* Debug */,
+				2FEF4E8D1E80D8050024E900 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2FEF4E501E80D8040024E900 /* Project object */;
+}

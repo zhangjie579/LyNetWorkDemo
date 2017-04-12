@@ -281,19 +281,22 @@
         {
             AFJSONResponseSerializer * response = [AFJSONResponseSerializer serializer];
             
-            response.removesKeysWithNullValues = YES;
+//            response.removesKeysWithNullValues = YES;
             
             self.manager.responseSerializer = response;
             
             /**设置接受的类型*/
             //接收类型不一致请替换一致text/html或别的
-            self.manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",
+            self.manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:
+                                                                      @"application/json",
                                                                       @"text/html",
                                                                       @"image/jpeg",
                                                                       @"image/png",
                                                                       @"application/octet-stream",
                                                                       @"text/json",
                                                                       @"text/javascript",
+                                                                      @"text/plain",
+                                                                      @"multipart/form-data",
                                                                       nil];
         }
             break;
@@ -319,9 +322,13 @@
         } break;
     }
     
-    requestSerializer.timeoutInterval = config.cacheValidTimeInterval;
+//    requestSerializer.timeoutInterval = config.cacheValidTimeInterval;
     
     self.manager.requestSerializer = requestSerializer;
+    
+    [self.manager.requestSerializer willChangeValueForKey:@"timeoutInterval"];
+    self.manager.requestSerializer.timeoutInterval = config.cacheValidTimeInterval;//设置请求超时时间
+    [self.manager.requestSerializer didChangeValueForKey:@"timeoutInterval"];
     
     return requestSerializer;
 }

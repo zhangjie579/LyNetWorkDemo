@@ -24,6 +24,12 @@
     
     NSLog(@"主线");
     
+    [self.task post:@"/eyed/app/begin/getLabelIntersting.action" parameters:nil success:^(id requestData) {
+        NSLog(@"%@",requestData);
+    } failure:^(NSError *error) {
+        
+    }];
+    
 }
 
 //多个网络请求

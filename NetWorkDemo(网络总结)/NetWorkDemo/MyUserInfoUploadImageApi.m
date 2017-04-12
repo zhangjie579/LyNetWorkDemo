@@ -13,21 +13,22 @@
 
 {
     UIImage  *_image;
-    NSString *_uid;
+    NSNumber *_uid;
 }
 - (id)initWithImage:(UIImage *)image uid:(NSString *)uid
 {
     self = [super init];
     if (self) {
         _image = image;
-        _uid = uid;
+        _uid = [NSNumber numberWithInteger:uid.integerValue];
     }
     return self;
 }
 
 
 - (NSString *)requestUrl {
-    return @"/api/Auth/uploadImg";
+//    return @"/api/Auth/uploadImg";
+    return @"/web/userBaseCold/updateImagePath.action";
 }
 
 -(YTKRequestMethod)requestMethod
@@ -46,7 +47,7 @@
          */
         
         NSData *data = UIImageJPEGRepresentation(_image, 0.9);
-        NSString *key = @"img";//这对应服务器的key
+        NSString *key = @"imageMfile";//这对应服务器的key
         NSString *fileName = @"image.png";
         NSString *type = @"image/png";
         [formData appendPartWithFileData:data name:key fileName:fileName mimeType:type];
@@ -63,7 +64,7 @@
 //}
 
 - (id)requestArgument {
-    return @{ @"uid": _uid
+    return @{ @"userID": _uid
               };
 }
 

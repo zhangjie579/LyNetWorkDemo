@@ -8,7 +8,7 @@
 
 #import "LyRequestDataTask.h"
 #import "LyRequestManager.h"
-#import "MBProgressHUD+Ly.h"
+#import "MBProgressHUD.h"
 
 @interface LyRequestDataTask ()
 
@@ -43,6 +43,7 @@
         NSString *baseUrl = nil;
         #ifdef DEBUG //处于开发测试阶段
                 baseUrl = @"http://182.254.228.211:9000";
+//                baseUrl = @"http://120.77.170.196";
         #else //处于发布正式阶段
                 baseUrl = @"http://www.xiaoban.mobi";
         #endif
@@ -145,7 +146,7 @@
  */
 - (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
 {
-    [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:header parameters:parameters uploadFile:@[uploadFile] success:success failure:failure progress:progress];
+    [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:header parameters:parameters uploadFile:uploadFile success:success failure:failure progress:progress];
 }
 
 /**
@@ -160,7 +161,7 @@
  */
 - (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
 {
-    [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:header parameters:nil uploadFile:@[uploadFile] success:success failure:failure progress:progress];
+    [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:header parameters:nil uploadFile:uploadFile success:success failure:failure progress:progress];
 }
 
 /**
@@ -175,7 +176,7 @@
  */
 - (void)uploadWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
 {
-    [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:nil parameters:parameters uploadFile:@[uploadFile] success:success failure:failure progress:progress];
+    [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:nil parameters:parameters uploadFile:uploadFile success:success failure:failure progress:progress];
 }
 
 /**

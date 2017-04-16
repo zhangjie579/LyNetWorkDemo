@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F1480F41EA0A5DA0079C8A3 /* JNKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1480F31EA0A5DA0079C8A3 /* JNKeychain.m */; };
+		2F1480F71EA0A6540079C8A3 /* LyKeyChain.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1480F61EA0A6540079C8A3 /* LyKeyChain.m */; };
 		2F4324AB1E824A6300DE1677 /* LyRequestDataTaskGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4324AA1E824A6300DE1677 /* LyRequestDataTaskGroup.m */; };
 		2F4324AF1E825CC400DE1677 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4324AE1E825CC400DE1677 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2F4324B31E8261FF00DE1677 /* LyKeyChainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4324B21E8261FF00DE1677 /* LyKeyChainItem.m */; };
@@ -47,6 +49,10 @@
 
 /* Begin PBXFileReference section */
 		006E71895CBE554708F39CA6 /* Pods_LyRequestManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LyRequestManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2F1480F21EA0A5DA0079C8A3 /* JNKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JNKeychain.h; sourceTree = "<group>"; };
+		2F1480F31EA0A5DA0079C8A3 /* JNKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JNKeychain.m; sourceTree = "<group>"; };
+		2F1480F51EA0A6540079C8A3 /* LyKeyChain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyKeyChain.h; sourceTree = "<group>"; };
+		2F1480F61EA0A6540079C8A3 /* LyKeyChain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyKeyChain.m; sourceTree = "<group>"; };
 		2F4324A91E824A6300DE1677 /* LyRequestDataTaskGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyRequestDataTaskGroup.h; sourceTree = "<group>"; };
 		2F4324AA1E824A6300DE1677 /* LyRequestDataTaskGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyRequestDataTaskGroup.m; sourceTree = "<group>"; };
 		2F4324AD1E825CC400DE1677 /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
@@ -115,6 +121,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2F1480F11EA0A5DA0079C8A3 /* 第三方钥匙串保存 */ = {
+			isa = PBXGroup;
+			children = (
+				2F1480F21EA0A5DA0079C8A3 /* JNKeychain.h */,
+				2F1480F31EA0A5DA0079C8A3 /* JNKeychain.m */,
+				2F1480F51EA0A6540079C8A3 /* LyKeyChain.h */,
+				2F1480F61EA0A6540079C8A3 /* LyKeyChain.m */,
+			);
+			path = "第三方钥匙串保存";
+			sourceTree = "<group>";
+		};
 		2F4324AC1E825CC400DE1677 /* KeychainItemWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -152,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				2F4324B01E825EEB00DE1677 /* LyRequestManager.entitlements */,
+				2F1480F11EA0A5DA0079C8A3 /* 第三方钥匙串保存 */,
 				2F4324AC1E825CC400DE1677 /* KeychainItemWrapper */,
 				2FEF4EA31E80FAC30024E900 /* 提示框 */,
 				2FEF4E8E1E80D9DC0024E900 /* 网络库 */,
@@ -312,7 +330,7 @@
 				TargetAttributes = {
 					2FEF4E571E80D8040024E900 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = EJ5YJ9SVS7;
+						DevelopmentTeam = 3F9MT84C29;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -432,11 +450,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2F1480F41EA0A5DA0079C8A3 /* JNKeychain.m in Sources */,
 				2FEF4E9C1E80DACA0024E900 /* LyNetSetting.m in Sources */,
 				2FEF4EA91E8103E60024E900 /* LyRequestDataTask.m in Sources */,
 				2FEF4E631E80D8040024E900 /* ViewController.m in Sources */,
 				2F4324AB1E824A6300DE1677 /* LyRequestDataTaskGroup.m in Sources */,
 				2FEF4E601E80D8040024E900 /* AppDelegate.m in Sources */,
+				2F1480F71EA0A6540079C8A3 /* LyKeyChain.m in Sources */,
 				2FEF4E911E80D9EB0024E900 /* Reachability.m in Sources */,
 				2FEF4E9E1E80DACA0024E900 /* LyNetworkCacheManager.m in Sources */,
 				2FEF4EA61E80FAC90024E900 /* MBProgressHUD+Ly.m in Sources */,
@@ -595,7 +615,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LyRequestManager/LyRequestManager.entitlements;
-				DEVELOPMENT_TEAM = EJ5YJ9SVS7;
+				DEVELOPMENT_TEAM = 3F9MT84C29;
 				INFOPLIST_FILE = LyRequestManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bona.LyRequestManager;
@@ -610,7 +630,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = LyRequestManager/LyRequestManager.entitlements;
-				DEVELOPMENT_TEAM = EJ5YJ9SVS7;
+				DEVELOPMENT_TEAM = 3F9MT84C29;
 				INFOPLIST_FILE = LyRequestManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bona.LyRequestManager;

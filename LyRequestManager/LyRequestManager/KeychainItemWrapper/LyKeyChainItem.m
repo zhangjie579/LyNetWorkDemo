@@ -9,14 +9,17 @@
 #import "LyKeyChainItem.h"
 #import "KeychainItemWrapper.h"
 
+static NSString* kidentifier = @"bona.LyRequestManager";
+
 @implementation LyKeyChainItem
 
 + (void)saveThingWithIdentifier:(NSString *)identifier itemType:(LyKeyChainType)itemType value:(id)value
 {
     KeychainItemWrapper *wap = [[KeychainItemWrapper alloc] initWithIdentifier:identifier accessGroup:nil];
-    //保存帐号
-    [wap setObject:@"张三" forKey:(__bridge id)kSecAttrAccount];
-    [wap setObject:@"212121" forKey:(__bridge id)kSecValueData];
+//    //保存帐号
+//    [wap setObject:@"张三" forKey:(__bridge id)kSecAttrAccount];
+//    [wap setObject:@"212121" forKey:(__bridge id)kSecValueData];
+    [wap resetKeychainItem];
     
     switch (itemType) {
         case LyKeyChainTypeMima:
@@ -36,7 +39,7 @@
 
 + (id)readWithIdentifier:(NSString *)identifier itemType:(LyKeyChainType)itemType
 {
-    KeychainItemWrapper *wap = [[KeychainItemWrapper alloc] initWithIdentifier:identifier accessGroup:nil];
+    KeychainItemWrapper *wap = [[KeychainItemWrapper alloc] initWithIdentifier:kidentifier accessGroup:nil];
     
     id value;
     

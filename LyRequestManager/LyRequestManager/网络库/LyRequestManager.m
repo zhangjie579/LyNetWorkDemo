@@ -28,37 +28,64 @@
 
 @interface LyRequestManager ()
 
-@property(nonatomic,strong)AFHTTPRequestSerializer *requestSerialize;
-@property(nonatomic,assign)BOOL networkIsError;
-@property(nonatomic,strong)AFHTTPSessionManager *manager;
+@property(nonatomic,strong)AFHTTPSessionManager    *manager;
+@property(nonatomic,strong)LyNetSetting            *config;//网络配置
+@property(nonatomic,assign)BOOL                    networkIsError;
 @property(nonatomic,strong)NSMutableArray<NSURLSessionTask *> *loadingTaskArray;//正在进行的请求任务
 
 @end
 @implementation LyRequestManager
 
-+ (instancetype)shareManager
++ (instancetype)shareManagerWithConfig:(LyNetSetting *)config
 {
-    return [[self alloc] init];
+    static LyRequestManager *manage = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        if (manage == nil) {
+            manage = [[self alloc] initWithConfig:config];
+        }
+    });
+    return manage;
 }
 
-- (instancetype)init
++ (instancetype)shareManager
+{
+    NSString *baseUrl = nil;
+#ifdef DEBUG //处于开发测试阶段
+    baseUrl = @"http://182.254.228.211:9000";
+#else //处于发布正式阶段
+    baseUrl = @"http://www.xiaoban.mobi";
+#endif
+    LyNetSetting *config = [[LyNetSetting alloc] initWithCtrlHub:NO isCache:NO timeInterval:30 cachePolicy:LyCacheNormal isEncrypt:NO requestType:LyRequestSerializerTypeHTTP responseType:LyResponseSerializerTypeJSON baseUrl:baseUrl];
+    
+    return [LyRequestManager shareManagerWithConfig:config];
+}
+
+- (instancetype)initWithConfig:(LyNetSetting *)config
 {
     if (self = [super init])
     {
+        self.config = config;
+        
         self.manager = [AFHTTPSessionManager manager];
         
         /**设置请求超时时间*/
+//        self.manager.requestSerializer.timeoutInterval = 3;
         
-        self.manager.requestSerializer.timeoutInterval = 3;
+        //1.设置请求配置
+        self.manager.requestSerializer = [self requestSerializerWithConfig:config];
+        
+        //2.设置响应配置
+        [self responseWithConfig:config];
         
         /**设置相应的缓存策略*/
         /*
          NSURLRequestReloadIgnoringLocalCacheData = 1, URL应该加载源端数据，不使用本地缓存数据
-     　　 NSURLRequestReloadIgnoringLocalAndRemoteCacheData =4, 本地缓存数据、代理和其他中介都要忽视他们的缓存，直接加载源数据
-     　　 NSURLRequestReloadIgnoringCacheData = NSURLRequestReloadIgnoringLocalCacheData, 两个的设置相同
-     　　 NSURLRequestReturnCacheDataElseLoad = 2, 指定已存的缓存数据应该用来响应请求，不管它的生命时长和过期时间。如果在缓存中没有已存数据来响应请求的话，数据从源端加载。
-     　　 NSURLRequestReturnCacheDataDontLoad = 3, 指定已存的缓存数据用来满足请求，不管生命时长和过期时间。如果在缓存中没有已存数据来响应URL加载请求的话，不去尝试从源段加载数据，此时认为加载请求失败。这个常量指定了一个类似于离线模式的行为
-     　　 NSURLRequestReloadRevalidatingCacheData = 5 指定如果已存的缓存数据被提供它的源段确认为有效则允许使用缓存数据响应请求，否则从源段加载数据
+         　　 NSURLRequestReloadIgnoringLocalAndRemoteCacheData =4, 本地缓存数据、代理和其他中介都要忽视他们的缓存，直接加载源数据
+         　　 NSURLRequestReloadIgnoringCacheData = NSURLRequestReloadIgnoringLocalCacheData, 两个的设置相同
+         　　 NSURLRequestReturnCacheDataElseLoad = 2, 指定已存的缓存数据应该用来响应请求，不管它的生命时长和过期时间。如果在缓存中没有已存数据来响应请求的话，数据从源端加载。
+         　　 NSURLRequestReturnCacheDataDontLoad = 3, 指定已存的缓存数据用来满足请求，不管生命时长和过期时间。如果在缓存中没有已存数据来响应URL加载请求的话，不去尝试从源段加载数据，此时认为加载请求失败。这个常量指定了一个类似于离线模式的行为
+         　　 NSURLRequestReloadRevalidatingCacheData = 5 指定如果已存的缓存数据被提供它的源段确认为有效则允许使用缓存数据响应请求，否则从源段加载数据
          */
         self.manager.requestSerializer.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
         
@@ -66,14 +93,15 @@
         
         //        [self.manager.requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
-//        /**分别设置请求以及相应的序列化器*/
-//        self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+        //        /**分别设置请求以及相应的序列化器*/
+        //        self.manager.requestSerializer = [AFHTTPRequestSerializer serializer];
         
         if (kOpenHttpsAuth) {
             [self.manager setSecurityPolicy:[self customSecurityPolicy]];
         }
         
         self.networkIsError = NO;
+
     }
     return self;
 }
@@ -88,9 +116,9 @@
  *  @param success    成功时返回的数据
  *  @param failure    失败返回的数据
  */
-- (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile config:(LyNetSetting *)config success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure
+- (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure
 {
-    [self dataWithMethod:method urlString:urlString header:header parameters:parameters uploadFile:uploadFile config:config success:success failure:failure progress:nil];
+    [self dataWithMethod:method urlString:urlString header:header parameters:parameters uploadFile:uploadFile success:success failure:failure progress:nil];
 }
 
 /**
@@ -104,7 +132,7 @@
  *  @param failure    失败返回的数据
  *  @param progress   上传进程
  */
-- (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile config:(LyNetSetting *)config success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
+- (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
 {
     self.networkIsError = [[Reachability reachabilityWithHostName:@"www.baidu.com"] currentReachabilityStatus] == NotReachable ? YES : NO;
     if (self.networkIsError) {
@@ -127,58 +155,72 @@
         }
     }
     
-    NSMutableURLRequest *request = [self requestWithUrlPath:urlString method:method params:parameters contents:uploadFile header:header config:config];
-    
-    //设置响应方式
-    [self responseWithConfig:config];
+    NSMutableURLRequest *request = [self requestWithUrlPath:urlString method:method params:parameters contents:uploadFile header:header];
     
     NSURLSessionTask *task = nil;
-    if (uploadFile != nil) {
-        
-        task = [self.manager uploadTaskWithStreamedRequest:request progress:^(NSProgress * _Nonnull uploadProgress) {
-            
-            if (progress) {
-                progress(uploadProgress.completedUnitCount / uploadProgress.totalUnitCount);
-            }
-            
-        } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-            
-            [self.loadingTaskArray removeObject:task];
-            if (error)
-            {
-                if (failure) {
-                    failure([self formatError:error]);
-                }
-            }
-            else
-            {
-                success(responseObject);
-            }
-            
-        }];
-    }
-    else
+    if (uploadFile != nil)//上传
     {
-        task = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
-
-            [self.loadingTaskArray removeObject:task];
-            if (error)
-            {
-                if (failure) {
-                    failure([self formatError:error]);
-                }
-            }
-            else
-            {
-                if (success) {
-                    success(responseObject);
-                }
-            }
-            
-        }];
+        task = [self uploadRequest:request progress:progress failure:failure success:success];
+    }
+    else//普通请求
+    {
+        task = [self dataRequest:request failure:failure success:success];
     }
     [self.loadingTaskArray addObject:task];
     [task resume];
+}
+
+//普通任务
+- (NSURLSessionTask *)dataRequest:(NSMutableURLRequest *)request failure:(void(^)(NSError *error))failure success:(void(^)(id responseData))success
+{
+    __block NSURLSessionTask *task = nil;
+    task = [self.manager dataTaskWithRequest:request completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        NSLog(@"%@",task);
+        [self.loadingTaskArray removeObject:task];
+        if (error)
+        {
+            if (failure) {
+                failure([self formatError:error]);
+            }
+        }
+        else
+        {
+            if (success) {
+                success(responseObject);
+            }
+        }
+    }];
+    return task;
+}
+
+//上传任务
+- (NSURLSessionTask *)uploadRequest:(NSMutableURLRequest *)request progress:(void(^)(float progress))progress failure:(void(^)(NSError *error))failure success:(void(^)(id responseData))success
+{
+    __block NSURLSessionTask *task = nil;
+    task = [self.manager uploadTaskWithStreamedRequest:request progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+        if (progress) {
+            progress(uploadProgress.completedUnitCount / uploadProgress.totalUnitCount);
+        }
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        
+        [self.loadingTaskArray removeObject:task];
+        if (error)
+        {
+            if (failure) {
+                failure([self formatError:error]);
+            }
+        }
+        else
+        {
+            if (success) {
+                success(responseObject);
+            }
+        }
+    }];
+    return task;
 }
 
 #pragma mark - 取消请求
@@ -227,10 +269,9 @@
  @param header 请求头
  @return NSMutableURLRequest
  */
-- (NSMutableURLRequest *)requestWithUrlPath:(NSString *)urlPath method:(LyHttpNetWorkTaskMethod)method params:(NSDictionary *)params contents:(NSArray<LyUploadFile *> *)contents header:(NSDictionary *)header config:(LyNetSetting *)config
+- (NSMutableURLRequest *)requestWithUrlPath:(NSString *)urlPath method:(LyHttpNetWorkTaskMethod)method params:(NSDictionary *)params contents:(NSArray<LyUploadFile *> *)contents header:(NSDictionary *)header
 {
     NSError *error;
-    AFHTTPRequestSerializer *requestSerializer = [self requestSerializerWithConfig:config];
     
     NSString *meth = nil;
     switch (method) {
@@ -250,7 +291,7 @@
     NSMutableURLRequest *request = nil;
     if (contents != nil)
     {
-        request = [requestSerializer multipartFormRequestWithMethod:meth URLString:[NSString stringWithFormat:@"%@%@",config.baseUrl,urlPath] parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        request = [self.manager.requestSerializer multipartFormRequestWithMethod:meth URLString:[NSString stringWithFormat:@"%@%@",self.config.baseUrl,urlPath] parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
             
             [contents enumerateObjectsUsingBlock:^(LyUploadFile * _Nonnull file, NSUInteger idx, BOOL * _Nonnull stop) {
                 [formData appendPartWithFileData:file.fileData name:file.uploadKey fileName:file.fileName mimeType:file.fileType];
@@ -260,7 +301,7 @@
     }
     else
     {
-        request = [requestSerializer requestWithMethod:meth URLString:[NSString stringWithFormat:@"%@%@",config.baseUrl,urlPath] parameters:params error:&error];
+        request = [self.manager.requestSerializer requestWithMethod:meth URLString:[NSString stringWithFormat:@"%@%@",self.config.baseUrl,urlPath] parameters:params error:&error];
     }
     
     [header enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull value, BOOL * _Nonnull stop) {
@@ -270,6 +311,7 @@
     return request;
 }
 
+#pragma mark - 配置网络配置
 //设置响应的方式
 - (void)responseWithConfig:(LyNetSetting *)config
 {

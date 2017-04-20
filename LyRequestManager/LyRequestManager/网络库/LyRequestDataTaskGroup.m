@@ -45,7 +45,78 @@
     return _config;
 }
 
-- (void)ly_finishRequestWithsuccess:(void (^)(NSArray<id > *requestArray))success failure:(void (^)(NSArray<NSError *> *errorArray))failure
+/**
+ 无序请求,字典的key为url,不过不包含baseUrl
+ 
+ @param success 成功的数据
+ @param failure 失败的数据
+ */
+- (void)ly_asyncFinishWithsuccess:(void (^)(NSDictionary<NSString * , id> *requestDict))success failure:(void (^)(NSDictionary<NSString * ,NSError *> *errorDict))failure
+{
+    if (self.config.isCtrlHub) {
+        [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
+    }
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    __block NSMutableDictionary *requestDict = [[NSMutableDictionary alloc] init];
+    __block NSMutableDictionary *errorDict = [[NSMutableDictionary alloc] init];
+    
+    dispatch_group_t group = dispatch_group_create();
+    dispatch_queue_t queue = dispatch_queue_create(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    
+    
+    for (NSInteger i = 0; i < self.arrayRequest.count; i++)
+    {
+        dispatch_group_enter(group);
+        dispatch_async(queue, ^{
+            LyURLRequesTaskGroup *request = self.arrayRequest[i];
+            
+    #warning 注意: @[nil],这样写是错误的
+            NSArray *array = nil;
+            if (request.uploadFile != nil) {
+                array = request.uploadFile;
+            }
+            
+            [self.manager dataWithMethod:request.method urlString:request.urlString header:request.heard parameters:request.parameter uploadFile:array success:^(id responseData) {
+                dispatch_group_leave(group);
+                
+                NSLog(@"%@",request.urlString);
+                requestDict[request.urlString] = responseData;
+                
+            } failure:^(NSError *error) {
+                dispatch_group_leave(group);
+                errorDict[request.urlString] = error;
+            }];
+        });
+    }
+    
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        
+        //隐藏弹框
+        if (self.config.isCtrlHub) {
+            [MBProgressHUD hideHUDForView:[UIApplication sharedApplication].keyWindow animated:YES];
+        }
+        
+        if (success) {
+            success(requestDict);
+        }
+        
+        //说明有错误
+        if (errorDict.allKeys.count != 0) {
+            if (failure) {
+                failure(errorDict);
+            }
+        }
+    });
+}
+
+/**
+ 顺序请求
+
+ @param success 成功的数据
+ @param failure 失败的数据
+ */
+- (void)ly_syncFinishWithsuccess:(void (^)(NSArray<id > *requestArray))success failure:(void (^)(NSArray<NSError *> *errorArray))failure
 {
     if (self.config.isCtrlHub) {
         [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].keyWindow animated:YES];
@@ -70,7 +141,7 @@
                 array = request.uploadFile;
             }
             
-            [self.manager dataWithMethod:request.method urlString:request.urlString header:request.heard parameters:request.parameter uploadFile:array config:self.config success:^(id responseData) {
+            [self.manager dataWithMethod:request.method urlString:request.urlString header:request.heard parameters:request.parameter uploadFile:array success:^(id responseData) {
                 
                 dispatch_semaphore_signal(sem);
                 [requestArray addObject:responseData];
@@ -102,8 +173,10 @@
                         success(requestArray);
                     }
                     
-                    if (failure) {
-                        failure(errorArray);
+                    if (errorArray.count > 0) {//有错才返回
+                        if (failure) {
+                            failure(errorArray);
+                        }
                     }
                 });
             }
@@ -122,7 +195,7 @@
 - (LyRequestManager *)manager
 {
     if (!_manager) {
-        _manager = [LyRequestManager shareManager];
+        _manager = [LyRequestManager shareManagerWithConfig:self.config];
     }
     return _manager;
 }

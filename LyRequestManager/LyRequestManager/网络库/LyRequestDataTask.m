@@ -32,7 +32,7 @@
 - (LyRequestManager *)manager
 {
     if (!_manager) {
-        _manager = [[LyRequestManager alloc] init];
+        _manager = [LyRequestManager shareManagerWithConfig:self.config];
     }
     return _manager;
 }
@@ -42,12 +42,12 @@
     if (!_config) {
         NSString *baseUrl = nil;
         #ifdef DEBUG //处于开发测试阶段
-                baseUrl = @"http://182.254.228.211:9000";
-//                baseUrl = @"http://120.77.170.196";
+//                baseUrl = @"http://182.254.228.211:9000";
+                baseUrl = @"http://zzy.bolemayy.com";
         #else //处于发布正式阶段
                 baseUrl = @"http://www.xiaoban.mobi";
         #endif
-        _config = [[LyNetSetting alloc] initWithCtrlHub:YES isCache:NO timeInterval:10 cachePolicy:LyCacheNormal isEncrypt:NO requestType:LyRequestSerializerTypeJSON responseType:LyResponseSerializerTypeJSON baseUrl:baseUrl];
+        _config = [[LyNetSetting alloc] initWithCtrlHub:YES isCache:NO timeInterval:10 cachePolicy:LyCacheNormal isEncrypt:NO requestType:LyRequestSerializerTypeHTTP responseType:LyResponseSerializerTypeJSON baseUrl:baseUrl];
     }
     return _config;
 }
@@ -144,7 +144,7 @@
  *  @param failure    失败返回的数据
  *  @param progress   上传进程
  */
-- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
+- (void)upload:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
 {
     [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:header parameters:parameters uploadFile:uploadFile success:success failure:failure progress:progress];
 }
@@ -159,7 +159,7 @@
  *  @param failure    失败返回的数据
  *  @param progress   上传进程
  */
-- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
+- (void)upload:(NSString *)urlString header:(NSDictionary *)header uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
 {
     [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:header parameters:nil uploadFile:uploadFile success:success failure:failure progress:progress];
 }
@@ -174,7 +174,7 @@
  *  @param failure    失败返回的数据
  *  @param progress   上传进程
  */
-- (void)uploadWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
+- (void)upload:(NSString *)urlString parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
 {
     [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:nil parameters:parameters uploadFile:uploadFile success:success failure:failure progress:progress];
 }
@@ -184,45 +184,14 @@
  *
  *  @param urlString  urlString地址
  *  @param header     请求头
- *  @param file       文件
- *  @param success    成功时返回的数据
- *  @param failure    失败返回的数据
- *  @param progress   上传进程
- */
-- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header file:(LyUploadFile *)file success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
-{
-    [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:header parameters:nil uploadFile:@[file] success:success failure:failure progress:progress];
-}
-
-/**
- *  上传图片
- *
- *  @param urlString  urlString地址
- *  @param header     请求头
  *  @param parameters 请求参数
- *  @param file       文件
+ *  @param uploadFile 文件数组
  *  @param success    成功时返回的数据
  *  @param failure    失败返回的数据
- *  @param progress   上传进程
  */
-- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters file:(LyUploadFile *)file success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
+- (void)upload:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure
 {
-    [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:header parameters:parameters uploadFile:@[file] success:success failure:failure progress:progress];
-}
-
-/**
- *  上传图片
- *
- *  @param urlString  urlString地址
- *  @param parameters 请求参数
- *  @param file       文件
- *  @param success    成功时返回的数据
- *  @param failure    失败返回的数据
- *  @param progress   上传进程
- */
-- (void)uploadWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters file:(LyUploadFile *)file success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
-{
-    [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:nil parameters:parameters uploadFile:@[file] success:success failure:failure progress:progress];
+    [self dataWithMethod:LyHttpNetWorkTaskMethodPost urlString:urlString header:header parameters:parameters uploadFile:uploadFile success:success failure:failure progress:nil];
 }
 
 /**
@@ -241,7 +210,7 @@
     if (self.config.isCtrlHub) {
 //        [MBProgressHUD showHUDAddedTo:[self topViewController].view animated:YES];
     }
-    [self.manager dataWithMethod:method urlString:urlString header:header parameters:parameters uploadFile:uploadFile config:self.config success:^(id responseData) {
+    [self.manager dataWithMethod:method urlString:urlString header:header parameters:parameters uploadFile:uploadFile success:^(id responseData) {
         if (self.config.isCtrlHub) {
             [MBProgressHUD hideHUDForView:[self topViewController].view animated:YES];
         }

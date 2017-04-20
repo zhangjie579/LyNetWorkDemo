@@ -24,6 +24,15 @@
     [super viewDidLoad];
     
     NSLog(@"主线");
+    
+    [self someRequest];
+    
+//    [self.task post:@"/sign/index/get-image" heard:@{@"token" : @"8.1495265010.62328.0c6ea000dae4ed012cc2d4fcc1359a69"} success:^(id requestData) {
+//        
+//    } failure:^(NSError *error) {
+//        
+//    }];
+    
 }
 
 //多个网络请求
@@ -38,7 +47,7 @@
     
     LyRequestDataTaskGroup *group = [[LyRequestDataTaskGroup alloc] initWithURLRequest:@[task1,task2,task3]];
     
-    [group ly_finishRequestWithsuccess:^(NSArray<id> *requestArray) {
+    [group ly_syncFinishWithsuccess:^(NSArray<id> *requestArray) {
         
         NSLog(@"%@", requestArray);
         
@@ -46,6 +55,15 @@
         NSLog(@"%@", errorArray);
     }];
 
+//    [group ly_asyncFinishWithsuccess:^(NSDictionary<NSString *,id> *requestDict) {
+//        
+//        id a = requestDict[task1.urlString];
+//        
+//        NSLog(@"---%@",a);
+//        
+//    } failure:^(NSDictionary<NSString *,NSError *> *errorDict) {
+//        
+//    }];
 }
 
 - (LyRequestDataTask *)task

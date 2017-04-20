@@ -16,7 +16,21 @@
 //创建请求,默认设置
 - (instancetype)initWithURLRequest:(NSArray<LyURLRequesTaskGroup *> *)requesTask;
 
-- (void)ly_finishRequestWithsuccess:(void (^)(NSArray<id > *requestArray))success failure:(void (^)(NSArray<NSError *> *errorArray))failure;
+/**
+ 顺序请求
+ 
+ @param success 成功的数据
+ @param failure 失败的数据
+ */
+- (void)ly_syncFinishWithsuccess:(void (^)(NSArray<id > *requestArray))success failure:(void (^)(NSArray<NSError *> *errorArray))failure;
+
+/**
+ 无序请求,字典的key为url,不过不包含baseUrl
+ 
+ @param success 成功的数据
+ @param failure 失败的数据
+ */
+- (void)ly_asyncFinishWithsuccess:(void (^)(NSDictionary<NSString * , id> *requestDict))success failure:(void (^)(NSDictionary<NSString * ,NSError *> *errorDict))failure;
 
 @end
 

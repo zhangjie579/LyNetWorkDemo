@@ -87,7 +87,7 @@
  *  @param failure    失败返回的数据
  *  @param progress   上传进程
  */
-- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
+- (void)upload:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
 
 /**
  *  上传图片
@@ -99,7 +99,7 @@
  *  @param failure    失败返回的数据
  *  @param progress   上传进程
  */
-- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
+- (void)upload:(NSString *)urlString header:(NSDictionary *)header uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
 
 /**
  *  上传图片
@@ -111,19 +111,7 @@
  *  @param failure    失败返回的数据
  *  @param progress   上传进程
  */
-- (void)uploadWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
-
-/**
- *  上传图片
- *
- *  @param urlString  urlString地址
- *  @param header     请求头
- *  @param file       文件
- *  @param success    成功时返回的数据
- *  @param failure    失败返回的数据
- *  @param progress   上传进程
- */
-- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header file:(LyUploadFile *)file success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
+- (void)upload:(NSString *)urlString parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
 
 /**
  *  上传图片
@@ -131,24 +119,11 @@
  *  @param urlString  urlString地址
  *  @param header     请求头
  *  @param parameters 请求参数
- *  @param file       文件
+ *  @param uploadFile 文件数组
  *  @param success    成功时返回的数据
  *  @param failure    失败返回的数据
- *  @param progress   上传进程
  */
-- (void)uploadWithUrlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters file:(LyUploadFile *)file success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
-
-/**
- *  上传图片
- *
- *  @param urlString  urlString地址
- *  @param parameters 请求参数
- *  @param file       文件
- *  @param success    成功时返回的数据
- *  @param failure    失败返回的数据
- *  @param progress   上传进程
- */
-- (void)uploadWithUrlString:(NSString *)urlString parameters:(NSDictionary *)parameters file:(LyUploadFile *)file success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
+- (void)upload:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure;
 
 #pragma mark - 取消请求
 //取消全部请求

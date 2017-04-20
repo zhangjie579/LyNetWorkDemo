@@ -12,6 +12,10 @@
 
 @interface LyRequestManager : NSObject
 
+//自定义网络请求配置
++ (instancetype)shareManagerWithConfig:(LyNetSetting *)config;
+
+//默认网络请求配置,1.请求数据类型为http,2.返回数据类型为json,3.网络超时时间为30s
 + (instancetype)shareManager;
 
 /**
@@ -24,7 +28,7 @@
  *  @param success    成功时返回的数据
  *  @param failure    失败返回的数据
  */
-- (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile config:(LyNetSetting *)config success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure;
+- (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure;
 
 /**
  *  网络请求
@@ -37,7 +41,7 @@
  *  @param failure    失败返回的数据
  *  @param progress   上传进程
  */
-- (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile config:(LyNetSetting *)config success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
+- (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress;
 
 //取消全部请求
 - (void)cancelAllRequest;

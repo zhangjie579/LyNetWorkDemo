@@ -439,6 +439,9 @@
                 error = LyError(LyErrorUnsupportedURL, LyNetworkTaskErrorUnsupportedURL);
                 break;
             }
+            case NSURLErrorBadServerResponse: {
+                return error;
+            }
             default: {
                 error = LyError(LyNoDataErrorNotice, LyNetworkTaskErrorDefault);
             }   break;

@@ -208,23 +208,37 @@
 - (void)dataWithMethod:(LyHttpNetWorkTaskMethod)method urlString:(NSString *)urlString header:(NSDictionary *)header parameters:(NSDictionary *)parameters uploadFile:(NSArray<LyUploadFile *> *)uploadFile success:(void(^)(id responseData))success failure:(void (^)(NSError *error))failure progress:(void(^)(float progress))progress
 {
     if (self.config.isCtrlHub) {
-//        [MBProgressHUD showHUDAddedTo:[self topViewController].view animated:YES];
+        [self showHUD];
     }
     [self.manager dataWithMethod:method urlString:urlString header:header parameters:parameters uploadFile:uploadFile success:^(id responseData) {
         if (self.config.isCtrlHub) {
-            [MBProgressHUD hideHUDForView:[self topViewController].view animated:YES];
+            [self hideHUD];
         }
         if (success) {
             success(responseData);
         }
     } failure:^(NSError *error) {
         if (self.config.isCtrlHub) {
-//            [MBProgressHUD hideHUDForView:[self topViewController].view animated:YES];
+            [self showHUD];
         }
         if (failure) {
             failure(error);
         }
     } progress:nil];
+}
+
+- (void)showHUD
+{
+    if ([self topViewController].view != nil) {
+        [MBProgressHUD showHUDAddedTo:[self topViewController].view animated:YES];
+    }
+}
+
+- (void)hideHUD
+{
+    if ([self topViewController].view != nil) {
+        [MBProgressHUD hideHUDForView:[self topViewController].view animated:YES];
+    }
 }
 
 - (UIViewController*)topViewController

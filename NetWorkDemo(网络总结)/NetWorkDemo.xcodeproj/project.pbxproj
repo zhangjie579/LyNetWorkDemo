@@ -10,6 +10,7 @@
 		2F14CB701E76CF9C005452F2 /* MCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F14CB6F1E76CF9C005452F2 /* MCViewController.m */; };
 		2F2704261E5942BC003FD45E /* LyNetworkCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F2704251E5942BC003FD45E /* LyNetworkCacheManager.m */; };
 		2F3DEF0C1E32F56200B61047 /* LYURLSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F3DEF0B1E32F56200B61047 /* LYURLSession.m */; };
+		2F4CFAEF1ED03CB300FCB01C /* LyCacheSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4CFAEE1ED03CB300FCB01C /* LyCacheSession.m */; };
 		2F594C0F1E606852003E3826 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F594C0E1E606852003E3826 /* DemoViewController.m */; };
 		2F616A881E3231F000F606DD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616A871E3231F000F606DD /* main.m */; };
 		2F616A8B1E3231F000F606DD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F616A8A1E3231F000F606DD /* AppDelegate.m */; };
@@ -81,6 +82,8 @@
 		2F2704251E5942BC003FD45E /* LyNetworkCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyNetworkCacheManager.m; sourceTree = "<group>"; };
 		2F3DEF0A1E32F56200B61047 /* LYURLSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYURLSession.h; sourceTree = "<group>"; };
 		2F3DEF0B1E32F56200B61047 /* LYURLSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYURLSession.m; sourceTree = "<group>"; };
+		2F4CFAED1ED03CB300FCB01C /* LyCacheSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyCacheSession.h; sourceTree = "<group>"; };
+		2F4CFAEE1ED03CB300FCB01C /* LyCacheSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyCacheSession.m; sourceTree = "<group>"; };
 		2F594C0D1E606852003E3826 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DemoViewController.h; path = ../DemoViewController.h; sourceTree = "<group>"; };
 		2F594C0E1E606852003E3826 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DemoViewController.m; path = ../DemoViewController.m; sourceTree = "<group>"; };
 		2F616A831E3231F000F606DD /* NetWorkDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NetWorkDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,6 +233,8 @@
 				2F616AD31E3243A700F606DD /* CacheTool.m */,
 				2FBBABDF1E7F7F9500E2F713 /* LyCacheManager.h */,
 				2FBBABE01E7F7F9500E2F713 /* LyCacheManager.m */,
+				2F4CFAED1ED03CB300FCB01C /* LyCacheSession.h */,
+				2F4CFAEE1ED03CB300FCB01C /* LyCacheSession.m */,
 			);
 			name = "缓存";
 			sourceTree = "<group>";
@@ -688,6 +693,7 @@
 			files = (
 				2FFF32A01E583EDC00DE1885 /* LyHttpNetWorkTask.m in Sources */,
 				2F616AD41E3243A700F606DD /* CacheTool.m in Sources */,
+				2F4CFAEF1ED03CB300FCB01C /* LyCacheSession.m in Sources */,
 				2F616AD91E3243DD00F606DD /* AFNViewController.m in Sources */,
 				2FFF32AB1E58506500DE1885 /* LyNetWorkReachTool.m in Sources */,
 				2FB19F3B1E5AD27E000C1EA9 /* YTKChainRequestAgent.m in Sources */,

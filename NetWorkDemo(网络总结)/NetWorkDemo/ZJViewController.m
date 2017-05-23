@@ -27,7 +27,13 @@
     self.title = @"ZJViewController";
     
     [self cache];
-    [self abc];
+//    [self abc];
+    
+//    NSDictionary *dict = @{@"1" : @{@"saoge" : @"弱鸡"}};
+//    
+//    NSString *str =  dict[@"1"][@"saoge"];
+//    
+//    NSLog(@"saoge = %@",str);
 }
 
 - (void)dealloc
@@ -48,10 +54,8 @@
     
     Person *person = [[Person alloc] init];
 
-    person.a = 1;
-    person.age = @"16";
+    person.dict = @{@"1" : @{@"saoge" : @"弱鸡"}};
     person.name = @"zhangjie";
-    person.haha = 12;
     person.key = 3.5;
     person.num = @0;
     person.count = 10;
@@ -63,19 +67,21 @@
 //
 //    NSLog(@"%@",name);
     
-    [session creatTableWithClassName:@"Person"];
+//    [session creatTableWithClassName:@"Person"];
     
 //    [session insertWithModel:person className:@"Person"];
     
-//    [session deleteWithDict:@{@"a" : @1 , @"age" : @"16"} className:@"Person"];
     
 //    [session updateWithClassName:@"Person" dict:@{@"a" : @2 , @"age" : @"18"} dependDict:@{@"name" : @"zhangjie"}];
     
 //    [session updateWithClassName:@"Person" model:person dependDict:nil];
     
-//    [session selectAllClassName:@"Person"];
+    NSArray *array = [session selectAllClassName:@"Person"];
     
-//    [session selectWithClassName:@"Person" dependDict:@{@"a" : @0}];
+    NSLog(@"%@ ",array);
+    
+    
+//    [session deleteWithDict:@{@"a" : @1 , @"age" : @"16"} className:@"Person"];
     
 //    [session insertWithArrayModel:@[person , person] className:@"Person"];
 }

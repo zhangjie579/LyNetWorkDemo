@@ -67,7 +67,7 @@
         for (NSInteger i = 0; i < self.dictClassName.allKeys.count; i++)
         {
             NSString *key = self.dictClassName.allKeys[i];
-            NSString *property = self.dictClassName.allValues[i];
+//            NSString *property = self.dictClassName.allValues[i];
             id value = [model valueForKey:key];
             
             //只有value有值的时候才存
@@ -78,7 +78,7 @@
                     [sql appendFormat:@" %@) values (",key];
                     
                     //注意:如果为字符串需要加''
-                    if ([property isEqualToString:@"NSString"]) {
+                    if ([self isKindWithStringOrArrayOrDict:value]) {
                         [last appendFormat:@" '%@');",value];
                     } else {
                         [last appendFormat:@" %@);",value];
@@ -88,7 +88,7 @@
                 {
                     [sql appendFormat:@"%@ ,",key];
                     //注意:如果为字符串需要加''
-                    if ([property isEqualToString:@"NSString"]) {
+                    if ([self isKindWithStringOrArrayOrDict:value]) {
                         [last appendFormat:@"'%@' ,",value];
                     } else {
                         [last appendFormat:@"%@ ,",value];
@@ -215,7 +215,7 @@
         
         id value = [model valueForKey:key];
         
-        if ([value isKindOfClass:[NSString class]])//字符串
+        if ([self isKindWithStringOrArrayOrDict:value])//text
         {
             if (i == self.dictClassName.allValues.count - 1)//最后一个
             {
@@ -353,15 +353,13 @@
         NSString *subString = @"";
         if (i == self.dictClassName.allKeys.count - 1)//最后一个
         {
-            NSString *property = [self propretyWithString:obj];
-            subString = [NSString stringWithFormat:@", %@ %@);",key,property];
+            subString = [NSString stringWithFormat:@", %@ %@);",key,obj];
             
             [sql appendString:subString];
         }
         else
         {
-            NSString *property = [self propretyWithString:obj];
-            subString = [NSString stringWithFormat:@", %@ %@",key,property];
+            subString = [NSString stringWithFormat:@", %@ %@",key,obj];
             
             [sql appendString:subString];
         }
@@ -400,45 +398,54 @@
         // @\"NSString\"
         NSString *property = [NSString stringWithUTF8String:ivar_getTypeEncoding(ivar)];
         
-        if ([property isEqualToString:@"i"]) {
-            property = @"int";
-        }
-        else if ([property isEqualToString:@"d"]) {
-            property = @"double";
-        }
-        else if ([property isEqualToString:@"q"]) {
-            property = @"NSInteger";
-        }
-        else if ([property containsString:@"\""]) {
+        if ([property containsString:@"\""])//不是基本类型
+        {
             NSRange rang = [property rangeOfString:@"\""];
             property = [property substringFromIndex:rang.location + rang.length];
             rang = [property rangeOfString:@"\""];
             property = [property substringToIndex:rang.location];
         }
-        dict[key] = property;
+        dict[key] = [self runtimeTypeToSqlTypeDic][property];
 //        NSLog(@"%@  %@\n",property,key);
     }
     
     return dict;
 }
 
-//判断数据的类型
-- (NSString *)propretyWithString:(NSString *)obj
+/**
+ runtime的字段类型到sql字段类型的映射表
+ */
+- (NSDictionary *)runtimeTypeToSqlTypeDic {
+    
+    return @{
+             @"d": @"real", // double
+             @"f": @"real", // float
+             
+             @"i": @"integer",  // int
+             @"q": @"integer", // long
+             @"Q": @"integer", // long long
+             @"B": @"integer", // bool
+             @"NSNumber": @"integer",
+             
+             @"NSData": @"blob",
+             @"NSDictionary": @"text",
+             @"NSMutableDictionary": @"text",
+             @"NSArray": @"text",
+             @"NSMutableArray": @"text",
+             
+             @"NSString": @"text",
+             @"NSMutableString": @"text"
+             };
+}
+
+//判断是字典，数组，字符串
+- (BOOL)isKindWithStringOrArrayOrDict:(id)key
 {
-    if ([obj isEqualToString:@"NSString"])//字符串
-    {
-        return @"text";
+    if ([key isKindOfClass:[NSDictionary class]] || [key isKindOfClass:[NSMutableDictionary class]] || [key isKindOfClass:[NSArray class]] || [key isKindOfClass:[NSMutableArray class]] || [key isKindOfClass:[NSString class]] || [key isKindOfClass:[NSMutableString class]]) {
+        return YES;
+    } else {
+        return NO;
     }
-    else if ([obj isEqualToString:@"NSNumber"] || [obj isEqualToString:@"int"] || [obj isEqualToString:@"NSInteger"])//整型
-    {
-        
-        return @"integer";
-    }
-    else if ([obj isEqualToString:@"float"] || [obj isEqualToString:@"CGFloat"] || [obj isEqualToString:@"double"])//浮点型
-    {
-        return @"real";
-    }
-    return @"";
 }
 
 //格式化字符串 a = 1 and age = '16';
@@ -451,7 +458,7 @@
         NSString *key = dict.allKeys[i];
         id value = dict.allValues[i];
         
-        if ([value isKindOfClass:[NSString class]])//字符串
+        if ([self isKindWithStringOrArrayOrDict:value])//字符串
         {
             if (i == dict.allValues.count - 1)//最后一个
             {

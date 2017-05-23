@@ -11,17 +11,9 @@
 @interface Person : NSObject
 
 @property(nonatomic,copy)NSString *name;
-@property(nonatomic,copy)NSString *age;
-//@property(nonatomic,copy)NSString *friends;
-//@property(nonatomic,copy)NSString *girl;
-//@property(nonatomic,copy)NSString *qq;
-
-@property(nonatomic,assign)CGFloat haha;
 @property(nonatomic,assign)double  key;
-
 @property(nonatomic,strong)NSNumber *num;
 @property(nonatomic,assign)NSInteger count;
-@property(nonatomic,assign)int a;
-//@property(nonatomic,strong)NSArray *ary;
+@property(nonatomic,strong)NSDictionary *dict;
 
 @end

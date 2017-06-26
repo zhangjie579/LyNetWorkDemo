@@ -12,6 +12,7 @@
 		2F4324AB1E824A6300DE1677 /* LyRequestDataTaskGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4324AA1E824A6300DE1677 /* LyRequestDataTaskGroup.m */; };
 		2F4324AF1E825CC400DE1677 /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4324AE1E825CC400DE1677 /* KeychainItemWrapper.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2F4324B31E8261FF00DE1677 /* LyKeyChainItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F4324B21E8261FF00DE1677 /* LyKeyChainItem.m */; };
+		2FCE39A51EFA46C6005D1A21 /* TestProtocolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FCE39A41EFA46C6005D1A21 /* TestProtocolViewController.m */; };
 		2FEF4E5D1E80D8040024E900 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E5C1E80D8040024E900 /* main.m */; };
 		2FEF4E601E80D8040024E900 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E5F1E80D8040024E900 /* AppDelegate.m */; };
 		2FEF4E631E80D8040024E900 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4E621E80D8040024E900 /* ViewController.m */; };
@@ -27,6 +28,8 @@
 		2FEF4EA21E80F3D70024E900 /* LyRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4EA11E80F3D60024E900 /* LyRequestManager.m */; };
 		2FEF4EA61E80FAC90024E900 /* MBProgressHUD+Ly.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4EA51E80FAC90024E900 /* MBProgressHUD+Ly.m */; };
 		2FEF4EA91E8103E60024E900 /* LyRequestDataTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FEF4EA81E8103E60024E900 /* LyRequestDataTask.m */; };
+		2FF62D2C1EFA6660003804E1 /* LyURLRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF62D2B1EFA6660003804E1 /* LyURLRequestManager.m */; };
+		2FF62D2F1EFA67F4003804E1 /* LyRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2FF62D2E1EFA67F4003804E1 /* LyRequestSerializer.m */; };
 		D2A263C3F1376352DDE1A7A6 /* Pods_LyRequestManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 006E71895CBE554708F39CA6 /* Pods_LyRequestManager.framework */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +63,8 @@
 		2F4324B01E825EEB00DE1677 /* LyRequestManager.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LyRequestManager.entitlements; sourceTree = "<group>"; };
 		2F4324B11E8261FF00DE1677 /* LyKeyChainItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyKeyChainItem.h; sourceTree = "<group>"; };
 		2F4324B21E8261FF00DE1677 /* LyKeyChainItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyKeyChainItem.m; sourceTree = "<group>"; };
+		2FCE39A31EFA46C6005D1A21 /* TestProtocolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestProtocolViewController.h; sourceTree = "<group>"; };
+		2FCE39A41EFA46C6005D1A21 /* TestProtocolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestProtocolViewController.m; sourceTree = "<group>"; };
 		2FEF4E581E80D8040024E900 /* LyRequestManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LyRequestManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FEF4E5C1E80D8040024E900 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		2FEF4E5E1E80D8040024E900 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -91,6 +96,10 @@
 		2FEF4EA51E80FAC90024E900 /* MBProgressHUD+Ly.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Ly.m"; sourceTree = "<group>"; };
 		2FEF4EA71E8103E60024E900 /* LyRequestDataTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyRequestDataTask.h; sourceTree = "<group>"; };
 		2FEF4EA81E8103E60024E900 /* LyRequestDataTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyRequestDataTask.m; sourceTree = "<group>"; };
+		2FF62D2A1EFA6660003804E1 /* LyURLRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyURLRequestManager.h; sourceTree = "<group>"; };
+		2FF62D2B1EFA6660003804E1 /* LyURLRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyURLRequestManager.m; sourceTree = "<group>"; };
+		2FF62D2D1EFA67F4003804E1 /* LyRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LyRequestSerializer.h; sourceTree = "<group>"; };
+		2FF62D2E1EFA67F4003804E1 /* LyRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LyRequestSerializer.m; sourceTree = "<group>"; };
 		DB552614F2830B425ADA4F60 /* Pods-LyRequestManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LyRequestManager.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LyRequestManager/Pods-LyRequestManager.debug.xcconfig"; sourceTree = "<group>"; };
 		F6AB45FFCE148525C607A0B8 /* Pods-LyRequestManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LyRequestManager.release.xcconfig"; path = "Pods/Target Support Files/Pods-LyRequestManager/Pods-LyRequestManager.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -143,6 +152,19 @@
 			path = KeychainItemWrapper;
 			sourceTree = "<group>";
 		};
+		2FCE398B1EFA16D2005D1A21 /* 构建者模式 */ = {
+			isa = PBXGroup;
+			children = (
+				2FCE39A31EFA46C6005D1A21 /* TestProtocolViewController.h */,
+				2FCE39A41EFA46C6005D1A21 /* TestProtocolViewController.m */,
+				2FF62D2A1EFA6660003804E1 /* LyURLRequestManager.h */,
+				2FF62D2B1EFA6660003804E1 /* LyURLRequestManager.m */,
+				2FF62D2D1EFA67F4003804E1 /* LyRequestSerializer.h */,
+				2FF62D2E1EFA67F4003804E1 /* LyRequestSerializer.m */,
+			);
+			path = "构建者模式";
+			sourceTree = "<group>";
+		};
 		2FEF4E4F1E80D8040024E900 = {
 			isa = PBXGroup;
 			children = (
@@ -169,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				2F4324B01E825EEB00DE1677 /* LyRequestManager.entitlements */,
+				2FCE398B1EFA16D2005D1A21 /* 构建者模式 */,
 				2F1480F11EA0A5DA0079C8A3 /* 第三方钥匙串保存 */,
 				2F4324AC1E825CC400DE1677 /* KeychainItemWrapper */,
 				2FEF4EA31E80FAC30024E900 /* 提示框 */,
@@ -452,12 +475,15 @@
 			files = (
 				2F1480F41EA0A5DA0079C8A3 /* JNKeychain.m in Sources */,
 				2FEF4E9C1E80DACA0024E900 /* LyNetSetting.m in Sources */,
+				2FCE39A51EFA46C6005D1A21 /* TestProtocolViewController.m in Sources */,
+				2FF62D2C1EFA6660003804E1 /* LyURLRequestManager.m in Sources */,
 				2FEF4EA91E8103E60024E900 /* LyRequestDataTask.m in Sources */,
 				2FEF4E631E80D8040024E900 /* ViewController.m in Sources */,
 				2F4324AB1E824A6300DE1677 /* LyRequestDataTaskGroup.m in Sources */,
 				2FEF4E601E80D8040024E900 /* AppDelegate.m in Sources */,
 				2F1480F71EA0A6540079C8A3 /* LyKeyChain.m in Sources */,
 				2FEF4E911E80D9EB0024E900 /* Reachability.m in Sources */,
+				2FF62D2F1EFA67F4003804E1 /* LyRequestSerializer.m in Sources */,
 				2FEF4E9E1E80DACA0024E900 /* LyNetworkCacheManager.m in Sources */,
 				2FEF4EA61E80FAC90024E900 /* MBProgressHUD+Ly.m in Sources */,
 				2F4324AF1E825CC400DE1677 /* KeychainItemWrapper.m in Sources */,

@@ -48,23 +48,23 @@
     
     LyRequestDataTaskGroup *group = [[LyRequestDataTaskGroup alloc] initWithURLRequest:@[task1,task2,task3]];
     
-    [group ly_syncFinishWithsuccess:^(NSArray<id> *requestArray) {
-        
-        NSLog(@"%@", requestArray);
-        
-    } failure:^(NSArray<NSError *> *errorArray) {
-        NSLog(@"%@", errorArray);
-    }];
-
-//    [group ly_asyncFinishWithsuccess:^(NSDictionary<NSString *,id> *requestDict) {
+//    [group ly_syncFinishWithsuccess:^(NSArray<id> *requestArray) {
 //        
-//        id a = requestDict[task1.urlString];
+//        NSLog(@"%@", requestArray);
 //        
-//        NSLog(@"---%@",a);
-//        
-//    } failure:^(NSDictionary<NSString *,NSError *> *errorDict) {
-//        
+//    } failure:^(NSArray<NSError *> *errorArray) {
+//        NSLog(@"%@", errorArray);
 //    }];
+
+    [group ly_asyncFinishWithsuccess:^(NSDictionary<NSString *,id> *requestDict) {
+        
+        id a = requestDict[task1.urlString];
+        
+        NSLog(@"---%@",a);
+        
+    } failure:^(NSDictionary<NSString *,NSError *> *errorDict) {
+        
+    }];
 }
 
 - (LyRequestDataTask *)task

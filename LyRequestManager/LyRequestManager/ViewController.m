@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"修改版本1");
+    NSLog(@"修改版本2");
     
     [self someRequest];
     

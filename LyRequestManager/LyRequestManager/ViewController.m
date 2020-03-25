@@ -24,7 +24,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    NSLog(@"修改版本2");
+    NSLog(@"主线");
     
     [self someRequest];
     
